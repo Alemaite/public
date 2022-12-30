@@ -1,0 +1,43 @@
+img {
+  height: 10rem;
+  width: 100%;
+  object-fit: contain;
+}
+
+.product-details-3 {
+  margin-bottom: 1rem;
+}
+
+.image-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.image-container li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#new-picture {
+  display: none;
+}
+
+#summary {
+  max-width: 80%;
+}
+
+#price {
+  width: 5rem;
+  text-align: center;
+}
+
+@media (max-width: 680px) {
+  .image-container {
+    flex-direction: column;
+  }
+  .image-container {
+    max-width: 80%;
+  }
+}

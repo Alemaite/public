@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('includes/head', {docTitle: 'Home'}) %>
+  <link rel="stylesheet" href="/styles/home.css" />
+  <body>
+    <%- include('includes/header') %>
+    <main>
+      <section>
+        <h1>Home Page</h1>
+        <p id="center-p-home">
+          This page was created with HTML, CSS, JavaScript, Node.js, MongoDB,
+          Express, & EJS.
+        </p>
+        <div class="images-container">
+          <img
+            class="item-1"
+            src="/images/home-images/html5_logo_and_wordmark.svg"
+            alt="html-logo"
+          />
+          <img
+            class="item-2"
+            src="/images/home-images/css3_logo_and_wordmark.svg"
+            alt="css-logo"
+          />
+          <img
+            class="item-3"
+            src="/images/home-images/javascript_badge.svg"
+            alt="javascript-badge"
+          />
+          <img
+            class="item-4"
+            src="/images/home-images/ejs_icon.svg"
+            alt="ejs-logo"
+          />
+          <img
+            class="item-5"
+            src="/images/home-images/express.png"
+            alt="express-logo"
+          />
+          <img
+            class="item-6"
+            src="/images/home-images/node.js_logo.svg"
+            alt="nodejs-logo"
+          />
+          <img
+            class="item-7"
+            src="/images/home-images/mongodb_logo.svg"
+            alt="mongodb-logo"
+          />
+        </div>
+      </section>
+      <%- include('includes/aside') %>
+    </main>
+    <%- include('includes/footer') %>
+  </body>
+</html>
