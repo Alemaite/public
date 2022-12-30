@@ -1,6 +1,7 @@
 # Portfolio
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1.
+It's the source code of my portfolio web-site.
 
 ## Development server
 
