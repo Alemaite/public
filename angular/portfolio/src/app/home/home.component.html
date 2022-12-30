@@ -1,0 +1,221 @@
+<main (click)="onMainClick(false)">
+  <div *ngIf="!zoomedIn" class="background-style-skewed"></div>
+  <h1 *ngIf="!zoomedIn">Welcome to my Portfolio</h1>
+  <p *ngIf="!zoomedIn">
+    This page was created with Angular & serves as a platform for my projects.
+    Feel free to check them out below, find more detailed information about them
+    in the
+    <a routerLink="/projects" style="color: rgb(230, 120, 50)">projects page</a>
+    .
+    <br />
+    Also feel free to check out my
+    <a
+      href="https://github.com/Alemaite"
+      target="_blank"
+      style="color: rgb(230, 120, 50)"
+      >GitHub</a
+    >.
+  </p>
+  <br />
+  <article *ngIf="!zoomedInTimeTracking">
+    <h2 *ngIf="!zoomedIn" routerLink="/projects" style="cursor: pointer">
+      Online Shop
+    </h2>
+    <p *ngIf="!zoomedIn && handsetMode === false" style="font-size: 0.6rem">
+      click to zoom in
+    </p>
+    <div class="projects-ctn" [ngClass]="{ 'incr-z-index': zoomedIn === true }">
+      <img
+        [@moveSlide]="moveLeftOnlineShop ? 'leftarrow' : 'normal'"
+        (click)="onImageChange('previous', 'online-shop')"
+        [ngClass]="{
+          'handset-arrow-left': handsetMode === true,
+          'arrow-left': handsetMode === false,
+          'arrows-zoom': zoomedIn === true
+        }"
+        class="arrow-icon"
+        src="../../assets/icons/left-arrow.svg"
+        alt="previous-image-icon"
+      />
+      <ng-container *ngIf="handsetMode === false">
+        <ng-container *ngFor="let image of onlineShopImages">
+          <img
+            (click)="onZoomIn('online-shop')"
+            [@moveSlide]="moveRightOnlineShop ? 'slideonrightarrow' : 'normal'"
+            *ngIf="image === onlineShopActiveImage"
+            [ngClass]="{
+              'projects-img': handsetMode === false,
+              'image-zoom': zoomedInOnlineShop === true
+            }"
+            src="../../assets/project-screenshots/online-shop/{{ image }}.png"
+            alt="project-image-{{ onlineShopImageIndex + 1 }}"
+          />
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="handsetMode === true">
+        <ng-container *ngFor="let handsetImage of onlineShopHandsetImages">
+          <img
+            [@moveSlide]="moveRightOnlineShop ? 'slideonrightarrow' : 'normal'"
+            *ngIf="handsetImage === onlineShopHandsetActiveImage"
+            class="handset-projects-img"
+            src="../../assets/project-screenshots/online-shop/{{
+              handsetImage
+            }}.png"
+            alt="project-image-{{ onlineShopImageIndex + 1 }}"
+          />
+        </ng-container>
+      </ng-container>
+      <img
+        [@moveSlide]="moveRightOnlineShop ? 'rightarrow' : 'normal'"
+        (click)="onImageChange('next', 'online-shop')"
+        [ngClass]="{
+          'handset-arrow-right': handsetMode === true,
+          'arrows-zoom': zoomedIn === true
+        }"
+        class="arrow-icon arrow-right"
+        src="../../assets/icons/right-arrow.svg"
+        alt="next-image-icon"
+      />
+    </div>
+    <div *ngIf="zoomedIn" class="image-zoom-backdrop">
+      <span (click)="onZoomIn('online-shop')">x</span>
+    </div>
+    <br />
+    <p [ngClass]="{ 'incr-z-index': zoomedIn === true }">
+      [ {{ onlineShopImageIndex + 1 }} of {{ onlineShopImages.length }} ]
+    </p>
+    <p
+      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
+      *ngIf="onlineShopImageIndex === 0"
+    >
+      Products overview for non-admin users
+    </p>
+    <p
+      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
+      *ngIf="onlineShopImageIndex === 1"
+    >
+      Order history by id
+    </p>
+    <p
+      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
+      *ngIf="onlineShopImageIndex === 2"
+    >
+      Cart
+    </p>
+    <p
+      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
+      *ngIf="onlineShopImageIndex === 3 && handsetMode === false"
+    >
+      Order overview for all placed orders (admins only)
+    </p>
+    <p
+      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
+      *ngIf="onlineShopImageIndex === 3 && handsetMode == true"
+    >
+      Admin overview
+    </p>
+    <p
+      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
+      *ngIf="onlineShopImageIndex === 4"
+    >
+      Edit product in catalogue for admins
+    </p>
+    <p
+      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
+      *ngIf="onlineShopImageIndex === 5"
+    >
+      Adding new products for admins
+    </p>
+  </article>
+  <br />
+  <article *ngIf="!zoomedInOnlineShop">
+    <a href="/projects#time-tracking"
+      ><h2 *ngIf="!zoomedIn" style="cursor: pointer">Time Tracking App</h2></a
+    >
+    <p *ngIf="!zoomedIn && handsetMode === false" style="font-size: 0.6rem">
+      click to zoom in
+    </p>
+    <div class="projects-ctn" [ngClass]="{ 'incr-z-index': zoomedIn === true }">
+      <img
+        [@moveSlide]="moveLeftTimeTracking ? 'leftarrow' : 'normal'"
+        (click)="onImageChange('previous', 'time-tracking')"
+        [ngClass]="{
+          'handset-arrow-left': handsetMode === true,
+          'arrow-left': handsetMode === false,
+          'arrows-zoom': zoomedIn === true
+        }"
+        class="arrow-icon"
+        src="../../assets/icons/left-arrow.svg"
+        alt="previous-image-icon"
+      />
+      <ng-container *ngIf="handsetMode === false">
+        <ng-container *ngFor="let image of timeTrackingImages">
+          <img
+            (click)="onZoomIn('time-tracking')"
+            [@moveSlide]="
+              moveRightTimeTracking ? 'slideonrightarrow' : 'normal'
+            "
+            *ngIf="image === timeTrackingActiveImage"
+            [ngClass]="{
+              'projects-img': handsetMode === false,
+              'image-zoom': zoomedInTimeTracking === true
+            }"
+            src="../../assets/project-screenshots/time-tracking/{{ image }}.png"
+            alt="project-image-{{ timeTrackingImageIndex + 1 }}"
+          />
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="handsetMode === true">
+        <ng-container *ngFor="let handsetImage of timeTrackingHandsetImages">
+          <img
+            [@moveSlide]="
+              moveRightTimeTracking ? 'slideonrightarrow' : 'normal'
+            "
+            *ngIf="handsetImage === timeTrackingHandsetActiveImage"
+            class="handset-projects-img"
+            src="../../assets/project-screenshots/time-tracking/{{
+              handsetImage
+            }}.png"
+            alt="project-image-{{ timeTrackingImageIndex + 1 }}"
+          />
+        </ng-container>
+      </ng-container>
+      <img
+        [@moveSlide]="moveRightTimeTracking ? 'rightarrow' : 'normal'"
+        (click)="onImageChange('next', 'time-tracking')"
+        [ngClass]="{
+          'handset-arrow-right': handsetMode === true,
+          'arrows-zoom': zoomedIn === true
+        }"
+        class="arrow-icon arrow-right"
+        src="../../assets/icons/right-arrow.svg"
+        alt="next-image-icon"
+      />
+    </div>
+    <div *ngIf="zoomedIn" class="image-zoom-backdrop">
+      <span (click)="onZoomIn('time-tracking')">x</span>
+    </div>
+    <br />
+    <p [ngClass]="{ 'incr-z-index': zoomedIn === true }">
+      [ {{ timeTrackingImageIndex + 1 }} of {{ timeTrackingImages.length }} ]
+    </p>
+    <p
+      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
+      *ngIf="timeTrackingImageIndex === 0"
+    >
+      Home Page
+    </p>
+    <p
+      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
+      *ngIf="timeTrackingImageIndex === 1"
+    >
+      Home Page when logged in.
+    </p>
+    <p
+      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
+      *ngIf="timeTrackingImageIndex === 2"
+    >
+      Log in or register.
+    </p>
+  </article>
+</main>

@@ -1,0 +1,130 @@
+<main (click)="onMainClick(false)">
+  <h1>About me</h1>
+  <div class="background-style-skewed"></div>
+  <div
+    [ngClass]="{
+      'about-ctn': handsetMode === false,
+      'handset-about-ctn': handsetMode === true
+    }"
+  >
+    <img
+      [ngClass]="{
+        'portrait-img': handsetMode === false,
+        'handset-portrait-img': handsetMode === true
+      }"
+      src="../../assets/pictures/Bewerbungsfoto.jpg"
+      alt="portrait-picture"
+    />
+    <div
+      [ngClass]="{
+        'about-txt': handsetMode === false,
+        'handset-about-txt': handsetMode === true
+      }"
+      class="about-txt"
+    >
+      <p>
+        Welcome to my page. My name is Iggor Uellendahl, I am {{ age }} years
+        old. I have been developing web applications since 2019 on the side
+        whilst working as an ERP Consultant, and have not stopped since. I have
+        been focusing primarily on frontend development (HTML, CSS, JavaScript,
+        Angular).
+      </p>
+      <br />
+      <p>
+        My goal is to keep up with technological trends, and to deepen my
+        understanding of both frontend as well as backend development
+        continuously - the journey never ends!
+      </p>
+    </div>
+  </div>
+  <br />
+  <br />
+  <h2>Contact me</h2>
+  <br />
+  <div class="network-ctn">
+    <a href="https://github.com/Alemaite" target="_blank">
+      <img
+        [@mouseOver]="hoverElements.gitHub ? 'hover' : 'normal'"
+        (mouseenter)="onHover('github')"
+        (mouseleave)="onHoverLeave('github')"
+        style="cursor: pointer"
+        class="github-img"
+        src="../../assets/logos/github.svg"
+        alt="github-logo"
+      />
+    </a>
+    <a href="https://www.xing.com/profile/Iggor_Uellendahl" target="_blank">
+      <img
+        [@mouseOver]="hoverElements.xing ? 'hover' : 'normal'"
+        (mouseenter)="onHover('xing')"
+        (mouseleave)="onHoverLeave('xing')"
+        style="cursor: pointer"
+        class="xing-img"
+        src="../../assets/logos/Xing_logo.svg"
+        alt="xing-logo"
+      />
+    </a>
+    <a
+      href="https://de.linkedin.com/in/iggor-uellendahl-21860612b"
+      target="_blank"
+    >
+      <img
+        [@mouseOver]="hoverElements.linkedin ? 'hover' : 'normal'"
+        (mouseenter)="onHover('linkedin')"
+        (mouseleave)="onHoverLeave('linkedin')"
+        class="linkedin-img"
+        src="../../assets/logos/LinkedIn_icon.svg"
+        alt="linkedin-logo"
+      />
+    </a>
+  </div>
+  <br />
+  <br />
+  <form
+    *ngIf="!isLoading && !submitted && !error"
+    #contactForm="ngForm"
+    (ngSubmit)="onSubmit(contactForm)"
+  >
+    <div class="label-ctn">
+      <label for="name">Name (required)</label>
+      <input ngModel name="name" id="name" type="text" required />
+    </div>
+    <div class="label-ctn">
+      <label for="message">Your message (required)</label>
+      <textarea
+        ngModel
+        name="message"
+        id="message"
+        cols="30"
+        rows="10"
+        required
+      ></textarea>
+    </div>
+    <div class="btn-ctn">
+      <button
+        [disabled]="!contactForm.form.valid"
+        class="submit-btn"
+        type="submit"
+      >
+        Submit
+      </button>
+      <button type="reset">Clear</button>
+    </div>
+  </form>
+  <div *ngIf="isLoading" class="loadingio-spinner-dual-ball-wyy8kd731xl">
+    <div class="ldio-uzmgo19roii">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <p *ngIf="error" style="color: red">
+    An error has occured. Please try again later.
+  </p>
+  <p
+    *ngIf="submitted && !isLoading"
+    style="color: rgb(230, 120, 50); font-weight: 500"
+  >
+    Your message has been sent!
+  </p>
+</main>

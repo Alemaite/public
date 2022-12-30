@@ -1,0 +1,124 @@
+<main (click)="onMainClick(false)">
+  <h1>Project Details</h1>
+  <div class="background-style-skewed"></div>
+  <p>
+    This page will provide information about the technologies used to develop
+    each project. Feel free to check out my GitHub for the source code.
+  </p>
+  <br />
+  <article>
+    <h2>Online Shop</h2>
+    <div
+      [ngClass]="{
+        'projects-ctn': handsetMode === false,
+        'handset-projects-ctn': handsetMode === true
+      }"
+    >
+      <img
+        [ngClass]="{
+          'project-details-img': handsetMode === false,
+          'handset-project-details-img': handsetMode === true
+        }"
+        src="../../assets/project-screenshots/online-shop/products.png"
+        alt="products-overview"
+      />
+      <div
+        [ngClass]="{
+          'details-ctn': handsetMode === false,
+          'handset-details-ctn': handsetMode === true
+        }"
+      >
+        <h3>Technologies Used</h3>
+        <ul>
+          <li>Frontend: HTML, CSS & Vanilla JavaScript</li>
+          <li>Backend: NodeJS, Express & EJs (REST)</li>
+          <li>Database: MongoDB (mongoose)</li>
+        </ul>
+        <br />
+        <h3>Features</h3>
+        <ul>
+          <li>responsive</li>
+          <li>
+            Authentication: signup, login, logout (password hashed with bcrypt)
+          </li>
+          <li>Authorization: verification, if user is an admin (backend)</li>
+          <br />
+          <br />
+          <ul>
+            Admin UI
+          </ul>
+          <br />
+          <li>add products, edit products, delete products</li>
+          <li>order overview (all orders)</li>
+          <br />
+          <br />
+          <ul>
+            Non-Admin UI
+          </ul>
+          <br />
+          <li>products overview</li>
+          <li>view product details</li>
+          <li>
+            add items to cart & remove items from cart (prices are calculated
+            dynamically)
+          </li>
+          <li>
+            e-mail is initialized with signed up e-mail address (if logged in)
+          </li>
+          <li>
+            alternatively an e-mail needs to be provided in the shipping &
+            payment page
+          </li>
+        </ul>
+      </div>
+    </div>
+  </article>
+  <br />
+  <br />
+  <article id="time-tracking">
+    <h2>Time Tracking App</h2>
+    <div
+      [ngClass]="{
+        'projects-ctn': handsetMode === false,
+        'handset-projects-ctn': handsetMode === true
+      }"
+    >
+      <img
+        [ngClass]="{
+          'project-details-img': handsetMode === false,
+          'handset-project-details-img': handsetMode === true
+        }"
+        src="../../assets/project-screenshots/time-tracking/home.png"
+        alt="products-overview"
+      />
+      <div
+        [ngClass]="{
+          'details-ctn': handsetMode === false,
+          'handset-details-ctn': handsetMode === true
+        }"
+      >
+        <h3>Technologies Used</h3>
+        <ul>
+          <li>Frontend: HTML, CSS & Angular</li>
+          <li>Backend: NodeJS, Express & EJs (REST)</li>
+          <li>Database: MongoDB (mongoose)</li>
+        </ul>
+        <br />
+        <h3>Features</h3>
+        <ul>
+          <li>responsive</li>
+          <li>
+            Authentication: signup, login, logout (password hashed with bcrypt)
+          </li>
+          <li>track activities & keep data (if logged in)</li>
+          <li>remove previously tracked activities</li>
+          <br />
+          <br />
+        </ul>
+      </div>
+    </div>
+  </article>
+  <br />
+  <br />
+  <br />
+</main>
