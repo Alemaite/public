@@ -1,0 +1,24 @@
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 3rem;
+  height: 7vh;
+  background: rgba(40, 40, 40, 1);
+  border-bottom: 0.1rem solid var(--main-a-color);
+}
+
+nav a {
+  color: var(--main-a-color);
+}
+
+.home-icon {
+  display: flex;
+  align-items: center;
+  width: 1.5rem;
+}
+
+nav img {
+  object-fit: cover;
+  width: 100%;
+}

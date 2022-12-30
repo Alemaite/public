@@ -1,0 +1,79 @@
+<main>
+  <br />
+  <h3 *ngIf="!email">Log in to keep a record.</h3>
+  <br />
+  <section
+    [ngClass]="{
+      'first-section': handsetMode === false,
+      'handset-first-section': handsetMode === true
+    }"
+  >
+    <div class="label-ctn">
+      <div *ngIf="errorMessage.hasError" class="error-ctn">
+        <p class="error-msg">{{ errorMessage.message }}</p>
+      </div>
+      <br />
+      <p *ngIf="email">{{ email }}</p>
+      <br />
+      <label for="new-activity">New Activity</label>
+      <input
+        id="new-activity"
+        name="new-activity"
+        type="text"
+        maxlength="30"
+        [(ngModel)]="currentActivity"
+      />
+      <br />
+      <div class="btn-ctn">
+        <button class="pos-btn" (click)="onStartClick()">Start</button>
+        <button class="neg-btn" (click)="onStopClick()">Stop</button>
+        <!-- <button (click)="onLog()">Log</button> -->
+      </div>
+    </div>
+    <br />
+    <div class="timer-ctn">
+      <div class="timer-bg">
+        <p>
+          <span *ngIf="timer.hours < 10">0</span>{{ timer.hours }}:<span
+            *ngIf="timer.minutes < 10"
+            >0</span
+          >{{ timer.minutes }}:<span *ngIf="timer.seconds < 10">0</span
+          >{{ timer.seconds }}
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="second-section">
+    <div class="activities-list">
+      <ng-container *ngIf="activities.length > 0">
+        <p>Click on activity to delete it.</p>
+        <div class="activity">
+          <p class="activity-c1">Activity</p>
+          <p class="activity-c2">From</p>
+          <p class="activity-c3">To</p>
+          <p class="activity-c4">Dur.</p>
+        </div>
+        <ng-container *ngFor="let activity of activities; index as i">
+          <div
+            (click)="deleteActivity(i)"
+            [ngClass]="i === 0 ? 'highlight' : ''"
+            class="activity"
+            style="cursor: pointer"
+          >
+            <p
+              class="activity-c1"
+              [ngClass]="{
+                'handset-second-section': handsetMode === true
+              }"
+            >
+              {{ activity.activity }}
+            </p>
+            <p class="activity-c2">{{ activity.from }}</p>
+            <p class="activity-c3">{{ activity.to }}</p>
+            <p class="activity-c4">{{ activity.time }}</p>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </section>
+</main>

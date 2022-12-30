@@ -1,0 +1,24 @@
+main {
+  margin-top: 4rem;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  cursor: pointer;
+  color: whitesmoke;
+}
+
+.error-msg {
+  margin: 0.2rem 0.5rem;
+}
+
+.label-ctn {
+  width: 100%;
+}

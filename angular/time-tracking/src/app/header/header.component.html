@@ -1,0 +1,7 @@
+<nav>
+  <a class="home-icon" routerLink="/"
+    ><img src="../../assets/icons/hourglass.svg" alt="home-hourglass"
+  /></a>
+  <a *ngIf="!loggedIn" routerLink="/authentication">Log In</a>
+  <a *ngIf="loggedIn" (click)="logOut()" style="cursor: pointer">Log Out</a>
+</nav>
