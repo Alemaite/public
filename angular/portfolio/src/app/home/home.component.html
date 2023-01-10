@@ -24,7 +24,12 @@
     <p *ngIf="!zoomedIn && handsetMode === false" style="font-size: 0.6rem">
       click to zoom in
     </p>
-    <div class="projects-ctn" [ngClass]="{ 'incr-z-index': zoomedIn === true }">
+    <div
+      [ngClass]="{
+        'incr-z-index': zoomedIn === true,
+        'projects-ctn': zoomedIn === false
+      }"
+    >
       <img
         [@moveSlide]="moveLeftOnlineShop ? 'leftarrow' : 'normal'"
         (click)="onImageChange('previous', 'online-shop')"
@@ -44,7 +49,8 @@
             [@moveSlide]="moveRightOnlineShop ? 'slideonrightarrow' : 'normal'"
             *ngIf="image === onlineShopActiveImage"
             [ngClass]="{
-              'projects-img': handsetMode === false,
+              'projects-img':
+                handsetMode === false && zoomedInOnlineShop === false,
               'image-zoom': zoomedInOnlineShop === true
             }"
             src="../../assets/project-screenshots/online-shop/{{ image }}.png"
@@ -81,51 +87,24 @@
       <span (click)="onZoomIn('online-shop')">x</span>
     </div>
     <br />
-    <p [ngClass]="{ 'incr-z-index': zoomedIn === true }">
-      [ {{ onlineShopImageIndex + 1 }} of {{ onlineShopImages.length }} ]
-    </p>
-    <p
-      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
-      *ngIf="onlineShopImageIndex === 0"
-    >
-      Products overview for non-admin users
-    </p>
-    <p
-      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
-      *ngIf="onlineShopImageIndex === 1"
-    >
-      Order history by id
-    </p>
-    <p
-      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
-      *ngIf="onlineShopImageIndex === 2"
-    >
-      Cart
-    </p>
-    <p
-      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
-      *ngIf="onlineShopImageIndex === 3 && handsetMode === false"
-    >
-      Order overview for all placed orders (admins only)
-    </p>
-    <p
-      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
-      *ngIf="onlineShopImageIndex === 3 && handsetMode == true"
-    >
-      Admin overview
-    </p>
-    <p
-      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
-      *ngIf="onlineShopImageIndex === 4"
-    >
-      Edit product in catalogue for admins
-    </p>
-    <p
-      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
-      *ngIf="onlineShopImageIndex === 5"
-    >
-      Adding new products for admins
-    </p>
+    <div [ngClass]="{ 'incr-z-index-p': zoomedIn === true }">
+      <p>[ {{ onlineShopImageIndex + 1 }} of {{ onlineShopImages.length }} ]</p>
+      <p *ngIf="onlineShopImageIndex === 0">
+        Products overview for non-admin users
+      </p>
+      <p *ngIf="onlineShopImageIndex === 1">Order history by id</p>
+      <p *ngIf="onlineShopImageIndex === 2">Cart</p>
+      <p *ngIf="onlineShopImageIndex === 3 && handsetMode === false">
+        Order overview for all placed orders (admins only)
+      </p>
+      <p *ngIf="onlineShopImageIndex === 3 && handsetMode == true">
+        Admin overview
+      </p>
+      <p *ngIf="onlineShopImageIndex === 4">
+        Edit product in catalogue for admins
+      </p>
+      <p *ngIf="onlineShopImageIndex === 5">Adding new products for admins</p>
+    </div>
   </article>
   <br />
   <article *ngIf="!zoomedInOnlineShop">
@@ -135,7 +114,12 @@
     <p *ngIf="!zoomedIn && handsetMode === false" style="font-size: 0.6rem">
       click to zoom in
     </p>
-    <div class="projects-ctn" [ngClass]="{ 'incr-z-index': zoomedIn === true }">
+    <div
+      [ngClass]="{
+        'incr-z-index': zoomedIn === true,
+        'projects-ctn': zoomedIn === false
+      }"
+    >
       <img
         [@moveSlide]="moveLeftTimeTracking ? 'leftarrow' : 'normal'"
         (click)="onImageChange('previous', 'time-tracking')"
@@ -157,7 +141,8 @@
             "
             *ngIf="image === timeTrackingActiveImage"
             [ngClass]="{
-              'projects-img': handsetMode === false,
+              'projects-img':
+                handsetMode === false && zoomedInTimeTracking === false,
               'image-zoom': zoomedInTimeTracking === true
             }"
             src="../../assets/project-screenshots/time-tracking/{{ image }}.png"
@@ -196,26 +181,13 @@
       <span (click)="onZoomIn('time-tracking')">x</span>
     </div>
     <br />
-    <p [ngClass]="{ 'incr-z-index': zoomedIn === true }">
-      [ {{ timeTrackingImageIndex + 1 }} of {{ timeTrackingImages.length }} ]
-    </p>
-    <p
-      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
-      *ngIf="timeTrackingImageIndex === 0"
-    >
-      Home Page
-    </p>
-    <p
-      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
-      *ngIf="timeTrackingImageIndex === 1"
-    >
-      Home Page when logged in.
-    </p>
-    <p
-      [ngClass]="{ 'incr-z-index': zoomedIn === true }"
-      *ngIf="timeTrackingImageIndex === 2"
-    >
-      Log in or register.
-    </p>
+    <div [ngClass]="{ 'incr-z-index-p': zoomedIn === true }">
+      <p>
+        [ {{ timeTrackingImageIndex + 1 }} of {{ timeTrackingImages.length }} ]
+      </p>
+      <p *ngIf="timeTrackingImageIndex === 0">Home Page</p>
+      <p *ngIf="timeTrackingImageIndex === 1">Home Page when logged in.</p>
+      <p *ngIf="timeTrackingImageIndex === 2">Log in or register.</p>
+    </div>
   </article>
 </main>
