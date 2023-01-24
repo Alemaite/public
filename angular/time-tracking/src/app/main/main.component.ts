@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Activity } from './activity.model';
 import { TimerService } from './timer.service';
-import { Subscription } from 'rxjs';
+import { min, Subscription } from 'rxjs';
 import { ActivityService } from './activity.service';
 import { AuthService } from '../auth/auth.service';
 
@@ -156,6 +156,7 @@ export class MainComponent implements OnInit, OnDestroy {
       from: getFrom,
       to: '',
       time: '',
+      date: new Date().toLocaleDateString('de-DE'),
     });
     this.currentActivity = '';
     return;
@@ -189,7 +190,9 @@ export class MainComponent implements OnInit, OnDestroy {
     }
     let getTo: string = hours + ':' + minutes;
     this.activities[0].to = getTo;
+    console.log(this.activities[0].to);
     this.activities[0].time = this.timeDifference();
+    console.log(this.activities[0].time);
     this.activities[0].user = this.email;
     this.activities[0].userId = this.userId;
     if (!this.email) {
@@ -199,25 +202,36 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   onLog() {
-    console.log(this.handsetMode);
+    console.log(this.activities[0].date);
   }
 
   timeDifference() {
-    let hoursDifference: any =
-      Number(this.activities[0].to.slice(0, 2)) -
-      Number(this.activities[0].from.slice(0, 2));
+    let hours: any = null;
+    let minutes = null;
+    let differenceInMinutes: any =
+      Number(this.activities[0].to.slice(0, 2)) * 60 -
+      Number(this.activities[0].from.slice(0, 2)) * 60 +
+      (Number(this.activities[0].to.slice(3, 5)) -
+        Number(this.activities[0].from.slice(3, 5)));
 
-    let minutesDifference: any =
-      Number(this.activities[0].to.slice(3, 5)) -
-      Number(this.activities[0].from.slice(3, 5));
+    if (differenceInMinutes < 60) {
+      hours = '00:';
+      minutes = differenceInMinutes;
+      if (minutes < 10) {
+        minutes = '0' + minutes;
+      }
+      return hours + minutes;
+    }
 
-    if (hoursDifference < 10) {
-      hoursDifference = '0' + hoursDifference;
+    if (differenceInMinutes >= 60) {
+      hours = Math.floor(differenceInMinutes / 60);
+      minutes = differenceInMinutes % 60;
     }
-    if (minutesDifference < 10) {
-      minutesDifference = '0' + minutesDifference;
+
+    if (hours < 10) {
+      hours = '0' + hours + ':';
     }
-    return hoursDifference + ':' + minutesDifference;
+    return hours + minutes;
   }
 
   ngOnDestroy(): void {

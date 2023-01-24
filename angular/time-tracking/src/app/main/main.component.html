@@ -54,6 +54,14 @@
           <p class="activity-c4">Dur.</p>
         </div>
         <ng-container *ngFor="let activity of activities; index as i">
+          <div *ngIf="i === 0">
+            <p style="color: var(--main-a-color)">{{ activities[i].date }}</p>
+          </div>
+          <div *ngIf="i > 0 && activities[i].date !== activities[i - 1].date">
+            <p style="color: var(--main-a-color)">
+              {{ activities[i].date }}
+            </p>
+          </div>
           <div
             (click)="deleteActivity(i)"
             [ngClass]="i === 0 ? 'highlight' : ''"

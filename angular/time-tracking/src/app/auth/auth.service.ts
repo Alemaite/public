@@ -20,17 +20,26 @@ export class AuthService {
   loginUser(user: User) {
     this.http
       .post<{ message: string; email?: string | undefined; _id?: string }>(
+<<<<<<< Updated upstream
         'http://localhost:3000/api/users/login',
+=======
+        'https://iu-time-tracking-api.click/api/users/login',
+>>>>>>> Stashed changes
         user
       )
-      .subscribe((response) => {
-        this.saveAuthData(response._id, response.email);
-        const loggedIn = this.getLoginStatus();
-        this.loggedInSubj.next(loggedIn);
-        const email = this.getLoggedInEmail();
-        this.emailSubj.next(email);
-        this.router.navigate(['/']);
-      });
+      .subscribe(
+        (response) => {
+          this.saveAuthData(response._id, response.email);
+          const loggedIn = this.getLoginStatus();
+          this.loggedInSubj.next(loggedIn);
+          const email = this.getLoggedInEmail();
+          this.emailSubj.next(email);
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          this.msgSubj.next(error.error.message);
+        }
+      );
   }
 
   private saveAuthData(_id?: string, email?: string | undefined) {
@@ -85,7 +94,11 @@ export class AuthService {
   createUser(user: User) {
     this.http
       .post<{ message: string }>(
+<<<<<<< Updated upstream
         'http://localhost:3000/api/users/register',
+=======
+        'https://iu-time-tracking-api.click/api/users/register',
+>>>>>>> Stashed changes
         user
       )
       .subscribe(

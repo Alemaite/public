@@ -17,14 +17,16 @@ export class AuthComponent implements OnInit, OnDestroy {
     message: '',
   };
   msgSub: Subscription = Subscription.EMPTY;
+  isLoading = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.msgSub = this.authService.msgSubj.subscribe((error) => {
+    this.msgSub = this.authService.msgSubj.subscribe((errorMessage) => {
+      this.isLoading = false;
       this.msgObj = {
         hasMsg: true,
-        message: error,
+        message: errorMessage,
       };
     });
   }
@@ -49,8 +51,10 @@ export class AuthComponent implements OnInit, OnDestroy {
       password: authForm.value.password,
     };
     if (this.loginMode) {
+      this.isLoading = true;
       return this.authService.loginUser(user);
     }
+    this.isLoading = true;
     return this.authService.createUser(user);
   }
 
