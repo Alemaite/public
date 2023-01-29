@@ -20,11 +20,7 @@ export class AuthService {
   loginUser(user: User) {
     this.http
       .post<{ message: string; email?: string | undefined; _id?: string }>(
-<<<<<<< Updated upstream
-        'http://localhost:3000/api/users/login',
-=======
         'https://iu-time-tracking-api.click/api/users/login',
->>>>>>> Stashed changes
         user
       )
       .subscribe(
@@ -94,11 +90,7 @@ export class AuthService {
   createUser(user: User) {
     this.http
       .post<{ message: string }>(
-<<<<<<< Updated upstream
-        'http://localhost:3000/api/users/register',
-=======
         'https://iu-time-tracking-api.click/api/users/register',
->>>>>>> Stashed changes
         user
       )
       .subscribe(

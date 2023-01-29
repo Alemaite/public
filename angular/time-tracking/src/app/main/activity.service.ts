@@ -24,14 +24,10 @@ export class ActivityService {
     }
     const activId = { actId: activityId };
     this.http
-<<<<<<< Updated upstream
-      .post<{}>('http://localhost:3000/api/activities/delete', activId)
-=======
       .post<{}>(
         'https://iu-time-tracking-api.click/api/activities/delete',
         activId
       )
->>>>>>> Stashed changes
       .subscribe(() => {
         this.getAllActivities(userId);
       });
@@ -46,9 +42,6 @@ export class ActivityService {
       return;
     }
     this.http
-<<<<<<< Updated upstream
-      .get<Activity[]>('http://localhost:3000/api/activities/' + userId)
-=======
       .get<Activity[]>(
         'https://iu-time-tracking-api.click/api/activities/' + userId
       )
@@ -70,7 +63,6 @@ export class ActivityService {
           return response;
         })
       )
->>>>>>> Stashed changes
       .subscribe((response) => {
         this.activitiesSubj.next(response);
       });
@@ -83,11 +75,7 @@ export class ActivityService {
   createActivity(activity: Activity, userId: string | undefined) {
     this.http
       .post<{ message: string }>(
-<<<<<<< Updated upstream
-        'http://localhost:3000/api/activities',
-=======
         'https://iu-time-tracking-api.click/api/activities/',
->>>>>>> Stashed changes
         activity
       )
       .subscribe(() => {

@@ -37,6 +37,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   currentActivity = '';
   activityActive = false;
+  intervalWorker: any;
   intervalId: any = null;
 
   timerServiceSub: Subscription = Subscription.EMPTY;
@@ -83,9 +84,9 @@ export class MainComponent implements OnInit, OnDestroy {
       .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
       .subscribe((result) => {
         if (result.matches) {
-          this.handsetMode = true;
+          return (this.handsetMode = true);
         }
-        return;
+        return (this.handsetMode = false);
       });
   }
 
@@ -139,6 +140,7 @@ export class MainComponent implements OnInit, OnDestroy {
     }
     this.errorMessage.hasError = false;
     this.activityActive = true;
+
     this.startTimer();
     let hours: any = new Date().getHours();
     let minutes: any = new Date().getMinutes();
@@ -163,15 +165,26 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   startTimer() {
-    this.intervalId = setInterval(() => {
-      this.timerService.seconds.next(this.timer.seconds + 1);
-    }, 1000);
+    if (typeof Worker !== 'undefined') {
+      this.intervalWorker = new Worker(
+        new URL('./main.worker', import.meta.url)
+      );
+      this.intervalWorker.onmessage = ({ data }: { data: number }) => {
+        this.timerService.seconds.next(this.timer.seconds + data);
+      };
+      this.intervalWorker.postMessage('secondsInterval');
+    } else {
+      this.intervalId = setInterval(() => {
+        this.timerService.seconds.next(this.timer.seconds + 1);
+      }, 1000);
+    }
   }
 
   onStopClick() {
     if (!this.activityActive) {
       return;
     }
+    this.intervalWorker.terminate();
     clearInterval(this.intervalId);
     this.timer = {
       seconds: 0,
@@ -190,9 +203,7 @@ export class MainComponent implements OnInit, OnDestroy {
     }
     let getTo: string = hours + ':' + minutes;
     this.activities[0].to = getTo;
-    console.log(this.activities[0].to);
     this.activities[0].time = this.timeDifference();
-    console.log(this.activities[0].time);
     this.activities[0].user = this.email;
     this.activities[0].userId = this.userId;
     if (!this.email) {
