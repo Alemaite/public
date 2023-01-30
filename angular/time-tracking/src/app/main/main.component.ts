@@ -218,7 +218,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   timeDifference() {
     let hours: any = null;
-    let minutes = null;
+    let minutes: any = null;
     let differenceInMinutes: any =
       Number(this.activities[0].to.slice(0, 2)) * 60 -
       Number(this.activities[0].from.slice(0, 2)) * 60 +
@@ -241,6 +241,9 @@ export class MainComponent implements OnInit, OnDestroy {
 
     if (hours < 10) {
       hours = '0' + hours + ':';
+    }
+    if (minutes < 10) {
+      minutes = '0' + minutes;
     }
     return hours + minutes;
   }
