@@ -7,6 +7,8 @@ const activitySchema = mongoose.Schema({
   from: { type: String, required: true },
   to: { type: String, required: true },
   time: { type: String, required: true },
+  date: { type: Date, required: true },
+  displayDate: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Activity", activitySchema);

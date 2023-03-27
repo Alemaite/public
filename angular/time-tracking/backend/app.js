@@ -2,14 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Activity = require("./models/activity");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const User = require("./models/user");
 
 const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://alemaite:PASSWORDREMOVED@cluster0.7l41bhv.mongodb.net/time-tracking?retryWrites=true&w=majority"
+    "mongodb+srv://alemaite:TOKENREMOVED@cluster0.7l41bhv.mongodb.net/time-tracking?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Connected to DB.");
@@ -33,6 +33,14 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+// app.get("/", (req, res, next) => {
+//   try {
+//     res.status(200).json({ message: "Request received from API." });
+//   } catch {
+//     res.status(500).json({ message: "Internal server errror." });
+//   }
+// });
 
 app.get("/api/activities/:userId", (req, res, next) => {
   Activity.find({ userId: req.params.userId }).then((result) => {
@@ -62,6 +70,8 @@ app.post("/api/activities", (req, res, next) => {
     from: req.body.from,
     to: req.body.to,
     time: req.body.time,
+    date: req.body.date,
+    displayDate: req.body.displayDate,
   });
   activity
     .save()
