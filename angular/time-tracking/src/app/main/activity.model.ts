@@ -6,5 +6,6 @@ export interface Activity {
   from: any;
   to: any;
   time: any;
-  date: string | null;
+  date: Date;
+  displayDate: string;
 }

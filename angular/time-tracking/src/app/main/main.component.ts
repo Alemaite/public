@@ -158,7 +158,13 @@ export class MainComponent implements OnInit, OnDestroy {
       from: getFrom,
       to: '',
       time: '',
-      date: new Date().toLocaleDateString('de-DE'),
+      date: new Date(),
+      displayDate:
+        new Date().getUTCFullYear() +
+        '-' +
+        (new Date().getUTCMonth() + 1) +
+        '-' +
+        new Date().getUTCDate(),
     });
     this.currentActivity = '';
     return;

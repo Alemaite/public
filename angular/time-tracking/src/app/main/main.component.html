@@ -55,11 +55,18 @@
         </div>
         <ng-container *ngFor="let activity of activities; index as i">
           <div *ngIf="i === 0">
-            <p style="color: var(--main-a-color)">{{ activities[i].date }}</p>
-          </div>
-          <div *ngIf="i > 0 && activities[i].date !== activities[i - 1].date">
             <p style="color: var(--main-a-color)">
-              {{ activities[i].date }}
+              {{ activities[i].displayDate }}
+            </p>
+          </div>
+          <div
+            *ngIf="
+              i > 0 &&
+              activities[i].displayDate !== activities[i - 1].displayDate
+            "
+          >
+            <p style="color: var(--main-a-color)">
+              {{ activities[i].displayDate }}
             </p>
           </div>
           <div

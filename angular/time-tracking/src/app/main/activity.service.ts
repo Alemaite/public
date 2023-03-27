@@ -5,15 +5,6 @@ import { map, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ActivityService {
-  private activity: Activity = {
-    activity: '',
-    from: '',
-    to: '',
-    time: '',
-    date: null,
-  };
-  private activities: Activity[] = [];
-
   activitiesSubj = new Subject<Activity[]>();
 
   constructor(private http: HttpClient) {}
@@ -66,10 +57,6 @@ export class ActivityService {
       .subscribe((response) => {
         this.activitiesSubj.next(response);
       });
-  }
-
-  returnAllActivities() {
-    return this.activities;
   }
 
   createActivity(activity: Activity, userId: string | undefined) {
