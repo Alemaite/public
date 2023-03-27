@@ -63,6 +63,38 @@ import { DropdownService } from '../header/dropdown-service';
   ],
 })
 export class HomeComponent implements OnInit {
+  // recipes variables
+
+  recipesImages = ['home', 'details', 'shopping-list', 'admin'];
+  // recipesHandsetImages = [
+  //   'handset-home',
+  //   'handset-home-logged-in',
+  //   'handset-login',
+  // ];
+  recipesActiveImage = 'home';
+  // recipesHandsetActiveImage = 'handset-home';
+  recipesImageIndex = 0;
+  moveLeftRecipes = false;
+  moveRightRecipes = false;
+  zoomedInRecipes = false;
+
+  // time tracking variables
+
+  timeTrackingImages = ['home', 'home-logged-in', 'login'];
+  timeTrackingHandsetImages = [
+    'handset-home',
+    'handset-home-logged-in',
+    'handset-login',
+  ];
+  timeTrackingActiveImage = 'home';
+  timeTrackingHandsetActiveImage = 'handset-home';
+  timeTrackingImageIndex = 0;
+  moveLeftTimeTracking = false;
+  moveRightTimeTracking = false;
+  zoomedInTimeTracking = false;
+
+  // online shop variables
+
   onlineShopImages = [
     'products',
     'order-history',
@@ -85,19 +117,6 @@ export class HomeComponent implements OnInit {
   moveLeftOnlineShop = false;
   moveRightOnlineShop = false;
   zoomedInOnlineShop = false;
-
-  timeTrackingImages = ['home', 'home-logged-in', 'login'];
-  timeTrackingHandsetImages = [
-    'handset-home',
-    'handset-home-logged-in',
-    'handset-login',
-  ];
-  timeTrackingActiveImage = 'home';
-  timeTrackingHandsetActiveImage = 'handset-home';
-  timeTrackingImageIndex = 0;
-  moveLeftTimeTracking = false;
-  moveRightTimeTracking = false;
-  zoomedInTimeTracking = false;
 
   zoomedIn = false;
   handsetMode = false;
@@ -123,139 +142,106 @@ export class HomeComponent implements OnInit {
 
   onZoomIn(project: string) {
     this.zoomedIn = !this.zoomedIn;
-    if (project === 'online-shop') {
-      this.zoomedInOnlineShop = !this.zoomedInOnlineShop;
-      return;
-    }
-    if (project === 'time-tracking') {
-      this.zoomedInTimeTracking = !this.zoomedInTimeTracking;
-      return;
+    switch (project) {
+      case 'recipes':
+        this.zoomedInRecipes = !this.zoomedInRecipes;
+        break;
+      case 'time-tracking':
+        this.zoomedInTimeTracking = !this.zoomedInTimeTracking;
+        break;
+      case 'online-shop':
+        this.zoomedInOnlineShop = !this.zoomedInOnlineShop;
+        break;
     }
     return;
   }
 
   onImageChange(action: string, project: string) {
-    if (
-      project === 'online-shop' &&
-      action === 'next' &&
-      this.onlineShopImageIndex < 5
-    ) {
-      this.nextOnlineShopImage();
+    if (action === 'next') {
+      this.nextImage(project);
       return;
     }
-    if (
-      project === 'online-shop' &&
-      action === 'previous' &&
-      this.onlineShopImageIndex > 0
-    ) {
-      this.previousOnlineShopImage();
-      return;
-    }
-    if (
-      project === 'time-tracking' &&
-      action === 'next' &&
-      this.timeTrackingImageIndex < 2
-    ) {
-      this.nextTimeTrackingImage();
-      return;
-    }
-    if (
-      project === 'time-tracking' &&
-      action === 'previous' &&
-      this.timeTrackingImageIndex > 0
-    ) {
-      this.previousTimeTrackingImage();
+    if (action === 'previous') {
+      this.previousImage(project);
       return;
     }
     return;
   }
 
-  nextOnlineShopImage() {
-    this.onlineShopImageIndex++;
-    this.moveRightOnlineShop = true;
-    setTimeout(() => this.resetMoveStatus('online-shop'), 250);
-    if (this.handsetMode === false) {
-      return setTimeout(
-        () =>
-          (this.onlineShopActiveImage =
-            this.onlineShopImages[this.onlineShopImageIndex]),
-        250
-      );
+  nextImage(project: string) {
+    switch (project) {
+      case 'recipes':
+        if (this.recipesImageIndex < 3) {
+          this.recipesImageIndex++;
+          this.moveRightRecipes = true;
+        }
+        break;
+      case 'time-tracking':
+        if (this.timeTrackingImageIndex < 2) {
+          this.timeTrackingImageIndex++;
+          this.moveRightTimeTracking = true;
+        }
+        break;
+      case 'online-shop':
+        if (this.onlineShopImageIndex < 5) {
+          this.onlineShopImageIndex++;
+          this.moveRightOnlineShop = true;
+        }
+        break;
     }
-    if (this.handsetMode === true) {
-      return setTimeout(
-        () =>
-          (this.onlineShopHandsetActiveImage =
-            this.onlineShopHandsetImages[this.onlineShopImageIndex]),
-        250
-      );
-    }
+    this.updateImageIndex();
+    setTimeout(() => this.resetMoveStatus(project), 250);
     return;
   }
 
-  previousOnlineShopImage() {
-    this.onlineShopImageIndex--;
-    this.moveLeftOnlineShop = true;
-    setTimeout(() => this.resetMoveStatus('online-shop'), 250);
-    if (this.handsetMode === false) {
-      return setTimeout(
-        () =>
-          (this.onlineShopActiveImage =
-            this.onlineShopImages[this.onlineShopImageIndex]),
-        250
-      );
+  previousImage(project: string) {
+    switch (project) {
+      case 'recipes':
+        if (this.recipesImageIndex > 0) {
+          this.recipesImageIndex--;
+          this.moveLeftRecipes = true;
+        }
+        break;
+      case 'time-tracking':
+        if (this.timeTrackingImageIndex > 0) {
+          this.timeTrackingImageIndex--;
+          this.moveLeftTimeTracking = true;
+        }
+        break;
+      case 'online-shop':
+        if (this.onlineShopImageIndex > 0) {
+          this.onlineShopImageIndex--;
+          this.moveLeftOnlineShop = true;
+        }
+        break;
     }
-    if (this.handsetMode === true) {
-      return setTimeout(
-        () =>
-          (this.onlineShopHandsetActiveImage =
-            this.onlineShopHandsetImages[this.onlineShopImageIndex]),
-        250
-      );
-    }
+    this.updateImageIndex();
+    setTimeout(() => this.resetMoveStatus(project), 250);
     return;
   }
 
-  nextTimeTrackingImage() {
-    this.timeTrackingImageIndex++;
-    this.moveRightTimeTracking = true;
-    setTimeout(() => this.resetMoveStatus('time-tracking'), 250);
+  updateImageIndex() {
     if (this.handsetMode === false) {
-      return setTimeout(
-        () =>
+      setTimeout(
+        () => (
+          (this.recipesActiveImage =
+            this.recipesImages[this.recipesImageIndex]),
           (this.timeTrackingActiveImage =
             this.timeTrackingImages[this.timeTrackingImageIndex]),
+          (this.onlineShopActiveImage =
+            this.onlineShopImages[this.onlineShopImageIndex])
+        ),
         250
       );
     }
     if (this.handsetMode === true) {
-      return setTimeout(
-        () =>
+      setTimeout(
+        () => (
           (this.timeTrackingHandsetActiveImage =
             this.timeTrackingHandsetImages[this.timeTrackingImageIndex]),
-        250
-      );
-    }
-    return;
-  }
-
-  previousTimeTrackingImage() {
-    this.timeTrackingImageIndex--;
-    this.moveLeftTimeTracking = true;
-    setTimeout(() => this.resetMoveStatus('time-tracking'), 250);
-    if (this.handsetMode === false) {
-      return setTimeout(
-        () =>
-          (this.timeTrackingActiveImage =
-            this.timeTrackingImages[this.timeTrackingImageIndex]),
-        250
-      );
-    }
-    if (this.handsetMode === true) {
-      return setTimeout(
-        () =>
-          (this.timeTrackingHandsetActiveImage =
-            this.timeTrackingHandsetImages[this.timeTrackingImageIndex]),
+          (this.onlineShopHandsetActiveImage =
+            this.onlineShopHandsetImages[this.onlineShopImageIndex])
+        ),
         250
       );
     }
@@ -263,14 +249,19 @@ export class HomeComponent implements OnInit {
   }
 
   resetMoveStatus(project: string) {
-    if (project === 'online-shop') {
-      this.moveLeftOnlineShop = false;
-      this.moveRightOnlineShop = false;
+    if (project === 'recipes') {
+      this.moveLeftRecipes = false;
+      this.moveRightRecipes = false;
       return;
     }
     if (project === 'time-tracking') {
       this.moveLeftTimeTracking = false;
       this.moveRightTimeTracking = false;
+      return;
+    }
+    if (project === 'online-shop') {
+      this.moveLeftOnlineShop = false;
+      this.moveRightOnlineShop = false;
       return;
     }
     return;

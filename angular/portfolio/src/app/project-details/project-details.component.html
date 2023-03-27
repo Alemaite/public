@@ -13,13 +13,15 @@
     for the source code.
   </p>
   <br />
-  <article>
+  <br />
+  <br />
+  <article id="recipes">
     <h2>
       <a
-        href="http://onlineshop-env.eba-a2yzmamf.us-east-1.elasticbeanstalk.com/"
+        href="https://iu-recipes.click/"
         target="_blank"
         style="color: rgb(230, 120, 50)"
-        >Online Shop</a
+        >Recipes App</a
       >
     </h2>
     <p style="font-size: 0.6rem">click headline to go to page</p>
@@ -34,7 +36,7 @@
           'project-details-img': handsetMode === false,
           'handset-project-details-img': handsetMode === true
         }"
-        src="../../assets/project-screenshots/online-shop/products.png"
+        src="../../assets/project-screenshots/recipes/home.png"
         alt="products-overview"
       />
       <div
@@ -45,45 +47,19 @@
       >
         <h3>Technologies Used</h3>
         <ul>
-          <li>Frontend: HTML, CSS & vanilla JavaScript</li>
-          <li>Backend: NodeJS, Express & EJs</li>
-          <li>Database: MongoDB</li>
+          <li>Frontend: HTML, CSS & Angular (Material)</li>
+          <li>Backend: NodeJS, Express & EJs (REST)</li>
+          <li>Database: MongoDB (mongoose)</li>
         </ul>
         <br />
         <h3>Features</h3>
         <ul>
-          <li>responsive</li>
-          <li>
-            Authentication: signup, login, logout (password hashed with bcrypt)
-          </li>
-          <li>Authorization: verification, if user is an admin (backend)</li>
+          <li>signup, login, logout (password hashed with bcrypt)</li>
+          <li>add or remove recipes in the admin UI</li>
+          <li>add or remove recipe ingredients from shopping list</li>
+          <li>not responsive yet</li>
           <br />
           <br />
-          <ul>
-            Admin UI
-          </ul>
-          <br />
-          <li>add products, edit products, delete products</li>
-          <li>order overview (orders of all users)</li>
-          <br />
-          <br />
-          <ul>
-            Non-Admin UI
-          </ul>
-          <br />
-          <li>products overview</li>
-          <li>view product details</li>
-          <li>
-            add items to cart & remove items from cart (prices are calculated
-            dynamically)
-          </li>
-          <li>
-            e-mail is initialized with signed up e-mail address (if logged in)
-          </li>
-          <li>
-            alternatively an e-mail needs to be provided in the shipping &
-            payment page
-          </li>
         </ul>
       </div>
     </div>
@@ -93,7 +69,7 @@
   <article id="time-tracking">
     <h2>
       <a
-        href="http://time-tracking-mean.s3-website-us-east-1.amazonaws.com/"
+        href="https://iu-time-tracking.click/"
         target="_blank"
         style="color: rgb(230, 120, 50)"
         >Time Tracking App</a
@@ -130,13 +106,86 @@
         <h3>Features</h3>
         <ul>
           <li>responsive</li>
-          <li>
-            Authentication: signup, login, logout (password hashed with bcrypt)
-          </li>
+          <li>signup, login, logout (password hashed with bcrypt)</li>
           <li>track activities & keep data (if logged in)</li>
           <li>remove previously tracked activities</li>
           <br />
           <br />
+        </ul>
+      </div>
+    </div>
+  </article>
+  <br />
+  <br />
+  <article id="online-shop">
+    <h2>
+      <a
+        href="https://iu-online-shop.click/"
+        target="_blank"
+        style="color: rgb(230, 120, 50)"
+        >Online Shop</a
+      >
+    </h2>
+    <p style="font-size: 0.6rem">click headline to go to page</p>
+    <div
+      [ngClass]="{
+        'projects-ctn': handsetMode === false,
+        'handset-projects-ctn': handsetMode === true
+      }"
+    >
+      <img
+        [ngClass]="{
+          'project-details-img': handsetMode === false,
+          'handset-project-details-img': handsetMode === true
+        }"
+        src="../../assets/project-screenshots/online-shop/products.png"
+        alt="products-overview"
+      />
+      <div
+        [ngClass]="{
+          'details-ctn': handsetMode === false,
+          'handset-details-ctn': handsetMode === true
+        }"
+      >
+        <h3>Technologies Used</h3>
+        <ul>
+          <li>Frontend: HTML, CSS & vanilla JavaScript</li>
+          <li>Backend: NodeJS, Express & EJs</li>
+          <li>Database: MongoDB</li>
+        </ul>
+        <br />
+        <h3>Features</h3>
+        <ul>
+          <li>responsive</li>
+          <li>signup, login, logout (password hashed with bcrypt)</li>
+          <li>verification, if user is an admin (backend)</li>
+          <br />
+          <br />
+          <ul>
+            Admin UI
+          </ul>
+          <br />
+          <li>add products, edit products, delete products</li>
+          <li>order overview (orders of all users)</li>
+          <br />
+          <br />
+          <ul>
+            Non-Admin UI
+          </ul>
+          <br />
+          <li>products overview</li>
+          <li>view product details</li>
+          <li>
+            add items to cart & remove items from cart (prices are calculated
+            dynamically)
+          </li>
+          <li>
+            e-mail is initialized with signed up e-mail address (if logged in)
+          </li>
+          <li>
+            alternatively an e-mail needs to be provided in the shipping &
+            payment page
+          </li>
         </ul>
       </div>
     </div>
