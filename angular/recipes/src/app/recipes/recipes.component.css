@@ -1,0 +1,27 @@
+section {
+  display: flex;
+}
+
+article {
+  margin: 0 1rem;
+  width: 50%;
+}
+
+h2 {
+  text-align: center;
+}
+
+ul {
+  list-style-type: circle;
+}
+
+.ctn-rcp-img {
+  width: 30rem;
+  margin: auto;
+}
+
+.rcp-img {
+  width: 30rem;
+  margin: auto;
+  border-radius: 0.5rem;
+}

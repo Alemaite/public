@@ -1,0 +1,15 @@
+<header>
+  <nav>
+    <ul>
+      <li><a routerLink="recipes-list">Recipes</a></li>
+      <li *ngIf="loginStatus">
+        <a routerLink="shopping-list/{{ userId }}">Shopping List</a>
+      </li>
+      <li *ngIf="!loginStatus"><a routerLink="auth">Login/Register</a></li>
+      <li *ngIf="loginStatus">
+        <a (click)="onLogOut()" style="cursor: pointer">Logout</a>
+      </li>
+      <li *ngIf="adminStatus"><a routerLink="admin">Admin</a></li>
+    </ul>
+  </nav>
+</header>
