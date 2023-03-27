@@ -1,0 +1,10 @@
+table,
+mat-table,
+mat-row,
+mat-header-row {
+  width: 50%;
+}
+
+table {
+  margin: auto;
+}
