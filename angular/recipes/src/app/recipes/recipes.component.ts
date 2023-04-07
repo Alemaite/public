@@ -6,6 +6,7 @@ import { IngredientModel } from '../models/ingredient';
 import { AdminService } from '../admin/admin.service';
 import { AuthService } from '../auth/auth.service';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-recipes',
@@ -13,6 +14,7 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
   styleUrls: ['./recipes.component.css'],
 })
 export class RecipesComponent implements OnInit {
+  handsetMode = false;
   id: ObjectId = {} as ObjectId;
   recipe: IngredientsModel = { title: '', ingredients: [] };
   userId: string | null = null;
@@ -22,7 +24,8 @@ export class RecipesComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private adminService: AdminService,
-    private shoppingListService: ShoppingListService
+    private shoppingListService: ShoppingListService,
+    private responsive: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +40,16 @@ export class RecipesComponent implements OnInit {
     if (localStorage.getItem('userId')) {
       this.userId = localStorage.getItem('userId');
     }
+    this.responsive
+      .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
+      .subscribe((result) => {
+        if (result.matches) {
+          this.handsetMode = true;
+          return;
+        }
+        this.handsetMode = false;
+        return;
+      });
   }
 
   onAddItems() {

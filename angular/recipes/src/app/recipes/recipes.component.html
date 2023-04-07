@@ -1,23 +1,20 @@
 <h1>Recipe Details</h1>
-<section>
-  <article>
+<section [ngClass]="{ 'hs-section': handsetMode === true }">
+  <article [ngClass]="{ 'hs-article': handsetMode === true }">
     <h2>{{ recipe.title }}</h2>
-    <div class="ctn-rcp-img">
-      <img
-        class="rcp-img"
-        src="../../assets/{{ recipe.title }}.jpg"
-        alt="burger"
-      />
-    </div>
+    <img
+      class="rcp-img"
+      src="../../assets/{{ recipe.title }}.jpg"
+      alt="burger"
+    />
   </article>
-  <article>
+  <article [ngClass]="{ 'hs-article': handsetMode === true }">
     <h2>Ingredients</h2>
-    <ul *ngFor="let ingredient of recipe.ingredients">
-      <li>
+    <ul>
+      <li *ngFor="let ingredient of recipe.ingredients">
         {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
       </li>
     </ul>
-    <br />
     <button
       *ngIf="!added && userId"
       mat-raised-button
@@ -34,8 +31,6 @@
     >
       Added to Shopping List!
     </button>
-    <br />
-    <br />
     <p>{{ recipe.desc }}</p>
   </article>
 </section>
