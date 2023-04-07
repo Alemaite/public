@@ -1,10 +1,25 @@
-table,
-mat-table,
-mat-row,
-mat-header-row {
-  width: 50%;
+table {
+  width: 100%;
 }
 
-table {
-  margin: auto;
+.mat-column-quantity {
+  padding-left: 0rem;
+}
+
+th.mat-header-cell:first-of-type,
+th.mat-header-cell:last-of-type {
+  padding: 0 0.5rem 0 0.5rem;
+}
+
+th.mat-header-cell {
+  text-align: center;
+}
+
+td.mat-cell:first-of-type,
+td.mat-cell:last-of-type {
+  padding: 0 0.5rem 0 0.5rem;
+}
+
+.mat-cell {
+  text-align: center;
 }
