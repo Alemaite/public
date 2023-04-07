@@ -1,21 +1,46 @@
 <h1>All Recipes</h1>
-<div class="ctn-rcps">
-  <div class="ctn-rcp">
+<div
+  [ngClass]="{
+    'ctn-rcps': handsetMode === false,
+    'hs-ctn-rcps': handsetMode === true
+  }"
+>
+  <div
+    [ngClass]="{
+      'ctn-rcp': handsetMode === false,
+      'hs-ctn-rcp': handsetMode === true
+    }"
+  >
     <h2><a routerLink="/recipes/63ea2bfaff7f5bda28e67908">Vegan Burger</a></h2>
-    <div class="ctn-rcp-img">
-      <img src="../../assets/Burger.jpg" alt="" />
-    </div>
+    <img
+      src="../../assets/Burger.jpg"
+      alt=""
+      [ngClass]="{
+        'hs-img': handsetMode === true
+      }"
+    />
     <p>
       Here is a delicious and easy-to-follow vegan burger recipe that is sure to
       be a hit with everyone, regardless of whether they follow a vegan diet or
       not!
     </p>
   </div>
-  <div class="ctn-rcp">
+  <div
+    [ngClass]="{
+      'ctn-rcp': handsetMode === false,
+      'hs-ctn-rcp': handsetMode === true
+    }"
+  >
     <h2><a routerLink="/recipes/63f1dc943e9206cb20b0db99">Hummus</a></h2>
-    <div class="ctn-rcp-img">
-      <img src="../../assets/Hummus.jpg" alt="" />
-    </div>
+
+    <img
+      src="../../assets/Hummus.jpg"
+      alt=""
+      [ngClass]="{
+        'hs-img': handsetMode === true
+      }"
+    />
+
     <p>
       This delicious hummus recipe is a creamy and flavorful dip that is perfect
       for a snack or appetizer. Made with simple ingredients like chickpeas,
@@ -23,11 +48,22 @@
       easy to make and always a crowd-pleaser.
     </p>
   </div>
-  <div class="ctn-rcp">
+  <div
+    [ngClass]="{
+      'ctn-rcp': handsetMode === false,
+      'hs-ctn-rcp': handsetMode === true
+    }"
+  >
     <h2><a routerLink="/recipes/63f1e6a83e9206cb20b0dc30">Bowl</a></h2>
-    <div class="ctn-rcp-img">
-      <img src="../../assets/Bowl.jpg" alt="" />
-    </div>
+
+    <img
+      src="../../assets/Bowl.jpg"
+      alt=""
+      [ngClass]="{
+        'hs-img': handsetMode === true
+      }"
+    />
+
     <p>
       A typical tofu bowl consists of a bed of rice, topped with sautéed or
       marinated tofu, and a variety of fresh vegetables, fruits, and other
@@ -37,23 +73,46 @@
     </p>
   </div>
 </div>
-<div class="ctn-rcps">
-  <div class="ctn-rcp">
+<div
+  [ngClass]="{
+    'ctn-rcps': handsetMode === false,
+    'hs-ctn-rcps': handsetMode === true
+  }"
+>
+  <div
+    [ngClass]="{
+      'ctn-rcp': handsetMode === false,
+      'hs-ctn-rcp': handsetMode === true
+    }"
+  >
     <h2><a routerLink="/recipes/63f1e8783e9206cb20b0dcad">Ramen</a></h2>
-    <div class="ctn-rcp-img">
-      <img src="../../assets/Ramen.jpg" alt="" />
-    </div>
+    <img
+      src="../../assets/Ramen.jpg"
+      alt=""
+      [ngClass]="{
+        'hs-img': handsetMode === true
+      }"
+    />
     <p>
       Flavorful broth made from vegetables, such as shiitake mushrooms, onions,
       and garlic, and often includes miso paste, soy sauce, and mirin for added
       flavor.
     </p>
   </div>
-  <div class="ctn-rcp">
+  <div
+    [ngClass]="{
+      'ctn-rcp': handsetMode === false,
+      'hs-ctn-rcp': handsetMode === true
+    }"
+  >
     <h2><a routerLink="/recipes/63f1ea2a3e9206cb20b0ddae">Burrito</a></h2>
-    <div class="ctn-rcp-img">
-      <img src="../../assets/Burrito.jpg" alt="" />
-    </div>
+    <img
+      src="../../assets/Burrito.jpg"
+      alt=""
+      [ngClass]="{
+        'hs-img': handsetMode === true
+      }"
+    />
     <p>
       This vegan burrito recipe is a flavorful and nutritious meal that is easy
       to make and perfect for a quick lunch or dinner. Whether you're a vegan or
@@ -61,11 +120,20 @@
       your cravings and keep you fueled for hours.
     </p>
   </div>
-  <div class="ctn-rcp">
+  <div
+    [ngClass]="{
+      'ctn-rcp': handsetMode === false,
+      'hs-ctn-rcp': handsetMode === true
+    }"
+  >
     <h2><a routerLink="/recipes/63f1ed4b3e9206cb20b0dfe3">Meatballs</a></h2>
-    <div class="ctn-rcp-img">
-      <img src="../../assets/Meatballs.jpg" alt="" />
-    </div>
+    <img
+      src="../../assets/Meatballs.jpg"
+      alt=""
+      [ngClass]="{
+        'hs-img': handsetMode === true
+      }"
+    />
     <p>
       This vegan meatballs recipe features a delightful blend of nutritious and
       flavorful ingredients that come together to create a satisfying and

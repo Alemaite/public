@@ -8,21 +8,25 @@ h2 {
 }
 
 .ctn-rcp {
-  width: 100%;
-}
-
-.ctn-rcp-img {
-  width: 30rem;
-  margin: auto;
+  width: 30%;
 }
 
 img {
-  width: 30rem;
-  height: 20rem;
+  width: 100%;
   border-radius: 0.5rem;
 }
 
 p {
-  margin: 1rem;
   text-align: justify;
+}
+
+/* handset mode */
+
+.hs-ctn-rcps {
+  display: block;
+}
+
+.hs-img {
+  width: 100%;
+  border-radius: 0.5rem;
 }
