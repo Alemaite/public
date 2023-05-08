@@ -72,6 +72,9 @@ export class AuthService {
     return undefined;
   }
 
+  // after logging out without reloading, then adding an activity whilst logged out, the activities when logged in still appear
+  // might be able to fix it by querying after logging out
+
   logOut() {
     this.clearAuthData();
     const loggedIn = this.getLoginStatus();

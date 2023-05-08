@@ -90,5 +90,11 @@
         </ng-container>
       </ng-container>
     </div>
+    <mat-paginator
+      [length]="this.activitiesNoQueryParams.length"
+      [pageSize]="itemsOnPage"
+      [pageIndex]="paginatorIndex"
+      (page)="onChangePage($event)"
+    ></mat-paginator>
   </section>
 </main>

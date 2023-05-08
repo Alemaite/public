@@ -5,6 +5,7 @@ import { TimerService } from './timer.service';
 import { min, Subscription } from 'rxjs';
 import { ActivityService } from './activity.service';
 import { AuthService } from '../auth/auth.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-main',
@@ -12,6 +13,10 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit, OnDestroy {
+  itemsOnPage = 5;
+  paginatorIndex = 0;
+  activitiesNoQueryParams: Activity[] = [];
+
   handsetMode = false;
   activities: Activity[] = [];
   email: string | undefined;
@@ -43,6 +48,7 @@ export class MainComponent implements OnInit, OnDestroy {
   timerServiceSub: Subscription = Subscription.EMPTY;
   emailSub: Subscription = Subscription.EMPTY;
   activitiesSub: Subscription = Subscription.EMPTY;
+  activitiesSubNoQueryParams: Subscription = Subscription.EMPTY;
 
   constructor(
     private timerService: TimerService,
@@ -54,14 +60,26 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userId = this.authService.getLoggedInUserId();
     this.email = this.authService.getLoggedInEmail();
-    this.activityService.getAllActivities(this.userId);
+    this.activityService.getAllActivities(
+      this.userId,
+      this.paginatorIndex,
+      this.itemsOnPage
+    );
+    this.activityService.getAllActivitiesNoQueryParams(this.userId);
 
     this.activitiesSub = this.activityService.activitiesSubj.subscribe(
       (activities) => {
-        const reverseActivities = activities.reverse();
-        this.activities = reverseActivities;
+        this.activities = activities;
       }
     );
+
+    this.activitiesSubNoQueryParams =
+      this.activityService.activitiesSubjNoQueryParams.subscribe(
+        (activities) => {
+          this.activitiesNoQueryParams = activities;
+        }
+      );
+
     this.timerServiceSub = this.timerService.seconds.subscribe(
       (seconds: number) => {
         this.timer.seconds = seconds;
@@ -75,11 +93,13 @@ export class MainComponent implements OnInit, OnDestroy {
         }
       }
     );
+
     this.emailSub = this.authService.emailSubj.subscribe(
       (response: string | undefined) => {
         this.email = response;
       }
     );
+
     this.responsive
       .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
       .subscribe((result) => {
@@ -88,6 +108,15 @@ export class MainComponent implements OnInit, OnDestroy {
         }
         return (this.handsetMode = false);
       });
+  }
+
+  onChangePage(event: PageEvent) {
+    this.paginatorIndex = event.pageIndex;
+    this.activityService.getAllActivities(
+      this.userId,
+      this.paginatorIndex,
+      this.itemsOnPage
+    );
   }
 
   deleteActivity(index: number) {
@@ -112,7 +141,9 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.activityService.deleteActivity(
       this.activities[index]._id,
-      this.userId
+      this.userId,
+      this.paginatorIndex,
+      this.itemsOnPage
     );
   }
 
@@ -215,11 +246,16 @@ export class MainComponent implements OnInit, OnDestroy {
     if (!this.email) {
       return;
     }
-    this.activityService.createActivity(this.activities[0], this.userId);
+    this.activityService.createActivity(
+      this.activities[0],
+      this.userId,
+      this.paginatorIndex,
+      this.itemsOnPage
+    );
   }
 
   onLog() {
-    console.log(this.activities[0].date);
+    console.log(this.paginatorIndex);
   }
 
   timeDifference() {
@@ -258,6 +294,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.emailSub.unsubscribe();
     this.timerServiceSub.unsubscribe();
     this.activitiesSub.unsubscribe();
+    this.activitiesSubNoQueryParams.unsubscribe();
     this.onStopClick();
   }
 }
