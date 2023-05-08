@@ -9,7 +9,7 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://alemaite:TOKENREMOVED@cluster0.7l41bhv.mongodb.net/time-tracking?retryWrites=true&w=majority"
+    "mongodb+srv://TOKENREMOVED@cluster0.7l41bhv.mongodb.net/time-tracking?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Connected to DB.");
@@ -43,13 +43,30 @@ app.use((req, res, next) => {
 // });
 
 app.get("/api/activities/:userId", (req, res, next) => {
-  Activity.find({ userId: req.params.userId }).then((result) => {
-    try {
-      res.status(200).json(result);
-    } catch {
-      res.status(500).json({ message: "Internal server error." });
-    }
-  });
+  if (req.query.page > 0) {
+    Activity.find({ userId: req.params.userId })
+      .sort({ date: -1 })
+      .skip(+req.query.items * +req.query.page)
+      .limit(+req.query.items)
+      .then((result) => {
+        try {
+          res.status(200).json(result);
+        } catch {
+          res.status(500).json({ message: "Internal server error." });
+        }
+      });
+    return;
+  }
+  Activity.find({ userId: req.params.userId })
+    .sort({ date: -1 })
+    .limit(+req.query.items)
+    .then((result) => {
+      try {
+        res.status(200).json(result);
+      } catch {
+        res.status(500).json({ message: "Internal server error." });
+      }
+    });
 });
 
 app.post("/api/activities/delete", (req, res, next) => {
