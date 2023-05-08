@@ -66,13 +66,14 @@ export class HomeComponent implements OnInit {
   // recipes variables
 
   recipesImages = ['home', 'details', 'shopping-list', 'admin'];
-  // recipesHandsetImages = [
-  //   'handset-home',
-  //   'handset-home-logged-in',
-  //   'handset-login',
-  // ];
+  recipesHandsetImages = [
+    'handset-home',
+    'handset-details',
+    'handset-shopping-list',
+    'handset-admin',
+  ];
   recipesActiveImage = 'home';
-  // recipesHandsetActiveImage = 'handset-home';
+  recipesHandsetActiveImage = 'handset-home';
   recipesImageIndex = 0;
   moveLeftRecipes = false;
   moveRightRecipes = false;
@@ -80,14 +81,10 @@ export class HomeComponent implements OnInit {
 
   // time tracking variables
 
-  timeTrackingImages = ['home', 'home-logged-in', 'login'];
-  timeTrackingHandsetImages = [
-    'handset-home',
-    'handset-home-logged-in',
-    'handset-login',
-  ];
-  timeTrackingActiveImage = 'home';
-  timeTrackingHandsetActiveImage = 'handset-home';
+  timeTrackingImages = ['home-logged-in', 'login'];
+  timeTrackingHandsetImages = ['handset-home-logged-in', 'handset-login'];
+  timeTrackingActiveImage = 'home-logged-in';
+  timeTrackingHandsetActiveImage = 'handset-home-logged-in';
   timeTrackingImageIndex = 0;
   moveLeftTimeTracking = false;
   moveRightTimeTracking = false;
@@ -177,7 +174,7 @@ export class HomeComponent implements OnInit {
         }
         break;
       case 'time-tracking':
-        if (this.timeTrackingImageIndex < 2) {
+        if (this.timeTrackingImageIndex < 1) {
           this.timeTrackingImageIndex++;
           this.moveRightTimeTracking = true;
         }
@@ -237,6 +234,8 @@ export class HomeComponent implements OnInit {
     if (this.handsetMode === true) {
       setTimeout(
         () => (
+          (this.recipesHandsetActiveImage =
+            this.recipesHandsetImages[this.recipesImageIndex]),
           (this.timeTrackingHandsetActiveImage =
             this.timeTrackingHandsetImages[this.timeTrackingImageIndex]),
           (this.onlineShopHandsetActiveImage =

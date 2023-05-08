@@ -59,18 +59,17 @@
         </ng-container>
       </ng-container>
       <ng-container *ngIf="handsetMode === true">
-        <p>This app is not yet responsive.</p>
-        <!-- <ng-container *ngFor="let handsetImage of timeTrackingHandsetImages">
+        <ng-container *ngFor="let handsetImage of recipesHandsetImages">
           <img
             [@moveSlide]="moveRightRecipes ? 'slideonrightarrow' : 'normal'"
-            *ngIf="handsetImage === timeTrackingHandsetActiveImage"
+            *ngIf="handsetImage === recipesHandsetActiveImage"
             class="handset-projects-img"
-            src="../../assets/project-screenshots/time-tracking/{{
+            src="../../assets/project-screenshots/recipes/{{
               handsetImage
             }}.png"
             alt="project-image-{{ recipesImageIndex + 1 }}"
           />
-        </ng-container> -->
+        </ng-container>
       </ng-container>
       <img
         [@moveSlide]="moveRightRecipes ? 'rightarrow' : 'normal'"
@@ -175,9 +174,8 @@
       <p>
         [ {{ timeTrackingImageIndex + 1 }} of {{ timeTrackingImages.length }} ]
       </p>
-      <p *ngIf="timeTrackingImageIndex === 0">Home Page</p>
-      <p *ngIf="timeTrackingImageIndex === 1">Home Page when logged in</p>
-      <p *ngIf="timeTrackingImageIndex === 2">Log in or register</p>
+      <p *ngIf="timeTrackingImageIndex === 0">Home Page when logged in</p>
+      <p *ngIf="timeTrackingImageIndex === 1">Log in or register</p>
     </div>
   </article>
   <br />
