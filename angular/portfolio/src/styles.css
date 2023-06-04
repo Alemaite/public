@@ -1,0 +1,58 @@
+html {
+  font-family: "Roboto", sans-serif;
+  background-color: black;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+body,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2 {
+  color: rgb(230, 120, 50);
+  font-weight: 400;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+a {
+  color: rgb(230, 120, 50);
+}
+
+p,
+h3,
+h4,
+ul,
+li,
+label {
+  color: white;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-style-skewed {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  top: -15rem;
+  width: 100%;
+  height: 35rem;
+  transform: skewY(8deg);
+  background: rgba(90, 90, 90, 0.2);
+  transform-origin: 0%;
+}

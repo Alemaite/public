@@ -1,0 +1,51 @@
+article {
+  width: 100%;
+}
+
+p {
+  text-align: center;
+}
+
+.projects-ctn {
+  display: flex;
+  margin: auto;
+  width: 90%;
+  justify-content: space-around;
+}
+
+.project-details-img {
+  height: 50%;
+  width: 50%;
+  object-fit: cover;
+  border-radius: 0.3rem;
+}
+
+.details-ctn {
+  width: 40%;
+}
+
+/* responsive design classes */
+
+.handset-projects-ctn {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+  align-items: center;
+}
+
+.handset-project-details-img {
+  margin: 1rem auto;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.3rem;
+}
+
+.handset-details-ctn {
+  width: 90%;
+}
+
+.handset-details-ctn h3 {
+  margin: 1rem auto;
+  text-align: center;
+}

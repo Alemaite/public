@@ -1,0 +1,200 @@
+<main (click)="onMainClick(false)">
+  <h1>Project Details</h1>
+  <div class="background-style-skewed"></div>
+  <p>
+    This page will provide information about the technologies used to develop
+    each project. Feel free to check out my
+    <a
+      href="https://github.com/Alemaite"
+      target="_blank"
+      style="color: rgb(230, 120, 50)"
+      >GitHub</a
+    >
+    for the source code.
+  </p>
+  <p>All projects are continuosly being worked on, and are not final.</p>
+  <br />
+  <br />
+  <br />
+  <article id="recipes">
+    <h2>
+      <a
+        href="https://iu-recipes.click/"
+        target="_blank"
+        style="color: rgb(230, 120, 50)"
+        >Recipes App</a
+      >
+    </h2>
+    <p style="font-size: 0.6rem">click headline to go to page</p>
+    <div
+      [ngClass]="{
+        'projects-ctn': handsetMode === false,
+        'handset-projects-ctn': handsetMode === true
+      }"
+    >
+      <img
+        [ngClass]="{
+          'project-details-img': handsetMode === false,
+          'handset-project-details-img': handsetMode === true
+        }"
+        src="../../assets/project-screenshots/recipes/home.avif"
+        alt="products-overview"
+      />
+      <div
+        [ngClass]="{
+          'details-ctn': handsetMode === false,
+          'handset-details-ctn': handsetMode === true
+        }"
+      >
+        <h3>Technologies Used</h3>
+        <ul>
+          <li>Frontend: HTML, CSS & Angular (Material)</li>
+          <li>Backend: NodeJS, Express & EJs (REST)</li>
+          <li>Database: MongoDB (mongoose)</li>
+        </ul>
+        <br />
+        <h3>Features</h3>
+        <ul>
+          <li>responsive</li>
+          <li>signup, login, logout (password hashed with bcrypt)</li>
+          <li>add or remove recipes in the admin UI</li>
+          <li>add or remove recipe ingredients from shopping list</li>
+          <br />
+          <br />
+        </ul>
+      </div>
+    </div>
+  </article>
+  <br />
+  <br />
+  <article id="time-tracking">
+    <h2>
+      <a
+        href="https://iu-time-tracking.click/"
+        target="_blank"
+        style="color: rgb(230, 120, 50)"
+        >Time Tracking App</a
+      >
+    </h2>
+    <p style="font-size: 0.6rem">click headline to go to page</p>
+    <div
+      [ngClass]="{
+        'projects-ctn': handsetMode === false,
+        'handset-projects-ctn': handsetMode === true
+      }"
+    >
+      <img
+        [ngClass]="{
+          'project-details-img': handsetMode === false,
+          'handset-project-details-img': handsetMode === true
+        }"
+        src="../../assets/project-screenshots/time-tracking/home-logged-in.png"
+        alt="products-overview"
+      />
+      <div
+        [ngClass]="{
+          'details-ctn': handsetMode === false,
+          'handset-details-ctn': handsetMode === true
+        }"
+      >
+        <h3>Technologies Used</h3>
+        <ul>
+          <li>Frontend: HTML, CSS & Angular</li>
+          <li>Backend: NodeJS, Express & EJs (REST)</li>
+          <li>Database: MongoDB (mongoose)</li>
+        </ul>
+        <br />
+        <h3>Features</h3>
+        <ul>
+          <li>responsive</li>
+          <li>pagination (5 activities per page)</li>
+          <li>timer runs in the background through web worker</li>
+          <li>track activities & keep data (if logged in)</li>
+          <li>remove previously tracked activities</li>
+          <li>signup, login, logout (password hashed with bcrypt)</li>
+          <br />
+          <br />
+        </ul>
+      </div>
+    </div>
+  </article>
+  <br />
+  <br />
+  <article id="online-shop">
+    <h2>
+      <a
+        href="https://iu-online-shop.click/"
+        target="_blank"
+        style="color: rgb(230, 120, 50)"
+        >Online Shop</a
+      >
+    </h2>
+    <p style="font-size: 0.6rem">click headline to go to page</p>
+    <div
+      [ngClass]="{
+        'projects-ctn': handsetMode === false,
+        'handset-projects-ctn': handsetMode === true
+      }"
+    >
+      <img
+        [ngClass]="{
+          'project-details-img': handsetMode === false,
+          'handset-project-details-img': handsetMode === true
+        }"
+        src="../../assets/project-screenshots/online-shop/products.png"
+        alt="products-overview"
+      />
+      <div
+        [ngClass]="{
+          'details-ctn': handsetMode === false,
+          'handset-details-ctn': handsetMode === true
+        }"
+      >
+        <h3>Technologies Used</h3>
+        <ul>
+          <li>Frontend: HTML, CSS & vanilla JavaScript</li>
+          <li>Backend: NodeJS, Express & EJs</li>
+          <li>Database: MongoDB</li>
+        </ul>
+        <br />
+        <h3>Features</h3>
+        <ul>
+          <li>responsive</li>
+          <li>signup, login, logout (password hashed with bcrypt)</li>
+          <li>verification, if user is an admin (backend)</li>
+          <br />
+          <br />
+          <ul>
+            Admin UI
+          </ul>
+          <br />
+          <li>add products, edit products, delete products</li>
+          <li>order overview (orders of all users)</li>
+          <br />
+          <br />
+          <ul>
+            Non-Admin UI
+          </ul>
+          <br />
+          <li>products overview</li>
+          <li>view product details</li>
+          <li>orders overview</li>
+          <li>
+            add items to cart & remove items from cart (prices are calculated
+            dynamically)
+          </li>
+          <li>
+            e-mail is initialized with signed up e-mail address (if logged in)
+          </li>
+          <li>
+            alternatively an e-mail needs to be provided in the shipping &
+            payment page
+          </li>
+        </ul>
+      </div>
+    </div>
+  </article>
+  <br />
+  <br />
+  <br />
+</main>
