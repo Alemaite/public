@@ -7,8 +7,8 @@ p {
   display: flex;
   position: relative;
   justify-content: space-between;
-  width: 54rem;
-  height: 26rem;
+  width: 66rem;
+  height: 30rem;
   margin: auto;
   align-items: center;
 }
@@ -132,7 +132,7 @@ p {
 }
 
 .spinner-recipes {
-  top: 54%;
+  top: 33rem;
 }
 
 .spinner-recipes-zoom {
@@ -141,7 +141,7 @@ p {
 }
 
 .spinner-time-tracking {
-  top: 127%;
+  top: 75rem;
 }
 
 .spinner-time-tracking-zoom {
@@ -150,7 +150,7 @@ p {
 }
 
 .spinner-online-shop {
-  top: 197%;
+  top: 116rem;
 }
 
 .spinner-online-shop-zoom {
@@ -159,6 +159,20 @@ p {
 }
 
 /* media queries */
+
+@media (min-width: 1920px) {
+  /* .projects-ctn {
+    width: 66rem;
+    height: 30rem;
+  }
+
+  .incr-z-index {
+    top: 11%;
+    left: 2%;
+    height: 47rem;
+    width: 95%;
+  } */
+}
 
 @media (min-width: 2560px) {
   .projects-ctn {
@@ -172,29 +186,15 @@ p {
     width: 95%;
   }
   .spinner-recipes {
-    top: 59%;
+    top: 45rem;
   }
 
   .spinner-time-tracking {
-    top: 144%;
+    top: 110rem;
   }
 
   .spinner-online-shop {
-    top: 228%;
-  }
-}
-
-@media (max-width: 1920px) {
-  .projects-ctn {
-    width: 66rem;
-    height: 30rem;
-  }
-
-  .incr-z-index {
-    top: 11%;
-    left: 2%;
-    height: 47rem;
-    width: 95%;
+    top: 175rem;
   }
 }
 
@@ -212,19 +212,19 @@ p {
   }
 
   .spinner-recipes {
-    top: 63%;
+    top: 34rem;
   }
 
   .spinner-time-tracking {
-    top: 140%;
+    top: 75rem;
   }
 
   .spinner-online-shop {
-    top: 217%;
+    top: 116rem;
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1130px) {
   .projects-ctn {
     width: 60rem;
     height: 27rem;
@@ -237,19 +237,19 @@ p {
   }
 
   .spinner-recipes {
-    top: 62%;
+    top: 33rem;
   }
 
   .spinner-time-tracking {
-    top: 133%;
+    top: 72rem;
   }
 
   .spinner-online-shop {
-    top: 205%;
+    top: 110rem;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 990px) {
   .projects-ctn {
     width: 47rem;
     height: 22rem;
@@ -263,72 +263,98 @@ p {
   }
 
   .spinner-recipes {
-    top: 58%;
+    top: 31rem;
   }
 
   .spinner-time-tracking {
-    top: 121%;
+    top: 64rem;
   }
 
   .spinner-online-shop {
-    top: 183%;
+    top: 98rem;
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 775px) {
+  .projects-ctn {
+    width: 36rem;
+    height: 15rem;
+  }
+
+  .incr-z-index {
+    top: 31%;
+    left: 0%;
+    height: 19rem;
+    width: 100%;
+  }
+
+  .spinner-recipes {
+    top: 28rem;
+  }
+
+  .spinner-time-tracking {
+    top: 54rem;
+  }
+
+  .spinner-online-shop {
+    top: 81rem;
+  }
+}
+
+@media (max-width: 645px) {
   .projects-ctn {
     width: 25rem;
     height: 15rem;
   }
 
   .spinner-recipes {
-    top: 52%;
+    top: 28rem;
   }
 
   .spinner-time-tracking {
-    top: 97%;
+    top: 53rem;
   }
 
   .spinner-online-shop {
-    top: 144%;
+    top: 77rem;
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 420px) {
   .projects-ctn {
     width: 23rem;
     height: 14rem;
   }
 
   .spinner-recipes {
-    top: 51%;
+    top: 28rem;
   }
 
   .spinner-time-tracking {
-    top: 98%;
+    top: 51rem;
   }
 
   .spinner-online-shop {
-    top: 139%;
+    top: 74rem;
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 390px) {
   .projects-ctn {
     width: 20rem;
     height: 13rem;
   }
 
   .spinner-recipes {
-    top: 53%;
+    top: 27rem;
   }
 
   .spinner-time-tracking {
-    top: 95%;
+    top: 50rem;
   }
 
   .spinner-online-shop {
-    top: 136%;
+    top: 72rem;
   }
 }
 
