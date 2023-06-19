@@ -88,7 +88,5 @@ export class AdminComponent implements OnInit {
     return this.adminService.postRecipe(recipe);
   }
 
-  onLog() {
-    console.log(this.recipes);
-  }
+  onLog() {}
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AdminService } from '../admin/admin.service';
 
 @Component({
   selector: 'app-recipes-list',
@@ -8,7 +9,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class RecipesListComponent implements OnInit {
   handsetMode = false;
-  constructor(private responsive: BreakpointObserver) {}
+  constructor(
+    private responsive: BreakpointObserver,
+    private adminService: AdminService
+  ) {}
 
   ngOnInit(): void {
     this.responsive
@@ -21,6 +25,5 @@ export class RecipesListComponent implements OnInit {
         this.handsetMode = false;
         return;
       });
-    console.log(this.handsetMode);
   }
 }

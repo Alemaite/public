@@ -6,7 +6,6 @@ section {
 article {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   width: 45%;
 }
 
@@ -29,6 +28,21 @@ button {
   border-radius: 0.5rem;
 }
 
+.popup {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 30%;
+  left: 30%;
+  right: 30%;
+  text-align: center;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 0.3rem;
+  max-width: 16rem;
+  margin: 0 auto;
+}
+
 /* handset mode */
 
 .hs-section {
@@ -39,4 +53,19 @@ button {
   display: block;
   width: 100%;
   margin: auto;
+}
+
+.hs-popup {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 14%;
+  right: 14%;
+  top: 28%;
+  margin: 0 auto;
+  max-width: 16rem;
+  text-align: center;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 0.3rem;
 }

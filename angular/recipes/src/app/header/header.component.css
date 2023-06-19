@@ -12,3 +12,13 @@ ul {
   color: white;
   width: 50%;
 }
+
+/* handset mode*/
+
+.hs-ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  width: 100%;
+}

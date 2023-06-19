@@ -1,3 +1,8 @@
+.mat-expansion-panel {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
 table {
   width: 100%;
 }

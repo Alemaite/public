@@ -6,9 +6,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("", (req, res, next) => {
-  User.findOne({ name: req.body.name, isAdmin: true }).then((user) => {
-    console.log(user);
-  });
+  User.findOne({ name: req.body.name, isAdmin: true }).then((user) => {});
 });
 
 router.post("", (req, res, next) => {

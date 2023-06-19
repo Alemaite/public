@@ -3,6 +3,7 @@
   <article [ngClass]="{ 'hs-article': handsetMode === true }">
     <h2>{{ recipe.title }}</h2>
     <img
+      *ngIf="recipe.title"
       class="rcp-img"
       src="../../assets/{{ recipe.title }}.jpg"
       alt="burger"
@@ -16,7 +17,7 @@
       </li>
     </ul>
     <button
-      *ngIf="!added && userId"
+      *ngIf="!added"
       mat-raised-button
       color="accent"
       (click)="onAddItems()"
@@ -31,6 +32,16 @@
     >
       Added to Shopping List!
     </button>
-    <p>{{ recipe.desc }}</p>
+    <ng-container *ngFor="let desc of recipe.desc">
+      <p style="text-align: justify">{{ desc }}</p>
+    </ng-container>
+    <div
+      *ngIf="duplicates"
+      [ngClass]="{ 'hs-popup': handsetMode }"
+      class="popup"
+    >
+      <p>Ingredients for this recipe already on shopping list</p>
+      <button mat-raised-button (click)="confirmPopup()">Ok</button>
+    </div>
   </article>
 </section>

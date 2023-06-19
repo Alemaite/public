@@ -16,9 +16,12 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class RecipesComponent implements OnInit {
   handsetMode = false;
   id: ObjectId = {} as ObjectId;
-  recipe: IngredientsModel = { title: '', ingredients: [] };
+  recipe: IngredientsModel = { title: '', ingredients: [], _id: '' };
+  sessionId: string | null = null;
   userId: string | null = null;
   added = false;
+  duplicates: boolean | undefined = undefined;
+  popUpActive = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,16 +33,25 @@ export class RecipesComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+
     this.adminService.getRecipe(this.id);
+
     this.adminService.recipe.subscribe((recipe: any) => {
       this.recipe = recipe;
     });
+
     this.authService.userId.subscribe((userId: string) => {
       this.userId = userId;
     });
+
+    this.shoppingListService.duplicates.subscribe((duplicates: boolean) => {
+      this.duplicates = duplicates;
+    });
+
     if (localStorage.getItem('userId')) {
       this.userId = localStorage.getItem('userId');
     }
+
     this.responsive
       .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
       .subscribe((result) => {
@@ -53,8 +65,23 @@ export class RecipesComponent implements OnInit {
   }
 
   onAddItems() {
-    this.shoppingListService.addItems(this.userId, this.recipe);
+    if (this.added) {
+      this.duplicates = true;
+      return;
+    }
+
+    if (this.userId) {
+      this.shoppingListService.addItems(this.userId, this.recipe);
+      this.added = true;
+      return;
+    }
+
+    this.shoppingListService.addItemsToSession(this.recipe);
     this.added = true;
-    return;
+  }
+
+  confirmPopup() {
+    this.duplicates = false;
+    this.added = false;
   }
 }

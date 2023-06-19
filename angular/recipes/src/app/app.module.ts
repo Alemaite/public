@@ -9,7 +9,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth.component';
 import { RecipesComponent } from './recipes/recipes.component';
@@ -25,7 +24,6 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
     HeaderComponent,
     AuthComponent,
     RecipesComponent,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserModel } from '../models/user';
 import { Subject } from 'rxjs';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -11,11 +12,10 @@ export class AuthService {
   public isAdmin = new Subject<boolean>();
   public userId = new Subject<string>();
 
-  constructor(private http: HttpClient) {}
-
-  // getUserLevel(user: UserModel) {
-  //   this.http.get();
-  // }
+  constructor(
+    private http: HttpClient,
+    private shoppingListService: ShoppingListService
+  ) {}
 
   createUser(user: UserModel) {
     this.http
@@ -44,9 +44,9 @@ export class AuthService {
           localStorage.setItem('loginStatus', 'true');
           localStorage.setItem('isAdmin', 'false');
           localStorage.setItem('userId', response.user._id);
-          // console.log(response);
           this.userId.next(response.user._id);
           this.loginStatus.next(true);
+          this.shoppingListService.getItems(response.user._id);
           if (response.user.isAdmin) {
             localStorage.setItem('isAdmin', 'true');
             this.isAdmin.next(response.user.isAdmin);

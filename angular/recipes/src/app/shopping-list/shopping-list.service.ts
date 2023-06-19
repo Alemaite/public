@@ -7,13 +7,55 @@ import { IngredientsModel } from '../models/ingredients';
 @Injectable({ providedIn: 'root' })
 export class ShoppingListService {
   shoppingList = new Subject<ShoppingListModel>();
+  shoppingListSession = new Subject<IngredientsModel[]>();
+  duplicates = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
-  addItems(userId: string | null, items: IngredientsModel) {
+  // requests below if not logged in
+  getItemsFromSession() {
+    this.http
+      .get<{ message: string; result: IngredientsModel[] }>(
+        'https://iu-recipes.click/api/shopping-list'
+      )
+      .subscribe(
+        (response: { message: string; result: IngredientsModel[] }) => {
+          this.shoppingListSession.next(response.result);
+        }
+      );
+  }
+
+  addItemsToSession(items: IngredientsModel) {
+    this.http
+      .post<{ message: string; duplicates: boolean }>(
+        'https://iu-recipes.click/api/shopping-list',
+        items
+      )
+      .subscribe((response: { message: string; duplicates: boolean }) => {
+        this.duplicates.next(response.duplicates);
+        this.getItemsFromSession();
+      });
+  }
+
+  deleteItemsFromSession(recipeId: string | undefined) {
+    this.http
+      .post<{ message: string }>(
+        'https://iu-recipes.click/api/shopping-list/' + recipeId + '/delete/',
+        recipeId
+      )
+      .subscribe(() => {
+        this.getItemsFromSession();
+      });
+  }
+
+  // all requests below if logged in
+  addItems(userId: string, items: IngredientsModel) {
     this.http
       .post('https://iu-recipes.click/api/' + userId + '/shopping-list', items)
-      .subscribe(() => {});
+      .subscribe((response: any) => {
+        this.duplicates.next(response.duplicates);
+        this.getItems(userId);
+      });
   }
 
   getItems(userId: string) {
@@ -24,7 +66,7 @@ export class ShoppingListService {
       });
   }
 
-  deleteItems(userId: string, recipeId: string) {
+  deleteItems(userId: string, recipeId: string | undefined) {
     this.http
       .post(
         'https://iu-recipes.click/api/' +
@@ -34,7 +76,7 @@ export class ShoppingListService {
           '/delete',
         recipeId
       )
-      .subscribe((response: any) => {
+      .subscribe(() => {
         this.getItems(userId);
       });
   }

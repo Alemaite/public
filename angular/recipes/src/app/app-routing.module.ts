@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'recipes/:id', component: RecipesComponent },
   { path: 'shopping-list/:id', component: ShoppingListComponent },
+  { path: 'shopping-list', component: ShoppingListComponent },
 ];
 
 @NgModule({

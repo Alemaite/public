@@ -81,6 +81,5 @@ export class TableComponent {
       ingredients: ingredients,
     };
     return this.adminService.postRecipe(recipe);
-    // return console.log(recipe);
   }
 }

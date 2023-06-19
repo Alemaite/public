@@ -11,7 +11,7 @@ import { ShoppingListService } from './shopping-list.service';
 })
 export class ShoppingListComponent implements OnInit {
   displayedColumns: string[] = ['quantity', 'unit', 'name'];
-  recipes: any = [];
+  recipes: IngredientsModel[] = [];
   userId: string = '';
 
   constructor(
@@ -21,14 +21,30 @@ export class ShoppingListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.params['id'];
-    this.shoppingListService.getItems(this.userId);
-    this.shoppingListService.shoppingList.subscribe((items: any) => {
-      this.recipes = items;
-    });
+
+    if (this.userId) {
+      this.shoppingListService.getItems(this.userId);
+      this.shoppingListService.shoppingList.subscribe((items: any) => {
+        this.recipes = items;
+      });
+      return;
+    }
+
+    this.shoppingListService.getItemsFromSession();
+
+    this.shoppingListService.shoppingListSession.subscribe(
+      (recipes: IngredientsModel[]) => {
+        this.recipes = recipes;
+      }
+    );
   }
 
-  onDelete(recipeId: string) {
-    this.shoppingListService.deleteItems(this.userId, recipeId);
-    return;
+  onDelete(recipeId: string | undefined) {
+    if (this.userId) {
+      this.shoppingListService.deleteItems(this.userId, recipeId);
+      return;
+    }
+
+    this.shoppingListService.deleteItemsFromSession(recipeId);
   }
 }
