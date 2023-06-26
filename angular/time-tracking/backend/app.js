@@ -1,26 +1,17 @@
 const express = require("express");
+const session = require("express-session");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const Activity = require("./models/activity");
+const mongodbStoreSession = require("connect-mongodb-session");
+const MongoDBStoreSession = mongodbStoreSession(session);
 const bcrypt = require("bcryptjs");
+// Models
+const Activity = require("./models/activity");
 const User = require("./models/user");
+const Session = require("./models/session");
 
 const app = express();
-
-mongoose
-  .connect(
-    "mongodb+srv://TOKENREMOVED@cluster0.7l41bhv.mongodb.net/time-tracking?retryWrites=true&w=majority"
-  )
-  .then(() => {
-    console.log("Connected to DB.");
-  })
-  .catch(() => {
-    console.log("Error connecting to DB.");
-  });
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -34,13 +25,108 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get("/", (req, res, next) => {
-//   try {
-//     res.status(200).json({ message: "Request received from API." });
-//   } catch {
-//     res.status(500).json({ message: "Internal server errror." });
-//   }
-// });
+app.use(cors({ origin: ["https://iu-time-tracking.click"], credentials: true }));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+mongoose
+  .connect(
+    "REMOVED"
+  )
+  .then(() => {
+    console.log("Connected to DB.");
+  })
+  .catch(() => {
+    console.log("Error connecting to DB.");
+  });
+
+const storeSession = new MongoDBStoreSession({
+  uri: "REMOVED",
+  collection: "sessions",
+});
+
+app.use(
+  session({
+    secret: "REMOVED",
+    resave: false,
+    saveUninitialized: false,
+    store: storeSession,
+  })
+);
+
+// REST API
+
+// requests when not logged in (session)
+
+app.get("/api/activities/", (req, res, next) => {
+  if (!req.session.activities) {
+    req.session.activities = [];
+  }
+
+  if (req.query.page > 0) {
+    Session.aggregate([
+      { $match: { _id: req.sessionID } },
+      { $unwind: "$session.activities" },
+      { $replaceRoot: { newRoot: "$session.activities" } },
+    ])
+      .sort({ date: -1 })
+      .skip(+req.query.items * +req.query.page)
+      .limit(+req.query.items)
+      .then((result) => {
+        try {
+          res.status(200).json(result);
+        } catch {
+          res.status(500).json({
+            message:
+              "Server error when responding with activity data (session)",
+          });
+        }
+      });
+    return;
+  }
+
+  if (req.query.items) {
+    Session.aggregate([
+      { $match: { _id: req.sessionID } },
+      { $unwind: "$session.activities" },
+      { $replaceRoot: { newRoot: "$session.activities" } },
+    ])
+      .sort({ date: -1 })
+      .limit(+req.query.items)
+      .then((result) => {
+        try {
+          res.status(200).json(result);
+        } catch {
+          res.status(500).json({
+            message:
+              "Server error when responding with activity data (session)",
+          });
+        }
+      });
+    return;
+  }
+
+  // request below to return items when request is sent without query params (without limiting amount of returned items)
+
+  Session.aggregate([
+    { $match: { _id: req.sessionID } },
+    { $unwind: "$session.activities" },
+    { $replaceRoot: { newRoot: "$session.activities" } },
+  ])
+    .sort({ date: -1 })
+    .then((result) => {
+      try {
+        res.status(200).json(result);
+      } catch {
+        res.status(500).json({
+          message: "Server error when responding with activity data (session)",
+        });
+      }
+    });
+});
+
+// requests when logged in
 
 app.get("/api/activities/:userId", (req, res, next) => {
   if (req.query.page > 0) {
@@ -57,9 +143,25 @@ app.get("/api/activities/:userId", (req, res, next) => {
       });
     return;
   }
+
+  if (req.query.items) {
+    Activity.find({ userId: req.params.userId })
+      .sort({ date: -1 })
+      .limit(+req.query.items)
+      .then((result) => {
+        try {
+          res.status(200).json(result);
+        } catch {
+          res.status(500).json({ message: "Internal server error." });
+        }
+      });
+    return;
+  }
+
+  // request below to return items when request is sent without query params (without limiting amount of returned items)
+
   Activity.find({ userId: req.params.userId })
     .sort({ date: -1 })
-    .limit(+req.query.items)
     .then((result) => {
       try {
         res.status(200).json(result);
@@ -70,34 +172,81 @@ app.get("/api/activities/:userId", (req, res, next) => {
 });
 
 app.post("/api/activities/delete", (req, res, next) => {
-  Activity.deleteOne({ _id: req.body.actId })
-    .then((result) => {
-      res.status(200).json(result);
-    })
-    .catch((error) => {
-      res.status(500).json({ message: "Internal server error." });
+  if (req.body.actId) {
+    Activity.deleteOne({ _id: req.body.actId }).then((result) => {
+      try {
+        res.status(200).json(result);
+      } catch {
+        res
+          .status(500)
+          .json({ message: "Internal server error deleting item (logged in)." });
+      }
     });
+    return;
+  }
+
+  Session.updateOne(
+    { _id: req.sessionID },
+    { $pull: { "session.activities": { date: req.body.date } } }
+  ).then((result) => {
+    try {
+      res.status(200).json(result);
+    } catch {
+      res
+        .status(500)
+        .json({ message: "Internal server error deleting item (session)." });
+    }
+  });
 });
 
 app.post("/api/activities", (req, res, next) => {
-  const activity = new Activity({
-    userId: req.body.userId,
-    user: req.body.user,
+  if (req.body.userId) {
+    const activity = new Activity({
+      userId: req.body.userId,
+      user: req.body.user,
+      activity: req.body.activity,
+      from: req.body.from,
+      to: req.body.to,
+      time: req.body.time,
+      date: req.body.date,
+      displayDate: req.body.displayDate,
+    });
+    activity
+      .save()
+      .then(() => {
+        res.status(201).json({ message: "Activity saved in db (logged in)." });
+      })
+      .catch((error) => {
+        res.status(500).json({
+          message:
+            "Internal server error when saving activity in db (logged in).",
+        });
+      });
+    return;
+  }
+
+  const activity = {
     activity: req.body.activity,
     from: req.body.from,
     to: req.body.to,
     time: req.body.time,
     date: req.body.date,
     displayDate: req.body.displayDate,
-  });
-  activity
-    .save()
-    .then(() => {
-      res.status(201).json({ message: "Activity saved in db." });
-    })
-    .catch((error) => {
-      res.status(500).json({ message: "Internal server error." });
+  };
+
+  // if (req.session.activities === undefined) {
+  //   req.session.activities = [];
+  // }
+
+  req.session.activities.push(activity);
+
+  try {
+    res.status(201).json({ message: "Activity saved in db (session)." });
+  } catch {
+    res.status(500).json({
+      message: "Internal server error when saving activity in db (session).",
     });
+  }
 });
 
 app.post("/api/users/register", (req, res, next) => {
