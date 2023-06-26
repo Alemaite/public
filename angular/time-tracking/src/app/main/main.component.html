@@ -45,8 +45,7 @@
   </section>
   <section class="second-section">
     <div class="activities-list">
-      <ng-container *ngIf="activities.length > 0">
-        <p>Click on activity to delete it.</p>
+      <ng-container *ngIf="activities && activities.length > 0">
         <div class="activity">
           <p class="activity-c1">Activity</p>
           <p class="activity-c2">From</p>
@@ -69,12 +68,7 @@
               {{ activities[i].displayDate }}
             </p>
           </div>
-          <div
-            (click)="deleteActivity(i)"
-            [ngClass]="i === 0 ? 'highlight' : ''"
-            class="activity"
-            style="cursor: pointer"
-          >
+          <div [ngClass]="i === 0 ? 'highlight' : ''" class="activity">
             <p
               class="activity-c1"
               [ngClass]="{
@@ -86,6 +80,7 @@
             <p class="activity-c2">{{ activity.from }}</p>
             <p class="activity-c3">{{ activity.to }}</p>
             <p class="activity-c4">{{ activity.time }}</p>
+            <span class="deleteActivityBtn" (click)="deleteActivity(i)">x</span>
           </div>
         </ng-container>
       </ng-container>

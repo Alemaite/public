@@ -20,7 +20,7 @@ export class AuthService {
   loginUser(user: User) {
     this.http
       .post<{ message: string; email?: string | undefined; _id?: string }>(
-        'https://iu-time-tracking-api.click/api/users/login',
+        'https://iu-time-tracking.click/api/users/login',
         user
       )
       .subscribe(
@@ -72,16 +72,12 @@ export class AuthService {
     return undefined;
   }
 
-  // after logging out without reloading, then adding an activity whilst logged out, the activities when logged in still appear
-  // might be able to fix it by querying after logging out
-
   logOut() {
     this.clearAuthData();
     const loggedIn = this.getLoginStatus();
     const email = this.getLoggedInEmail();
     this.loggedInSubj.next(loggedIn);
     this.emailSubj.next(email);
-    this.activityService.clearActivitiesOnLogout();
   }
 
   private clearAuthData() {
@@ -93,7 +89,7 @@ export class AuthService {
   createUser(user: User) {
     this.http
       .post<{ message: string }>(
-        'https://iu-time-tracking-api.click/api/users/register',
+        'https://iu-time-tracking.click/api/users/register',
         user
       )
       .subscribe(

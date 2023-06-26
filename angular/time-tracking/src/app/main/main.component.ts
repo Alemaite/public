@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Activity } from './activity.model';
 import { TimerService } from './timer.service';
-import { min, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ActivityService } from './activity.service';
 import { AuthService } from '../auth/auth.service';
 import { PageEvent } from '@angular/material/paginator';
@@ -134,13 +134,10 @@ export class MainComponent implements OnInit, OnDestroy {
       };
       return;
     }
-    if (!this.userId) {
-      this.activities.splice(index, 1);
-      return;
-    }
 
     this.activityService.deleteActivity(
       this.activities[index]._id,
+      this.activities[index].date,
       this.userId,
       this.paginatorIndex,
       this.itemsOnPage
@@ -243,9 +240,9 @@ export class MainComponent implements OnInit, OnDestroy {
     this.activities[0].time = this.timeDifference();
     this.activities[0].user = this.email;
     this.activities[0].userId = this.userId;
-    if (!this.email) {
-      return;
-    }
+    // if (!this.email) {
+    //   return;
+    // }
     this.activityService.createActivity(
       this.activities[0],
       this.userId,

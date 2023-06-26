@@ -12,27 +12,20 @@ export class ActivityService {
 
   deleteActivity(
     activityId: string | undefined,
+    date: Date,
     userId: string | undefined,
     paginatorIndex: number | undefined,
     itemsOnPage: number | undefined
   ) {
-    if (!activityId || !userId) {
-      return;
-    }
-    const activId = { actId: activityId };
+    const deletionData = { actId: activityId, date: date };
     this.http
-      .post<{}>(
-        'https://iu-time-tracking-api.click/api/activities/delete',
-        activId
-      )
+      .post('https://iu-time-tracking.click/api/activities/delete', deletionData, {
+        withCredentials: true,
+      })
       .subscribe(() => {
         this.getAllActivities(userId, paginatorIndex, itemsOnPage);
         this.getAllActivitiesNoQueryParams(userId);
       });
-  }
-
-  clearActivitiesOnLogout() {
-    this.activitiesSubj.next([]);
   }
 
   getAllActivities(
@@ -40,67 +33,42 @@ export class ActivityService {
     pageIndex: number | undefined,
     itemsOnPage: number | undefined
   ) {
+    const queryParams = `?page=${pageIndex}&items=${itemsOnPage}`;
     if (!userId) {
+      this.http
+        .get<Activity[]>(
+          'https://iu-time-tracking.click/api/activities/' + queryParams,
+          {
+            withCredentials: true,
+          }
+        )
+        .subscribe((response) => {
+          this.activitiesSubj.next(response);
+        });
       return;
     }
-    const queryParams = `?page=${pageIndex}&items=${itemsOnPage}`;
     this.http
       .get<Activity[]>(
-        'https://iu-time-tracking-api.click/api/activities/' +
-          userId +
-          queryParams
+        'https://iu-time-tracking.click/api/activities/' + userId + queryParams
       )
-      // .pipe(
-      //   map((response) => {
-      //     function compareFn(a: any, b: any) {
-      //       if (a.date < b.date) {
-      //         return -1;
-      //       }
-      //       if (a.date > b.date) {
-      //         return 1;
-      //       }
-      //       if (a.date === b.date) {
-      //         return 0;
-      //       }
-      //       return 0;
-      //     }
-      //     response.sort(compareFn);
-      //     return response;
-      //   })
-      // )
       .subscribe((response) => {
-        // console.log(response);
-        // this.getAllActivitiesNoQueryParams(userId);
         this.activitiesSubj.next(response);
       });
   }
 
   getAllActivitiesNoQueryParams(userId: string | undefined) {
     if (!userId) {
+      this.http
+        .get<Activity[]>('https://iu-time-tracking.click/api/activities/', {
+          withCredentials: true,
+        })
+        .subscribe((response) => {
+          this.activitiesSubjNoQueryParams.next(response);
+        });
       return;
     }
     this.http
-      .get<Activity[]>(
-        'https://iu-time-tracking-api.click/api/activities/' + userId
-      )
-      // .pipe(
-      //   map((response) => {
-      //     function compareFn(a: any, b: any) {
-      //       if (a.date < b.date) {
-      //         return -1;
-      //       }
-      //       if (a.date > b.date) {
-      //         return 1;
-      //       }
-      //       if (a.date === b.date) {
-      //         return 0;
-      //       }
-      //       return 0;
-      //     }
-      //     response.sort(compareFn);
-      //     return response;
-      //   })
-      // )
+      .get<Activity[]>('https://iu-time-tracking.click/api/activities/' + userId)
       .subscribe((response) => {
         this.activitiesSubjNoQueryParams.next(response);
       });
@@ -114,8 +82,9 @@ export class ActivityService {
   ) {
     this.http
       .post<{ message: string }>(
-        'https://iu-time-tracking-api.click/api/activities/',
-        activity
+        'https://iu-time-tracking.click/api/activities/',
+        activity,
+        { withCredentials: true }
       )
       .subscribe(() => {
         this.getAllActivities(userId, paginatorIndex, itemsOnPage);

@@ -55,6 +55,17 @@ mat-paginator {
   width: 20%;
 }
 
+.deleteActivityBtn {
+  color: white;
+  cursor: pointer;
+  margin: auto;
+  padding: 0.5rem;
+}
+
+.deleteActivityBtn:hover {
+  color: var(--main-a-color);
+}
+
 .highlight {
   border: 2px solid var(--main-a-color);
   border-radius: 0.4rem;
