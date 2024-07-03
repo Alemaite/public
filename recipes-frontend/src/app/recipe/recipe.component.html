@@ -1,0 +1,37 @@
+<h1 id="header">Recipe Details</h1>
+<section *ngIf="recipe" [ngClass]="{ 'hs-section': handsetMode === true }">
+  <article [ngClass]="{ 'hs-article': handsetMode === true }">
+    <h2>{{ recipe.title }}</h2>
+    <img
+      *ngIf="recipe.imagePath"
+      class="rcp-img"
+      src="../../assets/{{ recipe.imagePath }}"
+    />
+  </article>
+  <article [ngClass]="{ 'hs-article': handsetMode === true }">
+    <h2>Ingredients</h2>
+    <div class="ctn-ing">
+      <ul>
+        <li *ngFor="let ingredient of recipe.ingredients">
+          {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
+        </li>
+      </ul>
+      <button
+        [matTooltip]="
+          duplicateCheck() ? 'Already on Shopping List' : 'Add to Shopping List'
+        "
+        mat-fab
+        [class]="duplicateCheck() ? 'btn-check' : ''"
+        (click)="onAddItems()"
+      >
+        <mat-icon class="material-symbols-outlined">{{
+          duplicateCheck() ? "data_check" : "add_shopping_cart"
+        }}</mat-icon>
+      </button>
+    </div>
+    <h2>Preparation</h2>
+    <ng-container *ngFor="let desc of recipe.desc">
+      <p class="rcp-desc">{{ desc }}</p>
+    </ng-container>
+  </article>
+</section>

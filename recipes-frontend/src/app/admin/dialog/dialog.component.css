@@ -1,0 +1,57 @@
+.ctn-img-prvw {
+  margin: 0 auto 1rem auto;
+  width: 20vw;
+  width: 20dvw;
+  img {
+    width: 100%;
+    border-radius: 4px;
+  }
+}
+
+.ctn-dialog {
+  width: 80vw;
+  width: 80dvw;
+}
+
+.ctn-dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.ctn-title-image {
+  display: flex;
+  gap: 1rem;
+  mat-form-field {
+    flex: 1 1;
+  }
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: center;
+}
+
+/* handset */
+
+.hs-ctn-dialog {
+  display: flex;
+  flex-direction: column;
+}
+
+.hs-ctn-dialog-content {
+  display: flex;
+  flex-direction: column;
+  padding: 0.1rem;
+}
+
+.hs-ctn-title-image {
+  display: flex;
+  flex-direction: column;
+}
+
+.hs-ctn-img-prvw {
+  width: auto;
+  margin-bottom: 1rem;
+  img {
+    width: 100%;
+  }
+}

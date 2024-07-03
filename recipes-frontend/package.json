@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "@angular/cdk": "^16.2.14",
+    "@angular/cli": "^17.3.8",
+    "@angular/core": "^17.3.11",
+    "@angular/material": "^16.2.14",
+    "@angular/platform-browser-dynamic": "^17.3.11",
+    "@angular/router": "^17.3.11",
+    "@ngneat/until-destroy": "^10.0.0",
+    "@ngrx/effects": "^17.2.0",
+    "@ngrx/store": "^17.2.0",
+    "@ngrx/store-devtools": "^17.2.0",
+    "express": "^4.19.2",
+    "gsap": "^3.12.5",
+    "split-text-js": "^1.0.3"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "ng build"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.8"
+  }
+}

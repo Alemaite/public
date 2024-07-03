@@ -1,0 +1,69 @@
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+:root {
+  --main-bg-color: rgb(86, 157, 73);
+}
+
+.ctn-bck-img {
+  position: absolute;
+  top: 0;
+  background-image: url("assets/wave-haikei.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  height: 100dvh;
+  width: 99vw;
+  width: 99dvw;
+  z-index: -1;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+new-row {
+  display: contents;
+}
+
+main {
+  width: 80%;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+nav a {
+  color: white;
+}
+
+.msg {
+  text-align: center;
+}
+
+.btn-ctn {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 1rem;
+}
+
+.snackbar {
+  text-align: center;
+}

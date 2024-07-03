@@ -1,0 +1,25 @@
+.btns {
+  margin: 1rem 0.5rem 0 0;
+}
+
+mat-form-field {
+  padding-top: 1.25rem;
+  width: 20vw;
+  width: 20dvw;
+  .mat-form-field-underline {
+    background-color: black;
+  }
+}
+
+/* handset */
+
+.hs-th,
+.hs-td {
+  padding: 0;
+  text-align: center;
+  mat-form-field {
+    width: 20vw;
+    width: 20dvw;
+    padding-right: 0.5rem;
+  }
+}
