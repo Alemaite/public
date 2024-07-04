@@ -1,4 +1,11 @@
 <app-header></app-header>
+<div
+  [ngClass]="{
+    'hs-ctn-bck-img': handsetMode,
+    'ctn-bck-img': !handsetMode,
+    '.hs-ctn-bck-img-landscape': landscapeMode
+  }"
+></div>
 <main>
   <router-outlet></router-outlet>
 </main>

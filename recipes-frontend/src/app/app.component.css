@@ -1,0 +1,35 @@
+.ctn-bck-img {
+  position: absolute;
+  top: 0;
+  background-image: url("../assets/wave-haikei.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  height: 100dvh;
+  width: 99vw;
+  width: 99dvw;
+  z-index: -1;
+}
+
+/* handset */
+
+.hs-ctn-bck-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("../assets/wave-haikei.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 40rem;
+  width: 100vw;
+  width: 100dvw;
+  z-index: -1;
+}
+
+.hs-ctn-bck-img-landscape {
+  background-position: unset;
+}
