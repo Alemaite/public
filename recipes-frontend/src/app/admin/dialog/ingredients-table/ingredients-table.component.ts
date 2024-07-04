@@ -71,7 +71,12 @@ export class IngredientsTableComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.responsive
-      .observe([Breakpoints.HandsetPortrait, Breakpoints.TabletPortrait])
+      .observe([
+        Breakpoints.HandsetPortrait,
+        Breakpoints.HandsetLandscape,
+        Breakpoints.TabletPortrait,
+        Breakpoints.TabletLandscape,
+      ])
       .pipe(untilDestroyed(this))
       .subscribe((result) => {
         if (result.matches) {

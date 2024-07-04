@@ -106,7 +106,7 @@ export class AdminComponent implements OnInit {
       });
 
     this.responsive
-      .observe([Breakpoints.HandsetPortrait])
+      .observe([Breakpoints.HandsetPortrait, Breakpoints.HandsetLandscape])
       .pipe(untilDestroyed(this))
       .subscribe((result) => {
         if (result.matches) {

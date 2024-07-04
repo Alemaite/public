@@ -35,7 +35,9 @@ export class RecipeComponent implements OnInit {
     this.responsive
       .observe([
         Breakpoints.HandsetPortrait,
+        Breakpoints.HandsetLandscape,
         Breakpoints.TabletPortrait,
+        Breakpoints.TabletLandscape,
         Breakpoints.Medium,
       ])
       .pipe(untilDestroyed(this))

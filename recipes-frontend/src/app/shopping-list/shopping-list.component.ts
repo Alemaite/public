@@ -54,7 +54,7 @@ export class ShoppingListComponent implements OnInit {
         this.expandedRecipes = [...this.dataSource];
       });
     this.responsive
-      .observe([Breakpoints.HandsetPortrait])
+      .observe([Breakpoints.HandsetPortrait, Breakpoints.HandsetLandscape])
       .pipe(untilDestroyed(this))
       .subscribe((result) => {
         if (result.matches) {
