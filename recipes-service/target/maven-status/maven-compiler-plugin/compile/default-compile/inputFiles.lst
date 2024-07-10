@@ -1,0 +1,10 @@
+F:\Webdev\Java\Spring Boot\recipes-service\src\main\java\com\recipes\recipes_service\config\WebConfig.java
+F:\Webdev\Java\Spring Boot\recipes-service\src\main\java\com\recipes\recipes_service\controller\RecipesController.java
+F:\Webdev\Java\Spring Boot\recipes-service\src\main\java\com\recipes\recipes_service\domain\Ingredient.java
+F:\Webdev\Java\Spring Boot\recipes-service\src\main\java\com\recipes\recipes_service\domain\Recipe.java
+F:\Webdev\Java\Spring Boot\recipes-service\src\main\java\com\recipes\recipes_service\enums\Unit.java
+F:\Webdev\Java\Spring Boot\recipes-service\src\main\java\com\recipes\recipes_service\facade\RecipesFacade.java
+F:\Webdev\Java\Spring Boot\recipes-service\src\main\java\com\recipes\recipes_service\RecipesServiceApplication.java
+F:\Webdev\Java\Spring Boot\recipes-service\src\main\java\com\recipes\recipes_service\repository\RecipesRepository.java
+F:\Webdev\Java\Spring Boot\recipes-service\src\main\java\com\recipes\recipes_service\service\def\DefaultService.java
+F:\Webdev\Java\Spring Boot\recipes-service\src\main\java\com\recipes\recipes_service\service\RecipesService.java
