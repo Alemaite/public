@@ -13,7 +13,6 @@ import {
 } from '@angular/animations';
 
 import { deleteRecipesFromLocalStorage } from './store/shopping-list.actions';
-import { Ingredient } from '../models/ingredient';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 

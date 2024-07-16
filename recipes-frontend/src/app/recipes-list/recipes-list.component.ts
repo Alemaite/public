@@ -32,6 +32,7 @@ export class RecipesListComponent implements OnInit, AfterViewInit {
   pageEvent: PageEvent;
   filterValue = '';
   loading: boolean;
+  isUnderTest = false;
 
   constructor(
     private responsive: BreakpointObserver,
@@ -80,6 +81,9 @@ export class RecipesListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    if (this.isUnderTest) {
+      return;
+    }
     const titles: never[] = gsap.utils.toArray('.animation-txt');
     const timeLine = gsap.timeline({ repeat: -1, repeatDelay: 1 });
     titles.forEach((title) => {

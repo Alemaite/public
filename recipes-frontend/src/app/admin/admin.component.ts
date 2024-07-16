@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { selectRecipesListPage } from '../recipes-list/store/recipes-list.selectors';
 import {
   createRecipeFrontendOnlySuccess,
-  deleteRecipes,
   fetchRecipesPage,
   updateRecipeFrontendOnlySuccess,
 } from '../recipes-list/store/recipes-list.actions';
@@ -17,7 +16,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
-import { EditDialogComponent } from './dialog/dialog.component';
+import { DialogComponent } from './dialog/dialog.component';
 import { Actions, ofType } from '@ngrx/effects';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { fetchRecipesFromLocalStorage } from '../shopping-list/store/shopping-list.actions';
@@ -147,7 +146,7 @@ export class AdminComponent implements OnInit {
   }
 
   openDialog(recipe?: Recipe): void {
-    const dialogRef = this.dialog.open(EditDialogComponent, {
+    const dialogRef = this.dialog.open(DialogComponent, {
       data: recipe ? { recipe, editMode: true } : { recipe: new Recipe() },
     });
     // dialogRef.afterClosed().subscribe((result) => {});

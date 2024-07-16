@@ -17,9 +17,7 @@ import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import {
-  createRecipe,
   createRecipeFrontendOnly,
-  updateRecipe,
   updateRecipeFrontendOnly,
 } from 'src/app/recipes-list/store/recipes-list.actions';
 import { RecipeKeys } from 'src/app/enums/recipe-keys.enum';
@@ -48,7 +46,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   styleUrl: './dialog.component.css',
 })
 @UntilDestroy()
-export class EditDialogComponent implements OnInit {
+export class DialogComponent implements OnInit {
   selectedIngredient: Ingredient;
   recipeImages = recipeImages();
   recipeImagePath: string;
@@ -57,7 +55,7 @@ export class EditDialogComponent implements OnInit {
   handsetMode: boolean;
 
   constructor(
-    public dialogRef: MatDialogRef<EditDialogComponent>,
+    public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     public dialogPayLoad: { recipe: Recipe; editMode?: boolean },
     private snackBar: MatSnackBar,

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Page } from 'src/app/models/page';
 import { Recipe } from 'src/app/models/recipe';
 import { BehaviorSubject } from 'rxjs';
-import { Store } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -12,7 +11,7 @@ export class RecipesListService {
   filter$ = this.filterBS.asObservable();
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private store: Store) {}
+  constructor(private http: HttpClient) {}
 
   readAll() {
     return this.http.get<Recipe[]>(`${this.apiUrl}/api/recipes`);
