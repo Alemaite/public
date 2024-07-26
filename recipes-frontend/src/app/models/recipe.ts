@@ -1,4 +1,5 @@
 import { Ingredient } from './ingredient';
+import { Data } from './data';
 
 export class Recipe {
   title: string;
@@ -7,6 +8,7 @@ export class Recipe {
   desc: string[];
   shortDesc?: string;
   imagePath?: string;
+  data: Data;
 
   constructor(
     title: string = '',
@@ -14,7 +16,8 @@ export class Recipe {
     ingredients: Ingredient[] = [],
     desc: string[] = [],
     shortDesc?: string,
-    imagePath?: string
+    imagePath?: string,
+    data: Data = new Data()
   ) {
     this.title = title;
     this.id = id;
@@ -22,5 +25,6 @@ export class Recipe {
     this.desc = desc;
     this.shortDesc = shortDesc;
     this.imagePath = imagePath;
+    this.data = data;
   }
 }

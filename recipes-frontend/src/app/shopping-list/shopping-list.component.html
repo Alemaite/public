@@ -1,5 +1,10 @@
 <h1 id="header">Your Shopping List</h1>
+<p class="empty-note" *ngIf="dataSource.length === 0">
+  Your Shopping List is empty. Feel free to add one of the available
+  <a routerLink="/"><b class="link">recipes</b></a> to your list!
+</p>
 <table
+  *ngIf="dataSource.length > 0"
   mat-table
   [dataSource]="dataSource"
   multiTemplateDataRows

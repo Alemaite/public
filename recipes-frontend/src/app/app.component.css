@@ -7,8 +7,7 @@
   background-repeat: no-repeat;
   height: 100vh;
   height: 100dvh;
-  width: 99vw;
-  width: 99dvw;
+  width: 100%;
   z-index: -1;
 }
 

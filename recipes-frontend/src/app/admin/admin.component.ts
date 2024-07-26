@@ -166,6 +166,7 @@ export class AdminComponent implements OnInit {
       this.dataSource = this.dataSource.filter((r) => r.id !== recipe.id);
     });
     this.paginatorLength -= this.selection.selected.length;
+    this.selection.clear();
   }
 
   isAllSelected() {

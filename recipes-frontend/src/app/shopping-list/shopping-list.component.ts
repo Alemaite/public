@@ -116,6 +116,7 @@ export class ShoppingListComponent implements OnInit {
     this.store.dispatch(
       deleteRecipesFromLocalStorage({ recipes: this.selection.selected })
     );
+    this.selection.clear();
   }
 
   isAllSelected() {

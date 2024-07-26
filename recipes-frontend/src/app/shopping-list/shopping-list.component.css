@@ -3,6 +3,14 @@
   margin-top: 12dvh;
 }
 
+.empty-note {
+  text-align: center;
+}
+
+.link:hover {
+  color: #efa826;
+}
+
 .ctn-btn {
   display: flex;
   justify-content: center;

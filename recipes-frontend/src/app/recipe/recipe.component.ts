@@ -8,6 +8,7 @@ import { selectRecipe } from './store/recipe.selector';
 import {
   addRecipeToLocalStorage,
   fetchRecipesFromLocalStorage,
+  increaseRecipeCounter,
 } from '../shopping-list/store/shopping-list.actions';
 import { selectShoppingList } from '../shopping-list/store/shopping-list.selector';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -78,7 +79,10 @@ export class RecipeComponent implements OnInit {
       this.snackbar.open('This recipe is already on your shopping list');
       return;
     }
+    const recipeCopy = { ...this.recipe, data: { ...this.recipe.data } };
+    recipeCopy.data.counter += 1;
     this.store.dispatch(addRecipeTrigger({ trigger: true }));
+    this.store.dispatch(increaseRecipeCounter({ recipe: recipeCopy }));
     this.store.dispatch(addRecipeToLocalStorage({ recipe: this.recipe }));
   }
 
