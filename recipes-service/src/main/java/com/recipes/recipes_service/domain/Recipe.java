@@ -28,6 +28,7 @@ public class Recipe {
     private ArrayList<String> desc;
     private String shortDesc;
     private String imagePath;
+    private Data data;
 
     @JsonProperty("id")
     public String getStringId() {

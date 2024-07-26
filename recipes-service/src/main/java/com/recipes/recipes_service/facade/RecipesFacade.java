@@ -57,6 +57,7 @@ public class RecipesFacade {
                 .desc(recipe.getDesc())
                 .shortDesc(recipe.getShortDesc())
                 .imagePath(recipe.getImagePath())
+                .data(recipe.getData())
                 .build();
         return this.recipesService.update(id, recipe);
     }

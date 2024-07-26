@@ -13,7 +13,7 @@
 	<artifactId>recipes-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>recipes-service</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Service for Recipes Project</description>
 	<properties>
 		<java.version>22</java.version>
 	</properties>
@@ -48,12 +48,17 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+			<version>4.15.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>me.paulschwarz</groupId>
 			<artifactId>spring-dotenv</artifactId>
 			<version>4.0.0</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
