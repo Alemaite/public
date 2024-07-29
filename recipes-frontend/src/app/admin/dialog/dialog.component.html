@@ -1,14 +1,17 @@
-<div [class]="handsetMode ? 'hs-ctn-dialog' : 'ctn-dialog'">
+@if ((handsetPortrait$ | async)?.matches === true) {
+<p class="note">
+  Please hold your device horizontally to view the table. If you are still
+  unable to see it, please use a device with a wider screen.
+</p>
+} @else {
+<div class="ctn-dialog">
   <h1 mat-dialog-title>
     {{ dialogPayLoad.editMode ? "Edit" : "Add" }}
     {{ dialogPayLoad.recipe.title }} Recipe
   </h1>
   <form #recipeForm="ngForm" (ngSubmit)="onSave(recipeForm)">
-    <div
-      [class]="handsetMode ? 'hs-ctn-dialog-content' : 'ctn-dialog-content'"
-      mat-dialog-content
-    >
-      <div [class]="handsetMode ? 'hs-ctn-title-image' : 'ctn-title-image'">
+    <div class="ctn-dialog-content" mat-dialog-content>
+      <div class="ctn-title-image">
         <mat-form-field>
           <mat-label>Title</mat-label>
           <input
@@ -36,7 +39,7 @@
       </div>
       <div
         *ngIf="dialogPayLoad.recipe.imagePath || recipeImagePath"
-        [class]="handsetMode ? 'hs-ctn-img-prvw' : 'ctn-img-prvw'"
+        class="ctn-img-prvw"
       >
         <img
           [src]="
@@ -94,3 +97,4 @@
     </div>
   </form>
 </div>
+}

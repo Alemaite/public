@@ -30,28 +30,6 @@
   justify-content: center;
 }
 
-/* handset */
-
-.hs-ctn-dialog {
-  display: flex;
-  flex-direction: column;
-}
-
-.hs-ctn-dialog-content {
-  display: flex;
-  flex-direction: column;
-  padding: 0.1rem;
-}
-
-.hs-ctn-title-image {
-  display: flex;
-  flex-direction: column;
-}
-
-.hs-ctn-img-prvw {
-  width: auto;
-  margin-bottom: 1rem;
-  img {
-    width: 100%;
-  }
+.note {
+  text-align: center;
 }

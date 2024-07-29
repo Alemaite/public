@@ -1,6 +1,6 @@
 <header>
   <nav>
-    <ul [ngClass]="{ 'hs-ul': handsetMode === true }">
+    <ul [ngClass]="{ 'hs-ul': (handsetPortrait$ | async)?.matches === true }">
       <li>
         <a routerLink="recipes-list"><mat-icon>home</mat-icon></a>
       </li>

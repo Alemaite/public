@@ -1,12 +1,21 @@
-<h1 id="title">Recipes Administration</h1>
+<h1>Recipes Administration</h1>
+@if ((handsetPortrait$ | async)?.matches === true) {
+<p class="demo-note">
+  Please hold your device horizontally to view the table. If you are still
+  unable to see it, please use a device with a wider screen.
+</p>
+} @else {
 <p class="demo-note">
   Please note that changes are made only in-memory for demo purposes.
 </p>
-<p class="demo-note">
-  This part of the site will work on mobile, but it's not optimized for it.
-</p>
-<div [class]="handsetMode ? 'hs-ctn-list-header' : 'ctn-list-header'">
-  <mat-form-field [class]="handsetMode ? 'hs-ctn-filter' : 'ctn-filter'">
+<div
+  class="ctn-list-header"
+  [ngClass]="{
+    'ctn-list-header': (handsetLandscape$ | async)?.matches === false,
+    'hs-ctn-list-header': (handsetLandscape$ | async)?.matches === true
+  }"
+>
+  <mat-form-field>
     <mat-label>Search</mat-label>
     <input
       matInput
@@ -33,7 +42,7 @@
   class="mat-elevation-z8"
 >
   <ng-container matColumnDef="select">
-    <th [class]="handsetMode ? 'hs-th' : ''" mat-header-cell *matHeaderCellDef>
+    <th mat-header-cell *matHeaderCellDef>
       <mat-checkbox
         (change)="$event ? toggleAllRows() : null"
         [checked]="selection.hasValue() && isAllSelected()"
@@ -42,7 +51,7 @@
       >
       </mat-checkbox>
     </th>
-    <td [class]="handsetMode ? 'hs-td' : ''" mat-cell *matCellDef="let row">
+    <td mat-cell *matCellDef="let row">
       <mat-checkbox
         (click)="$event.stopPropagation()"
         (change)="$event ? selection.toggle(row) : null"
@@ -53,10 +62,8 @@
     </td>
   </ng-container>
   <ng-container matColumnDef="title">
-    <th [class]="handsetMode ? 'hs-th' : ''" mat-header-cell *matHeaderCellDef>
-      Title
-    </th>
-    <td [class]="handsetMode ? 'hs-td' : ''" mat-cell *matCellDef="let recipe">
+    <th mat-header-cell *matHeaderCellDef>Title</th>
+    <td mat-cell *matCellDef="let recipe">
       <a [routerLink]="['/recipes', recipe.id]" class="rcp-title">{{
         recipe.title
       }}</a>
@@ -76,7 +83,7 @@
   </ng-container>
   <ng-container matColumnDef="expand">
     <th mat-header-cell *matHeaderCellDef aria-label="row actions"></th>
-    <td [class]="handsetMode ? 'hs-td' : ''" mat-cell *matCellDef="let recipe">
+    <td mat-cell *matCellDef="let recipe">
       <button
         mat-icon-button
         aria-label="expand row"
@@ -94,16 +101,23 @@
   </ng-container>
   <ng-container matColumnDef="expandedDetail">
     <td
-      [class]="handsetMode ? 'hs-td' : ''"
       mat-cell
       *matCellDef="let recipe"
       [attr.colspan]="columnsToDisplayWithExpand.length"
     >
       <div
-        class="recipe-detail"
+        [ngClass]="{
+          'recipe-detail': (handsetLandscape$ | async)?.matches == false,
+          'hs-recipe-detail': (handsetLandscape$ | async)?.matches == true
+        }"
         [@detailExpand]="recipe == expandedRecipe ? 'expanded' : 'collapsed'"
       >
-        <div *ngIf="!handsetMode" class="ctn-rcp-img">
+        <div
+          [ngClass]="{
+            'ctn-rcp-img': (handsetLandscape$ | async)?.matches == false,
+            'hs-ctn-rcp-img': (handsetLandscape$ | async)?.matches == true
+          }"
+        >
           <img
             src="../../assets/{{ recipe.imagePath }}"
             alt=""
@@ -151,3 +165,4 @@
     <mat-icon>add</mat-icon>
   </button>
 </div>
+}

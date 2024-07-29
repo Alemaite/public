@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { selectShoppingList } from '../shopping-list/store/shopping-list.selector';
 import { selectTrigger } from '../recipe/store/recipe.selector';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { fetchRecipesFromLocalStorage } from '../shopping-list/store/shopping-list.actions';
 
 @UntilDestroy()
 @Component({
@@ -36,24 +37,14 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   ],
 })
 export class HeaderComponent implements OnInit {
-  handsetMode = false;
+  handsetPortrait$ = this.responsive.observe([Breakpoints.HandsetPortrait]);
   recipesAdded: number;
   triggerAnimation = false;
 
   constructor(private store: Store, private responsive: BreakpointObserver) {}
 
   ngOnInit(): void {
-    this.responsive
-      .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
-      .pipe(untilDestroyed(this))
-      .subscribe((result) => {
-        if (result.matches) {
-          this.handsetMode = true;
-          return;
-        }
-        this.handsetMode = false;
-        return;
-      });
+    this.store.dispatch(fetchRecipesFromLocalStorage());
     this.store
       .select(selectShoppingList)
       .pipe(untilDestroyed(this))

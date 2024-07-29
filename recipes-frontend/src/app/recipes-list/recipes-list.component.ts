@@ -7,7 +7,6 @@ import { Recipe } from '../models/recipe';
 import { gsap } from 'gsap';
 import SplitTextJS from 'split-text-js';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { fetchRecipesFromLocalStorage } from '../shopping-list/store/shopping-list.actions';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { RecipesListService } from './services/recipes-list.service';
 import { debounceTime } from 'rxjs/operators';
@@ -20,7 +19,12 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class RecipesListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  handsetMode = false;
+  handset$ = this.responsive.observe([
+    Breakpoints.HandsetPortrait,
+    Breakpoints.HandsetLandscape,
+    Breakpoints.TabletPortrait,
+    Breakpoints.TabletLandscape,
+  ]);
   recipes: Recipe[] = [];
   paginatorLength: number;
   pageSize = 6;
@@ -41,23 +45,6 @@ export class RecipesListComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.responsive
-      .observe([
-        Breakpoints.HandsetPortrait,
-        Breakpoints.HandsetLandscape,
-        Breakpoints.TabletPortrait,
-        Breakpoints.TabletLandscape,
-      ])
-      .pipe(untilDestroyed(this))
-      .subscribe((result) => {
-        if (result.matches) {
-          this.handsetMode = true;
-          return;
-        }
-        this.handsetMode = false;
-      });
-    // fetching recipes from local storage to update the shopping list header icon when first visiting home after leaving the app
-    this.store.dispatch(fetchRecipesFromLocalStorage());
     this.store
       .select(selectRecipesListPage)
       .pipe(untilDestroyed(this))

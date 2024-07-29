@@ -10,6 +10,19 @@ const getRecipesListPageState = createFeatureSelector<RecipesListPageState>(
   ReducersEnum.RECIPESLISTPAGE
 );
 
+export const selectRecipesLabelsAndCounters = createSelector(
+  getRecipesListState,
+  (state) => {
+    const labels = [];
+    const counter = [];
+    for (const recipe of state.recipes) {
+      labels.push(recipe.title);
+      counter.push(recipe.data.counter);
+    }
+    return { labels, counter };
+  }
+);
+
 export const selectRecipesList = createSelector(
   getRecipesListState,
   (state) => state

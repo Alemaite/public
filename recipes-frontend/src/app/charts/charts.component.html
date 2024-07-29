@@ -1,9 +1,7 @@
-<h1 id="title">Recipes Statistics</h1>
+<h1>Recipes Statistics</h1>
+@if ((responsive$ | async)?.matches === false) {
 <p class="note">
   Amount of times each recipe has been added to a shopping list.
-</p>
-<p class="note">
-  This part of the site will work on mobile, but it's not optimized for it.
 </p>
 <div class="wrp-ctn">
   <div class="ctn-btn">
@@ -35,3 +33,9 @@
     ></canvas>
   </div>
 </div>
+} @else {
+<p class="note">
+  Please hold your device horizontally to view the chart. If you are still
+  unable to see it, please use a device with a wider screen.
+</p>
+}

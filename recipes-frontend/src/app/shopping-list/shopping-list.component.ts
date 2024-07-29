@@ -3,7 +3,6 @@ import { Recipe } from '../models/recipe';
 import { Store } from '@ngrx/store';
 import { selectShoppingList } from './store/shopping-list.selector';
 import { SelectionModel } from '@angular/cdk/collections';
-import { fetchRecipesFromLocalStorage } from './store/shopping-list.actions';
 import {
   animate,
   state,
@@ -39,28 +38,17 @@ export class ShoppingListComponent implements OnInit {
   selection = new SelectionModel<Recipe>(true, []);
   expandedRecipes: Recipe[] = [];
   columnsToDisplayWithExpand = [...this.displayedColumns];
-  handsetMode: boolean;
+  handsetPortrait$ = this.responsive.observe([Breakpoints.HandsetPortrait]);
 
   constructor(private store: Store, private responsive: BreakpointObserver) {}
 
   ngOnInit(): void {
-    this.store.dispatch(fetchRecipesFromLocalStorage());
     this.store
       .select(selectShoppingList)
       .pipe(untilDestroyed(this))
       .subscribe((state) => {
         this.dataSource = state.recipes;
         this.expandedRecipes = [...this.dataSource];
-      });
-    this.responsive
-      .observe([Breakpoints.HandsetPortrait, Breakpoints.HandsetLandscape])
-      .pipe(untilDestroyed(this))
-      .subscribe((result) => {
-        if (result.matches) {
-          this.handsetMode = true;
-          return;
-        }
-        this.handsetMode = false;
       });
   }
 

@@ -108,19 +108,23 @@ p {
 
 .hs-ctn-rcps {
   display: flex;
-  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .hs-ctn-rcp {
   display: flex;
   flex-direction: column;
+  max-width: 18rem;
 }
 
 .hs-ctn-img {
-  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .hs-img {
+  max-width: 25rem;
   width: 100%;
   border-radius: 0.5rem;
 }

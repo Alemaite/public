@@ -1,8 +1,3 @@
-#title {
-  margin-top: 12vh;
-  margin-top: 12dvh;
-}
-
 .note {
   text-align: center;
 }
@@ -23,6 +18,7 @@
   margin-top: 2dvh;
   height: 65vh;
   height: 65dvh;
-  width: 60vw;
-  width: 60dvw;
+  width: 70vw;
+  width: 70dvw;
+  padding-bottom: 7rem;
 }

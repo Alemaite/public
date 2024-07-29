@@ -21,7 +21,11 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   styleUrls: ['./recipe.component.css'],
 })
 export class RecipeComponent implements OnInit {
-  handsetMode = false;
+  untilMediumDevice$ = this.responsive.observe([
+    Breakpoints.HandsetPortrait,
+    Breakpoints.TabletPortrait,
+    Breakpoints.Medium,
+  ]);
   recipe: Recipe;
   recipesInLocalStorage: Recipe[];
 
@@ -33,23 +37,6 @@ export class RecipeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.responsive
-      .observe([
-        Breakpoints.HandsetPortrait,
-        Breakpoints.HandsetLandscape,
-        Breakpoints.TabletPortrait,
-        Breakpoints.TabletLandscape,
-        Breakpoints.Medium,
-      ])
-      .pipe(untilDestroyed(this))
-      .subscribe((result) => {
-        if (result.matches) {
-          this.handsetMode = true;
-          return;
-        }
-        this.handsetMode = false;
-        return;
-      });
     this.route.params
       .pipe(untilDestroyed(this))
       .subscribe((params: { id?: string }) => {

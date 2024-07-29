@@ -3,7 +3,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -47,7 +46,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   templateUrl: './ingredients-table.component.html',
   styleUrl: './ingredients-table.component.css',
 })
-export class IngredientsTableComponent implements AfterViewInit, OnInit {
+export class IngredientsTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table: MatTable<Ingredient>;
   @ViewChild('ingredientsForm') ingredientsForm: NgForm;
   @Input() set ingredients(ingredients: Ingredient[]) {
@@ -61,31 +60,18 @@ export class IngredientsTableComponent implements AfterViewInit, OnInit {
   displayedColumns = ['select', 'name', 'quantity', 'unit'];
   formChangesSubscription: Subscription;
   checkedRowsIndexes: number[] = [];
-  handsetMode: boolean;
+  handset$ = this.responsive.observe([
+    Breakpoints.HandsetPortrait,
+    Breakpoints.HandsetLandscape,
+    Breakpoints.TabletPortrait,
+    Breakpoints.TabletLandscape,
+  ]);
 
   get copyOfIngredients() {
     return this.ingredientsCopy;
   }
 
   constructor(private responsive: BreakpointObserver) {}
-
-  ngOnInit(): void {
-    this.responsive
-      .observe([
-        Breakpoints.HandsetPortrait,
-        Breakpoints.HandsetLandscape,
-        Breakpoints.TabletPortrait,
-        Breakpoints.TabletLandscape,
-      ])
-      .pipe(untilDestroyed(this))
-      .subscribe((result) => {
-        if (result.matches) {
-          this.handsetMode = true;
-          return;
-        }
-        this.handsetMode = false;
-      });
-  }
 
   ngAfterViewInit() {
     this.ingredientsForm.form.valueChanges

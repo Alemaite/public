@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -25,7 +25,6 @@ import { recipeImages } from 'src/app/enums/recipe-images.enum';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'app-dialog',
@@ -45,14 +44,14 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css',
 })
-@UntilDestroy()
-export class DialogComponent implements OnInit {
+export class DialogComponent {
   selectedIngredient: Ingredient;
   recipeImages = recipeImages();
   recipeImagePath: string;
   ingredients: Ingredient[] = [];
   ingredientsFormInvalid = false;
-  handsetMode: boolean;
+  handsetLandscape$ = this.responsive.observe([Breakpoints.HandsetLandscape]);
+  handsetPortrait$ = this.responsive.observe([Breakpoints.HandsetPortrait]);
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
@@ -62,24 +61,6 @@ export class DialogComponent implements OnInit {
     private store: Store,
     private responsive: BreakpointObserver
   ) {}
-
-  ngOnInit(): void {
-    this.responsive
-      .observe([
-        Breakpoints.HandsetPortrait,
-        Breakpoints.HandsetLandscape,
-        Breakpoints.TabletPortrait,
-        Breakpoints.TabletLandscape,
-      ])
-      .pipe(untilDestroyed(this))
-      .subscribe((result) => {
-        if (result.matches) {
-          this.handsetMode = true;
-          return;
-        }
-        this.handsetMode = false;
-      });
-  }
 
   onImageChange($event: MatSelectChange) {
     this.recipeImagePath = $event.value;

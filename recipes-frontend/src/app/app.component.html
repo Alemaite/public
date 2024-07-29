@@ -1,9 +1,8 @@
 <app-header></app-header>
 <div
+  class="ctn-bck-img"
   [ngClass]="{
-    'hs-ctn-bck-img': handsetMode,
-    'ctn-bck-img': !handsetMode,
-    '.hs-ctn-bck-img-landscape': landscapeMode
+    'hs-ctn-bck-img': (handset$ | async)?.matches === true
   }"
 ></div>
 <main>

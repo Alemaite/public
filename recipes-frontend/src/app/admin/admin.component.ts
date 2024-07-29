@@ -19,7 +19,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { Actions, ofType } from '@ngrx/effects';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { fetchRecipesFromLocalStorage } from '../shopping-list/store/shopping-list.actions';
 import { RecipesListService } from '../recipes-list/services/recipes-list.service';
 import { PageEvent } from '@angular/material/paginator';
 import { debounceTime } from 'rxjs/operators';
@@ -55,7 +54,8 @@ export class AdminComponent implements OnInit {
   paginatorLength: number;
   filterValue = '';
   pageEvent: PageEvent;
-  handsetMode: boolean;
+  handsetPortrait$ = this.responsive.observe([Breakpoints.HandsetPortrait]);
+  handsetLandscape$ = this.responsive.observe([Breakpoints.HandsetLandscape]);
   columnsToDisplayWithExpand = [...this.displayedColumns];
 
   constructor(
@@ -79,8 +79,6 @@ export class AdminComponent implements OnInit {
           })
         )
       );
-    // fetching recipes from local storage to update the shopping list header icon, if directly visiting admin area
-    this.store.dispatch(fetchRecipesFromLocalStorage());
     this.store
       .select(selectRecipesListPage)
       .pipe(untilDestroyed(this))
@@ -102,17 +100,6 @@ export class AdminComponent implements OnInit {
         dataSourceCopy.push(payload.recipe);
         this.dataSource = dataSourceCopy;
         this.paginatorLength++;
-      });
-
-    this.responsive
-      .observe([Breakpoints.HandsetPortrait, Breakpoints.HandsetLandscape])
-      .pipe(untilDestroyed(this))
-      .subscribe((result) => {
-        if (result.matches) {
-          this.handsetMode = true;
-          return;
-        }
-        this.handsetMode = false;
       });
   }
 

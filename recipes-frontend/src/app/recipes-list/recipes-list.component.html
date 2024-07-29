@@ -1,4 +1,4 @@
-<div *ngIf="!handsetMode" class="ctn-animation">
+<div *ngIf="(handset$ | async)?.matches === false" class="ctn-animation">
   <div class="ctn-animation-txt">
     <p class="animation-txt">Pick a delicious recipe.</p>
     <p class="animation-txt">Add to Shopping List.</p>
@@ -6,7 +6,11 @@
   </div>
 </div>
 <div
-  [ngClass]="handsetMode === true ? 'hs-ctn-list-header' : 'ctn-list-header'"
+  [ngClass]="
+    (handset$ | async)?.matches === true
+      ? 'hs-ctn-list-header'
+      : 'ctn-list-header'
+  "
 >
   <mat-form-field class="ctn-filter">
     <mat-label>Search</mat-label>
@@ -28,12 +32,14 @@
   >
   </mat-paginator>
 </div>
-<div [ngClass]="handsetMode === true ? 'hs-ctn-rcps' : 'ctn-rcps'">
+<div
+  [ngClass]="(handset$ | async)?.matches === true ? 'hs-ctn-rcps' : 'ctn-rcps'"
+>
   <div
     *ngFor="let recipe of recipes"
     [ngClass]="{
-      'ctn-rcp': handsetMode === false,
-      'hs-ctn-rcp': handsetMode === true
+      'ctn-rcp': (handset$ | async)?.matches === false,
+      'hs-ctn-rcp': (handset$ | async)?.matches === true
     }"
   >
     <h2>
@@ -41,11 +47,13 @@
         recipe.title
       }}</a>
     </h2>
-    <div [class]="handsetMode === true ? 'hs-ctn-img' : 'ctn-img'">
+    <div
+      [class]="(handset$ | async)?.matches === true ? 'hs-ctn-img' : 'ctn-img'"
+    >
       <a [routerLink]="['/recipes', recipe.id]">
         <img
           [src]="'../../assets/' + recipe.imagePath"
-          [class]="handsetMode === true ? 'hs-img' : 'rcp-img'"
+          [class]="(handset$ | async)?.matches === true ? 'hs-img' : 'rcp-img'"
       /></a>
     </div>
     <p>{{ recipe.shortDesc }}</p>

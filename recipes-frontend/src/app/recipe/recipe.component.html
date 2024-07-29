@@ -1,14 +1,23 @@
 <h1 id="header">Recipe Details</h1>
-<section *ngIf="recipe" [ngClass]="{ 'hs-section': handsetMode === true }">
-  <article [ngClass]="{ 'hs-article': handsetMode === true }">
+<section
+  *ngIf="recipe"
+  [ngClass]="{ 'hs-section': (untilMediumDevice$ | async)?.matches === true }"
+>
+  <article
+    [ngClass]="{ 'hs-article': (untilMediumDevice$ | async)?.matches === true }"
+  >
     <h2>{{ recipe.title }}</h2>
-    <img
-      *ngIf="recipe.imagePath"
-      class="rcp-img"
-      src="../../assets/{{ recipe.imagePath }}"
-    />
+    <div class="ctn-img">
+      <img
+        *ngIf="recipe.imagePath"
+        class="rcp-img"
+        src="../../assets/{{ recipe.imagePath }}"
+      />
+    </div>
   </article>
-  <article [ngClass]="{ 'hs-article': handsetMode === true }">
+  <article
+    [ngClass]="{ 'hs-article': (untilMediumDevice$ | async)?.matches === true }"
+  >
     <h2>Ingredients</h2>
     <div class="ctn-ing">
       <ul>

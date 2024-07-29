@@ -23,9 +23,15 @@ ul {
   list-style-type: circle;
 }
 
+.ctn-img {
+  display: flex;
+  justify-content: center;
+}
+
 .rcp-img {
   width: 100%;
   border-radius: 0.5rem;
+  max-width: 30rem;
 }
 
 .ctn-ing {
