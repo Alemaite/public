@@ -63,6 +63,7 @@
         matTooltip="Copy Ingredients"
         mat-icon-button
         color="basic"
+        (click)="snackBarNotification()"
         [cdkCopyToClipboard]="onCopy(recipe)"
       >
         <mat-icon>content_copy</mat-icon>
@@ -148,6 +149,7 @@
     class="btns"
     matTooltip="Copy Selected"
     mat-mini-fab
+    (click)="snackBarNotification()"
     [cdkCopyToClipboard]="onCopySelected()"
   >
     <mat-icon>content_copy</mat-icon>

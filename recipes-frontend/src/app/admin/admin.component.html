@@ -4,10 +4,8 @@
   Please hold your device horizontally to view the table. If you are still
   unable to see it, please use a device with a wider screen.
 </p>
-} @else {
-<p class="demo-note">
-  Please note that changes are made only in-memory for demo purposes.
-</p>
+} @else if ((recipesPage$ | async)?.page?.number === savedPage && (recipesPage$
+| async)?.loading === false) {
 <div
   class="ctn-list-header"
   [ngClass]="{
@@ -25,19 +23,21 @@
   </mat-form-field>
   <mat-paginator
     (page)="handlePageEvent($event)"
-    [pageSize]="pageSize"
+    [pageSize]="(recipesPage$ | async)?.page?.size"
     [length]="paginatorLength"
-    [disabled]="disabled"
-    [showFirstLastButtons]="showFirstLastButtons"
+    [showFirstLastButtons]="true"
     [hidePageSize]="true"
-    [pageIndex]="pageIndex"
+    [pageIndex]="(recipesPage$ | async)?.page?.number"
     aria-label="Select page"
   >
   </mat-paginator>
 </div>
+<p class="demo-note">
+  Please note that changes are made only in-memory for demo purposes.
+</p>
 <table
   mat-table
-  [dataSource]="dataSource"
+  [dataSource]="recipes"
   multiTemplateDataRows
   class="mat-elevation-z8"
 >
@@ -147,7 +147,7 @@
 <div class="ctn-btn">
   <button
     matTooltip="Delete Selected"
-    [disabled]="selection.selected.length === 0 || dataSource.length === 0"
+    [disabled]="selection.selected.length === 0 || recipes.length === 0"
     (click)="deleteRecipes()"
     mat-mini-fab
     color="warn"

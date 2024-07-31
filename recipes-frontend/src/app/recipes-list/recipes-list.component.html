@@ -5,6 +5,8 @@
     <p class="animation-txt">Enjoy!</p>
   </div>
 </div>
+@if ((recipesPage$ | async)?.page?.number === savedPage && (recipesPage$ |
+async)?.loading === false) {
 <div
   [ngClass]="
     (handset$ | async)?.matches === true
@@ -22,13 +24,12 @@
   </mat-form-field>
   <mat-paginator
     (page)="handlePageEvent($event)"
-    [pageSize]="pageSize"
-    [length]="paginatorLength"
-    [disabled]="disabled"
-    [showFirstLastButtons]="showFirstLastButtons"
-    [hidePageSize]="true"
-    [pageIndex]="pageIndex"
+    [pageSize]="(recipesPage$ | async)?.page?.size"
+    [length]="(recipesPage$ | async)?.page?.totalElements"
+    [pageIndex]="(recipesPage$ | async)?.page?.number"
     aria-label="Select page"
+    [showFirstLastButtons]="true"
+    [hidePageSize]="true"
   >
   </mat-paginator>
 </div>
@@ -36,7 +37,7 @@
   [ngClass]="(handset$ | async)?.matches === true ? 'hs-ctn-rcps' : 'ctn-rcps'"
 >
   <div
-    *ngFor="let recipe of recipes"
+    *ngFor="let recipe of (recipesPage$ | async)?.content"
     [ngClass]="{
       'ctn-rcp': (handset$ | async)?.matches === false,
       'hs-ctn-rcp': (handset$ | async)?.matches === true
@@ -59,3 +60,4 @@
     <p>{{ recipe.shortDesc }}</p>
   </div>
 </div>
+}

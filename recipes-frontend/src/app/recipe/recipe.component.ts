@@ -1,3 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Recipe } from '../models/recipe';
@@ -19,6 +23,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   selector: 'app-recipes',
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatTooltipModule, MatIconModule, MatButtonModule],
 })
 export class RecipeComponent implements OnInit {
   untilMediumDevice$ = this.responsive.observe([
@@ -37,6 +43,8 @@ export class RecipeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // scroll to top of page when component is initialized
+    window.scrollTo(0, 0);
     this.route.params
       .pipe(untilDestroyed(this))
       .subscribe((params: { id?: string }) => {

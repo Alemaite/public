@@ -1,3 +1,11 @@
+import { MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RouterModule } from '@angular/router';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../models/recipe';
 import { Store } from '@ngrx/store';
@@ -20,7 +28,16 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css'],
-  providers: [],
+  standalone: true,
+  imports: [
+    MatTableModule,
+    CommonModule,
+    MatCheckboxModule,
+    RouterModule,
+    ClipboardModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -40,7 +57,11 @@ export class ShoppingListComponent implements OnInit {
   columnsToDisplayWithExpand = [...this.displayedColumns];
   handsetPortrait$ = this.responsive.observe([Breakpoints.HandsetPortrait]);
 
-  constructor(private store: Store, private responsive: BreakpointObserver) {}
+  constructor(
+    private store: Store,
+    private responsive: BreakpointObserver,
+    private snackbar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.store
@@ -61,6 +82,7 @@ export class ShoppingListComponent implements OnInit {
     link.download = 'recipes.txt';
     link.click();
     window.URL.revokeObjectURL(url);
+    this.snackbar.open('Selected recipe(s) downloaded.');
   }
 
   onCopySelected() {
@@ -129,5 +151,9 @@ export class ShoppingListComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
       row.title + 1
     }`;
+  }
+
+  snackBarNotification() {
+    this.snackbar.open('Recipe(s) copied to clipboard.');
   }
 }

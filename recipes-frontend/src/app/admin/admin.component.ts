@@ -1,3 +1,14 @@
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../models/recipe';
 import { Store } from '@ngrx/store';
@@ -23,12 +34,28 @@ import { RecipesListService } from '../recipes-list/services/recipes-list.servic
 import { PageEvent } from '@angular/material/paginator';
 import { debounceTime } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { LocalStorageEnum } from '../enums/local-storage.enum';
 
 @UntilDestroy()
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
+  standalone: true,
+  imports: [
+    MatTableModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    RouterModule,
+    CommonModule,
+  ],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -42,18 +69,13 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class AdminComponent implements OnInit {
   displayedColumns = ['select', 'title', 'expand', 'buttons'];
-  dataSource: Recipe[];
+  recipesPage$ = this.store.select(selectRecipesListPage);
+  savedPage = Number(localStorage.getItem(LocalStorageEnum.ADMINLISTPAGE)) ?? 0;
+  recipes: Recipe[];
   selection = new SelectionModel<Recipe>(true, []);
   expandedRecipe: Recipe | null;
-  pageSize = 6;
-  pageIndex = 0;
-  hidePageSize = false;
-  showPageSizeOptions = true;
-  showFirstLastButtons = true;
-  disabled = false;
   paginatorLength: number;
   filterValue = '';
-  pageEvent: PageEvent;
   handsetPortrait$ = this.responsive.observe([Breakpoints.HandsetPortrait]);
   handsetLandscape$ = this.responsive.observe([Breakpoints.HandsetLandscape]);
   columnsToDisplayWithExpand = [...this.displayedColumns];
@@ -69,36 +91,31 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.recipeListService.filter$
       .pipe(debounceTime(300), untilDestroyed(this))
-      .subscribe((search) =>
+      .subscribe((searchTerm) => {
+        this.recipes = [];
         this.store.dispatch(
           fetchRecipesPage({
-            page: this.pageIndex,
-            size: this.pageSize,
-            search: search,
+            page: this.savedPage,
+            size: 6,
+            search: searchTerm,
             loading: true,
           })
-        )
-      );
-    this.store
-      .select(selectRecipesListPage)
-      .pipe(untilDestroyed(this))
-      .subscribe((state) => {
-        this.dataSource = state.content;
-        this.paginatorLength = state.page.totalElements;
-        this.pageIndex = state.page.number;
-        this.pageSize = state.page.size;
+        );
       });
+    this.recipesPage$.pipe(untilDestroyed(this)).subscribe((state) => {
+      this.recipes = state.content;
+      this.paginatorLength = state.page.totalElements;
+    });
     // just for demo purposes, in a real app changes would be done in the database
     this.actions$
       .pipe(untilDestroyed(this), ofType(updateRecipeFrontendOnlySuccess))
       .subscribe((payload) => this.updateRecipesFrontendOnly(payload.recipe));
-
     this.actions$
       .pipe(untilDestroyed(this), ofType(createRecipeFrontendOnlySuccess))
       .subscribe((payload) => {
-        const dataSourceCopy = [...this.dataSource];
+        const dataSourceCopy = [...this.recipes];
         dataSourceCopy.push(payload.recipe);
-        this.dataSource = dataSourceCopy;
+        this.recipes = dataSourceCopy;
         this.paginatorLength++;
       });
   }
@@ -109,26 +126,27 @@ export class AdminComponent implements OnInit {
   }
 
   handlePageEvent(e: PageEvent) {
-    this.pageEvent = e;
-    this.paginatorLength = e.length;
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
+    localStorage.setItem(
+      LocalStorageEnum.ADMINLISTPAGE,
+      e.pageIndex.toString()
+    );
+    this.savedPage = e.pageIndex;
     this.store.dispatch(
       fetchRecipesPage({
-        page: this.pageIndex,
-        size: this.pageSize,
+        page: e.pageIndex,
+        size: e.pageSize,
         search: this.filterValue,
         loading: true,
       })
     );
   }
 
-  updateRecipesFrontendOnly(recipe: Recipe) {
-    const indexToUpdate = this.dataSource.findIndex((r) => r.id === recipe.id);
+  private updateRecipesFrontendOnly(recipe: Recipe) {
+    const indexToUpdate = this.recipes.findIndex((r) => r.id === recipe.id);
     if (indexToUpdate !== -1) {
-      const dataSourceCopy = [...this.dataSource];
+      const dataSourceCopy = [...this.recipes];
       dataSourceCopy[indexToUpdate] = recipe;
-      this.dataSource = dataSourceCopy;
+      this.recipes = dataSourceCopy;
     }
   }
 
@@ -140,6 +158,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteRecipes() {
+    // uncomment below to delete from the backend
     // const ids: string[] = [];
     // this.selection.selected.map((recipe) => {
     //   if (recipe.id) {
@@ -148,9 +167,9 @@ export class AdminComponent implements OnInit {
     // });
     // this.store.dispatch(deleteRecipes({ ids }));
 
-    // frontend only for demo purposes below
+    // delete from frontend only for demo purposes below
     this.selection.selected.map((recipe) => {
-      this.dataSource = this.dataSource.filter((r) => r.id !== recipe.id);
+      this.recipes = this.recipes.filter((r) => r.id !== recipe.id);
     });
     this.paginatorLength -= this.selection.selected.length;
     this.selection.clear();
@@ -158,7 +177,7 @@ export class AdminComponent implements OnInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.length;
+    const numRows = this.recipes.length;
     return numSelected === numRows;
   }
 
@@ -168,7 +187,7 @@ export class AdminComponent implements OnInit {
       return;
     }
 
-    this.selection.select(...this.dataSource);
+    this.selection.select(...this.recipes);
   }
 
   checkboxLabel(row?: Recipe): string {

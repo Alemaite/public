@@ -19,6 +19,7 @@ import { tap, map, catchError } from 'rxjs/operators';
 import { of, switchMap } from 'rxjs';
 import { Recipe } from 'src/app/models/recipe';
 import { RecipesListService } from 'src/app/recipes-list/services/recipes-list.service';
+import { LocalStorageEnum } from 'src/app/enums/local-storage.enum';
 
 @Injectable()
 export class ShoppingListEffects {
@@ -33,7 +34,7 @@ export class ShoppingListEffects {
       ofType(deleteRecipesFromLocalStorage),
       map((payload) => {
         const localRecipes: Recipe[] = JSON.parse(
-          localStorage.getItem('shoppingList') ?? '[]'
+          localStorage.getItem(LocalStorageEnum.SHOPPINGLIST) ?? '[]'
         );
         const recipes = localRecipes.filter(
           (localRecipe) =>
@@ -41,7 +42,10 @@ export class ShoppingListEffects {
               (payloadRecipe) => payloadRecipe.id === localRecipe.id
             )
         );
-        localStorage.setItem('shoppingList', JSON.stringify(recipes));
+        localStorage.setItem(
+          LocalStorageEnum.SHOPPINGLIST,
+          JSON.stringify(recipes)
+        );
         return deleteRecipesFromLocalStorageSuccess({
           recipes: recipes,
         });
@@ -68,7 +72,7 @@ export class ShoppingListEffects {
       ofType(fetchRecipesFromLocalStorage),
       map(() => {
         const recipes: Recipe[] = JSON.parse(
-          localStorage.getItem('shoppingList') ?? '[]'
+          localStorage.getItem(LocalStorageEnum.SHOPPINGLIST) ?? '[]'
         );
         return fetchRecipesFromLocalStorageSuccess({ recipes });
       }),
@@ -94,10 +98,13 @@ export class ShoppingListEffects {
       ofType(addRecipeToLocalStorage),
       map((payload) => {
         const recipes: Recipe[] = JSON.parse(
-          localStorage.getItem('shoppingList') ?? '[]'
+          localStorage.getItem(LocalStorageEnum.SHOPPINGLIST) ?? '[]'
         );
         recipes.push(payload.recipe);
-        localStorage.setItem('shoppingList', JSON.stringify(recipes));
+        localStorage.setItem(
+          LocalStorageEnum.SHOPPINGLIST,
+          JSON.stringify(recipes)
+        );
         return addRecipeToLocalStorageSuccess({ recipes });
       }),
       catchError((error: Error) =>

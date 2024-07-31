@@ -1,3 +1,4 @@
+import { LocalStorageEnum } from 'src/app/enums/local-storage.enum';
 import { Page } from 'src/app/models/page';
 import { Recipe } from 'src/app/models/recipe';
 
@@ -20,7 +21,12 @@ export const initialRecipesListState: RecipesListState = {
 
 export const initialRecipesListPageState: RecipesListPageState = {
   content: [],
-  page: { number: 0, size: 6, totalElements: 0, totalPages: 0 },
+  page: {
+    number: Number(localStorage.getItem(LocalStorageEnum.RECIPESLISTPAGE)) ?? 0,
+    size: 6,
+    totalElements: 0,
+    totalPages: 0,
+  },
   search: '',
   loading: false,
 };

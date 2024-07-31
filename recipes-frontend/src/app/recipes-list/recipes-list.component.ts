@@ -1,15 +1,15 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Store } from '@ngrx/store';
 import { fetchRecipesPage } from './store/recipes-list.actions';
 import { selectRecipesListPage } from './store/recipes-list.selectors';
-import { Recipe } from '../models/recipe';
 import { gsap } from 'gsap';
 import SplitTextJS from 'split-text-js';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { RecipesListService } from './services/recipes-list.service';
 import { debounceTime } from 'rxjs/operators';
+import { LocalStorageEnum } from '../enums/local-storage.enum';
 
 @UntilDestroy()
 @Component({
@@ -18,24 +18,17 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./recipes-list.component.css'],
 })
 export class RecipesListComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   handset$ = this.responsive.observe([
     Breakpoints.HandsetPortrait,
     Breakpoints.HandsetLandscape,
     Breakpoints.TabletPortrait,
     Breakpoints.TabletLandscape,
   ]);
-  recipes: Recipe[] = [];
-  paginatorLength: number;
-  pageSize = 6;
-  pageIndex = 0;
-  hidePageSize = false;
-  showPageSizeOptions = true;
-  showFirstLastButtons = true;
-  disabled = false;
-  pageEvent: PageEvent;
+  recipesPage$ = this.store.select(selectRecipesListPage);
+  savedPage =
+    Number(localStorage.getItem(LocalStorageEnum.RECIPESLISTPAGE)) ?? 0;
   filterValue = '';
-  loading: boolean;
+  // used for unit testing only
   isUnderTest = false;
 
   constructor(
@@ -45,22 +38,14 @@ export class RecipesListComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.store
-      .select(selectRecipesListPage)
-      .pipe(untilDestroyed(this))
-      .subscribe((state) => {
-        this.recipes = state.content;
-        this.paginatorLength = state.page.totalElements;
-        this.loading = state.loading;
-      });
     this.recipeListService.filter$
       .pipe(debounceTime(300), untilDestroyed(this))
-      .subscribe((search) =>
+      .subscribe((searchTerm) =>
         this.store.dispatch(
           fetchRecipesPage({
-            page: this.pageIndex,
-            size: this.pageSize,
-            search: search,
+            page: this.savedPage,
+            size: 6,
+            search: searchTerm,
             loading: true,
           })
         )
@@ -72,7 +57,7 @@ export class RecipesListComponent implements OnInit, AfterViewInit {
       return;
     }
     const titles: never[] = gsap.utils.toArray('.animation-txt');
-    const timeLine = gsap.timeline({ repeat: -1, repeatDelay: 1 });
+    const timeLine = gsap.timeline({ repeat: 10, repeatDelay: 1 });
     titles.forEach((title) => {
       const splitTitle = new SplitTextJS(title);
       timeLine
@@ -105,14 +90,15 @@ export class RecipesListComponent implements OnInit, AfterViewInit {
   }
 
   handlePageEvent(e: PageEvent) {
-    this.pageEvent = e;
-    this.paginatorLength = e.length;
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
+    localStorage.setItem(
+      LocalStorageEnum.RECIPESLISTPAGE,
+      e.pageIndex.toString()
+    );
+    this.savedPage = e.pageIndex;
     this.store.dispatch(
       fetchRecipesPage({
-        page: this.pageIndex,
-        size: this.pageSize,
+        page: e.pageIndex,
+        size: e.pageSize,
         search: this.filterValue,
         loading: true,
       })

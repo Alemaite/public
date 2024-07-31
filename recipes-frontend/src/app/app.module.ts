@@ -44,14 +44,7 @@ import { MatInputModule } from '@angular/material/input';
 import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    RecipeComponent,
-    RecipesListComponent,
-    AdminComponent,
-    ShoppingListComponent,
-  ],
+  declarations: [AppComponent, HeaderComponent, RecipesListComponent],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
