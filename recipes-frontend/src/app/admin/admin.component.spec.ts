@@ -40,7 +40,6 @@ describe('AdminComponent', () => {
         RouterModule,
         StoreModule.forRoot({}),
       ],
-      declarations: [AdminComponent],
       providers: [
         provideMockStore(),
         { provide: MatDialog, useValue: matDialogMock },
@@ -48,7 +47,7 @@ describe('AdminComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(AdminComponent);
     component = fixture.componentInstance;
-    component.dataSource = dataSource;
+    component.recipes = dataSource;
     fixture.detectChanges();
   });
 

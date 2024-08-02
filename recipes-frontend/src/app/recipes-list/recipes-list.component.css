@@ -79,6 +79,14 @@ h2 {
   transform: scale(1.02);
 }
 
+.ctn-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
 p {
   text-align: justify;
 }

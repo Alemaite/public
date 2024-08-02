@@ -17,7 +17,6 @@ describe('RecipesComponent', () => {
         { provide: ActivatedRoute, useValue: { params: of({ id: '123' }) } },
       ],
       imports: [RouterModule, MatSnackBarModule],
-      declarations: [RecipeComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RecipeComponent);
