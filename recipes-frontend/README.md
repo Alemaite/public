@@ -1,10 +1,12 @@
 # Recipes
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1, and then updated to Angular 17.3.8.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files. Please note that for security reasons I do not provide the file with the client-id for the recipe app to enable OAuth, and you won't be able to use that feature locally.
+
+Additionally, I do not provide the files with authentication details for the MongoDB on the cloud server in the recipes-service project (backend). You can run a MongoDB locally and import the recipes.json in the root directory (src), in case you are interested in running the app with data locally.
 
 ## Code scaffolding
 
@@ -16,11 +18,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Run `npm run test` to execute the unit tests via Jest.
 
 ## Further help
 

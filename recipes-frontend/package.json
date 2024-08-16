@@ -10,8 +10,11 @@
     "@ngrx/effects": "^17.2.0",
     "@ngrx/store": "^17.2.0",
     "@ngrx/store-devtools": "^17.2.0",
+    "angular-oauth2-oidc": "^17.0.2",
+    "chart.js": "^3.6.0",
     "express": "^4.19.2",
     "gsap": "^3.12.5",
+    "ng2-charts": "^4.1.1",
     "split-text-js": "^1.0.3"
   },
   "scripts": {
