@@ -7,14 +7,12 @@ import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.recipes.recipes_service.service.def.DefaultService;
 import com.recipes.recipes_service.domain.Recipe;
 import com.recipes.recipes_service.repository.RecipesRepository;
 
 @Service
-public class RecipesService extends DefaultService<Recipe> {
-    private RecipesRepository recipesRepository;
+public class RecipesService {
+    private final RecipesRepository recipesRepository;
 
     public RecipesService(RecipesRepository recipesRepository) {
         this.recipesRepository = recipesRepository;

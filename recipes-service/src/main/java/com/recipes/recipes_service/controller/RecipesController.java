@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 public class RecipesController {
-    private RecipesFacade recipesFacade;
+    private final RecipesFacade recipesFacade;
 
     public RecipesController(RecipesFacade recipesFacade) {
         this.recipesFacade = recipesFacade;

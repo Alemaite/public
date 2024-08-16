@@ -1,5 +1,11 @@
 # Read Me First
-The following was discovered as part of building this project:
+Please note that I do not provide the files with authentication details for the MongoDB on the cloud server. You can run a local MongoDB and import 
+the recipes.json, in case you are interested in running the app with data locally.
+
+You then need to provide the following information (in the .env file or application.properties for example) so the backend can connect to your local MongoDB:
+
+spring.data.mongodb.database=${DATABASE_NAME}
+spring.data.mongodb.uri=mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_CLUSTER}
 
 * The original package name 'com.recipes.recipes-service' is invalid and this project uses 'com.recipes.recipes_service' instead.
 
