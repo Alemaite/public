@@ -18,7 +18,8 @@ new-row {
 
 main {
   width: 80%;
-  margin: 11rem auto 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h1 {
