@@ -1,4 +1,9 @@
-<div *ngIf="(handset$ | async)?.matches === false" class="ctn-animation">
+<div
+  [ngClass]="{
+    'ctn-animation': (handset$ | async)?.matches === false,
+    'hs-ctn-animation': (handset$ | async)?.matches === true
+  }"
+>
   <div class="ctn-animation-txt">
     <p class="animation-txt">Pick a delicious recipe.</p>
     <p class="animation-txt">Add to Shopping List.</p>

@@ -62,9 +62,7 @@ export class IngredientsTableComponent implements AfterViewInit {
   checkedRowsIndexes: number[] = [];
   handset$ = this.responsive.observe([
     Breakpoints.HandsetPortrait,
-    Breakpoints.HandsetLandscape,
     Breakpoints.TabletPortrait,
-    Breakpoints.TabletLandscape,
   ]);
 
   get copyOfIngredients() {

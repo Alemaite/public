@@ -12,7 +12,15 @@
   z-index: -1;
 }
 
+.ctn-main {
+  margin-top: 10rem;
+}
+
 /* handset */
+
+.hs-ctn-main {
+  margin-top: 13rem;
+}
 
 .hs-ctn-bck-img {
   min-height: 32rem;

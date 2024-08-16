@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { NgChartsModule } from 'ng2-charts';
 import { selectRecipesLabelsAndCounters } from '../recipes-list/store/recipes-list.selectors';
 import { fetchRecipes } from '../recipes-list/store/recipes-list.actions';
-import { ChartData, ChartType } from 'chart.js';
+import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,6 +29,25 @@ import { CommonModule } from '@angular/common';
 export class ChartsComponent implements OnInit {
   chartData: ChartData;
   chartType: ChartType = 'bar';
+  handSetChartOptions: ChartOptions = {
+    scales: {
+      x: {
+        ticks: {
+          display: false,
+        },
+      },
+    },
+  };
+  chartOptions: ChartOptions = {
+    scales: {
+      x: {
+        ticks: {
+          minRotation: 90,
+          maxRotation: 90,
+        },
+      },
+    },
+  };
   responsive$ = this.responsive.observe([Breakpoints.HandsetPortrait]);
 
   constructor(

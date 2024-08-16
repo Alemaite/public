@@ -1,5 +1,4 @@
 <h1>Recipes Statistics</h1>
-@if ((responsive$ | async)?.matches === false) {
 <p class="note">
   Amount of times each recipe has been added to a shopping list.
 </p>
@@ -30,12 +29,11 @@
       baseChart
       [type]="chartType"
       [data]="chartData"
+      [options]="
+        (responsive$ | async)?.matches === true
+          ? handSetChartOptions
+          : chartOptions
+      "
     ></canvas>
   </div>
 </div>
-} @else {
-<p class="note">
-  Please hold your device horizontally to view the chart. If you are still
-  unable to see it, please use a device with a wider screen.
-</p>
-}

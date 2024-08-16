@@ -1,168 +1,180 @@
 <h1>Recipes Administration</h1>
-@if ((handsetPortrait$ | async)?.matches === true) {
-<p class="demo-note">
-  Please hold your device horizontally to view the table. If you are still
-  unable to see it, please use a device with a wider screen.
-</p>
-} @else if ((recipesPage$ | async)?.page?.number === savedPage && (recipesPage$
-| async)?.loading === false) {
-<div
-  class="ctn-list-header"
-  [ngClass]="{
-    'ctn-list-header': (handsetLandscape$ | async)?.matches === false,
-    'hs-ctn-list-header': (handsetLandscape$ | async)?.matches === true
-  }"
->
-  <mat-form-field>
-    <mat-label>Search</mat-label>
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      [ngModel]="this.recipeListService.filter$ | async"
-    />
-  </mat-form-field>
-  <mat-paginator
-    (page)="handlePageEvent($event)"
-    [pageSize]="(recipesPage$ | async)?.page?.size"
-    [length]="paginatorLength"
-    [showFirstLastButtons]="true"
-    [hidePageSize]="true"
-    [pageIndex]="(recipesPage$ | async)?.page?.number"
-    aria-label="Select page"
-  >
-  </mat-paginator>
-</div>
 <p class="demo-note">
   Please note that changes are made only in-memory for demo purposes.
 </p>
-<table
-  mat-table
-  [dataSource]="recipes"
-  multiTemplateDataRows
-  class="mat-elevation-z8"
->
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
-      <mat-checkbox
-        (change)="$event ? toggleAllRows() : null"
-        [checked]="selection.hasValue() && isAllSelected()"
-        [indeterminate]="selection.hasValue() && !isAllSelected()"
-        [aria-label]="checkboxLabel()"
-      >
-      </mat-checkbox>
-    </th>
-    <td mat-cell *matCellDef="let row">
-      <mat-checkbox
-        (click)="$event.stopPropagation()"
-        (change)="$event ? selection.toggle(row) : null"
-        [checked]="selection.isSelected(row)"
-        [aria-label]="checkboxLabel(row)"
-      >
-      </mat-checkbox>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef>Title</th>
-    <td mat-cell *matCellDef="let recipe">
-      <a [routerLink]="['/recipes', recipe.id]" class="rcp-title">{{
-        recipe.title
-      }}</a>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="buttons">
-    <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let recipe">
-      <button
-        matTooltip="Edit Recipe"
-        mat-icon-button
-        (click)="openDialog(recipe)"
-      >
-        <mat-icon>edit</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="expand">
-    <th mat-header-cell *matHeaderCellDef aria-label="row actions"></th>
-    <td mat-cell *matCellDef="let recipe">
-      <button
-        mat-icon-button
-        aria-label="expand row"
-        (click)="
-          expandedRecipe = expandedRecipe === recipe ? null : recipe;
-          $event.stopPropagation()
-        "
-      >
-        <mat-icon *ngIf="expandedRecipe !== recipe"
-          >keyboard_arrow_down</mat-icon
-        >
-        <mat-icon *ngIf="expandedRecipe === recipe">keyboard_arrow_up</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="expandedDetail">
-    <td
-      mat-cell
-      *matCellDef="let recipe"
-      [attr.colspan]="columnsToDisplayWithExpand.length"
+<section>
+  @if ((recipesPage$ | async)?.page?.number === savedPage && (recipesPage$ |
+  async)?.loading === false) {
+  <div
+    [class]="
+      (handsetPortrait$ | async)?.matches === true
+        ? 'hs-ctn-list-header'
+        : 'ctn-list-header'
+    "
+  >
+    <mat-form-field
+      [class]="
+        (handsetPortrait$ | async)?.matches === false ? 'ctn-filter' : ''
+      "
     >
-      <div
-        [ngClass]="{
-          'recipe-detail': (handsetLandscape$ | async)?.matches == false,
-          'hs-recipe-detail': (handsetLandscape$ | async)?.matches == true
-        }"
-        [@detailExpand]="recipe == expandedRecipe ? 'expanded' : 'collapsed'"
-      >
-        <div
-          [ngClass]="{
-            'ctn-rcp-img': (handsetLandscape$ | async)?.matches == false,
-            'hs-ctn-rcp-img': (handsetLandscape$ | async)?.matches == true
-          }"
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        [ngModel]="this.recipeListService.filter$ | async"
+      />
+    </mat-form-field>
+    <mat-paginator
+      (page)="handlePageEvent($event)"
+      [pageSize]="(recipesPage$ | async)?.page?.size"
+      [length]="paginatorLength"
+      [showFirstLastButtons]="true"
+      [hidePageSize]="true"
+      [pageIndex]="(recipesPage$ | async)?.page?.number"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+  <div
+    [class]="(handsetPortrait$ | async)?.matches === true ? 'hs-ctn-table' : ''"
+  >
+    <table
+      mat-table
+      [dataSource]="recipes"
+      multiTemplateDataRows
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="$event ? toggleAllRows() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [aria-label]="checkboxLabel()"
+          >
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+            [aria-label]="checkboxLabel(row)"
+          >
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let recipe">
+          <a [routerLink]="['/recipes', recipe.id]" class="rcp-title">{{
+            recipe.title
+          }}</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="buttons">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let recipe">
+          <button
+            matTooltip="Edit Recipe"
+            mat-icon-button
+            (click)="openDialog(recipe)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions"></th>
+        <td mat-cell *matCellDef="let recipe">
+          <button
+            mat-icon-button
+            aria-label="expand row"
+            (click)="
+              expandedRecipe = expandedRecipe === recipe ? null : recipe;
+              $event.stopPropagation()
+            "
+          >
+            <mat-icon *ngIf="expandedRecipe !== recipe"
+              >keyboard_arrow_down</mat-icon
+            >
+            <mat-icon *ngIf="expandedRecipe === recipe"
+              >keyboard_arrow_up</mat-icon
+            >
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let recipe"
+          [attr.colspan]="columnsToDisplayWithExpand.length"
         >
-          <img
-            src="../../assets/{{ recipe.imagePath }}"
-            alt=""
-            class="rcp-img"
-          />
-        </div>
-        <div class="recipe-description">
-          {{ recipe.desc }}
-          <span class="recipe-description-attribution"> </span>
-        </div>
-      </div>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
-  <tr
-    mat-row
-    *matRowDef="let recipe; columns: columnsToDisplayWithExpand"
-    class="recipe-row"
-    [class.expanded-row]="expandedRecipe === recipe"
-  ></tr>
-  <tr
-    mat-row
-    *matRowDef="let row; columns: ['expandedDetail']"
-    class="detail-row"
-  ></tr>
-</table>
-<div class="ctn-btn">
-  <button
-    matTooltip="Delete Selected"
-    [disabled]="selection.selected.length === 0 || recipes.length === 0"
-    (click)="deleteRecipes()"
-    mat-mini-fab
-    color="warn"
-    class="btns"
-  >
-    <mat-icon>delete</mat-icon>
-  </button>
-  <button
-    matTooltip="Add New Recipe"
-    (click)="openDialog()"
-    mat-mini-fab
-    color="accent"
-    class="btns"
-  >
-    <mat-icon>add</mat-icon>
-  </button>
-</div>
-}
+          <div
+            [class]="
+              (handsetPortrait$ | async)?.matches === true
+                ? 'hs-ctn-exp'
+                : 'ctn-exp'
+            "
+            [@detailExpand]="
+              recipe == expandedRecipe ? 'expanded' : 'collapsed'
+            "
+          >
+            <div
+              [class]="
+                (handsetPortrait$ | async)?.matches === true
+                  ? 'hs-ctn-img'
+                  : 'ctn-img'
+              "
+            >
+              <img
+                src="../../assets/{{ recipe.imagePath }}"
+                alt=""
+                class="rcp-img"
+              />
+            </div>
+            <div class="recipe-description">
+              {{ recipe.desc }}
+              <span class="recipe-description-attribution"> </span>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+      <tr
+        mat-row
+        *matRowDef="let recipe; columns: columnsToDisplayWithExpand"
+        class="recipe-row"
+        [class.expanded-row]="expandedRecipe === recipe"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="detail-row"
+      ></tr>
+    </table>
+
+    <div class="ctn-btn">
+      <button
+        matTooltip="Delete Selected"
+        [disabled]="selection.selected.length === 0 || recipes.length === 0"
+        (click)="deleteRecipes()"
+        mat-mini-fab
+        color="warn"
+        class="btns"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        matTooltip="Add New Recipe"
+        (click)="openDialog()"
+        mat-mini-fab
+        color="accent"
+        class="btns"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  }
+</section>

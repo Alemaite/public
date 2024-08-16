@@ -4,4 +4,5 @@ export enum ReducersEnum {
   RECIPESLISTPAGE = 'recipesListPageReducer',
   SHOPPING_LIST = 'shoppingListReducer',
   TRIGGER = 'triggerReducer',
+  AUTHREDUCER = 'authReducer',
 }

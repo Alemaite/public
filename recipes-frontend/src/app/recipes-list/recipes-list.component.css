@@ -41,6 +41,9 @@
 
 h2 {
   text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .rcp-title:hover {
@@ -70,8 +73,9 @@ h2 {
 .rcp-img {
   width: 100%;
   height: 100%;
-  border-radius: 0.5rem;
   object-fit: cover;
+  box-shadow: grey 4px 0px 8px 0px;
+  border-radius: 0.5rem;
 }
 
 .ctn-img:hover {
@@ -100,6 +104,10 @@ p {
   }
 }
 
+.hs-ctn-animation {
+  display: none;
+}
+
 .hs-ctn-list-header {
   display: flex;
   flex-direction: column;
@@ -123,7 +131,8 @@ p {
 .hs-ctn-rcp {
   display: flex;
   flex-direction: column;
-  max-width: 18rem;
+  width: 80vw;
+  width: 80dvw;
 }
 
 .hs-ctn-img {
@@ -132,7 +141,9 @@ p {
 }
 
 .hs-img {
-  max-width: 25rem;
-  width: 100%;
+  width: 80vw;
+  width: 80dvw;
+  object-fit: cover;
+  box-shadow: grey 4px 0px 8px 0px;
   border-radius: 0.5rem;
 }

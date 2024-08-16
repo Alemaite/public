@@ -1,6 +1,6 @@
 header {
-  margin-top: 10vh;
-  margin-top: 10dvh;
+  margin-top: 8vh;
+  margin-top: 8dvh;
 }
 
 nav {
@@ -68,5 +68,6 @@ ul {
   .custom-icons {
     font-size: 2rem;
     width: 2rem;
+    color: black;
   }
 }

@@ -9,9 +9,7 @@ import {
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipeComponent } from './recipe/recipe.component';
 import { RecipesListComponent } from './recipes-list/recipes-list.component';
-import { AdminComponent } from './admin/admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
@@ -19,7 +17,6 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { StoreModule } from '@ngrx/store';
 import {
   recipesListPageReducer,
@@ -42,6 +39,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { authReducer } from './auth/store/auth.reducer';
+import { AuthEffects } from './auth/store/auth.effects';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, RecipesListComponent],
@@ -62,19 +64,24 @@ import { SpinnerComponent } from './spinner/spinner.component';
     ClipboardModule,
     MatTooltipModule,
     MatInputModule,
+    HttpClientModule,
     MatFormFieldModule,
+    SidebarComponent,
     SpinnerComponent,
+    OAuthModule.forRoot(),
     StoreModule.forRoot({
       shoppingListReducer: shoppingListReducer,
       triggerReducer: triggerReducer,
       recipeReducer: recipeReducer,
       recipesListReducer: recipesListReducer,
       recipesListPageReducer: recipesListPageReducer,
+      authReducer: authReducer,
     }),
     EffectsModule.forRoot([
       ShoppingListEffects,
       RecipeEffects,
       RecipesListEffects,
+      AuthEffects,
     ]),
     StoreDevtoolsModule.instrument({ logOnly: true }),
   ],

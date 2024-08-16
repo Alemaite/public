@@ -11,6 +11,12 @@
   color: #efa826;
 }
 
+.hs-ctn-table {
+  max-width: 80vw;
+  max-width: 80dvw;
+  overflow-x: auto;
+}
+
 .ctn-btn {
   display: flex;
   justify-content: center;

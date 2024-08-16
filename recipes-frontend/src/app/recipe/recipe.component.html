@@ -25,18 +25,38 @@
           {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
         </li>
       </ul>
-      <button
-        [matTooltip]="
-          duplicateCheck() ? 'Already on Shopping List' : 'Add to Shopping List'
-        "
-        mat-fab
-        [class]="duplicateCheck() ? 'btn-check' : ''"
-        (click)="onAddItems()"
-      >
-        <mat-icon class="material-symbols-outlined">{{
-          duplicateCheck() ? "data_check" : "add_shopping_cart"
-        }}</mat-icon>
-      </button>
+      <div class="ctn-btns">
+        <button
+          [matTooltip]="
+            duplicateCheck()
+              ? 'Already on Shopping List'
+              : 'Add to Shopping List'
+          "
+          mat-fab
+          [class]="duplicateCheck() ? 'btn-check' : ''"
+          (click)="onAddItems()"
+        >
+          <mat-icon class="material-symbols-outlined">{{
+            duplicateCheck() ? "data_check" : "add_shopping_cart"
+          }}</mat-icon>
+        </button>
+        <button
+          (click)="onAddToFavorites()"
+          [matTooltip]="
+            favoritesDuplicateCheck()
+              ? 'Already added to favorites'
+              : 'Add to favorites'
+          "
+          [class]="favoritesDuplicateCheck() ? 'btn-fav-check' : ''"
+          mat-fab
+          color="basic"
+          class="material-symbols-outlined btn-favorite"
+        >
+          <mat-icon>
+            {{ favoritesDuplicateCheck() ? "stars" : "star" }}
+          </mat-icon>
+        </button>
+      </div>
     </div>
     <h2>Preparation</h2>
     <ng-container *ngFor="let desc of recipe.desc">

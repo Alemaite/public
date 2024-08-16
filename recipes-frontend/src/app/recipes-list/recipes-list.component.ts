@@ -20,9 +20,8 @@ import { LocalStorageEnum } from '../enums/local-storage.enum';
 export class RecipesListComponent implements OnInit, AfterViewInit {
   handset$ = this.responsive.observe([
     Breakpoints.HandsetPortrait,
-    Breakpoints.HandsetLandscape,
     Breakpoints.TabletPortrait,
-    Breakpoints.TabletLandscape,
+    Breakpoints.Medium,
   ]);
   recipesPage$ = this.store.select(selectRecipesListPage);
   savedPage =
@@ -39,7 +38,7 @@ export class RecipesListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.recipeListService.filter$
-      .pipe(debounceTime(300), untilDestroyed(this))
+      .pipe(debounceTime(1500), untilDestroyed(this))
       .subscribe((searchTerm) =>
         this.store.dispatch(
           fetchRecipesPage({

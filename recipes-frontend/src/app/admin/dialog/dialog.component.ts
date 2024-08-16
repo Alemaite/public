@@ -50,7 +50,6 @@ export class DialogComponent {
   recipeImagePath: string;
   ingredients: Ingredient[] = [];
   ingredientsFormInvalid = false;
-  handsetLandscape$ = this.responsive.observe([Breakpoints.HandsetLandscape]);
   handsetPortrait$ = this.responsive.observe([Breakpoints.HandsetPortrait]);
 
   constructor(

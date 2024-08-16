@@ -7,12 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  handset$ = this.responsive.observe([
-    Breakpoints.HandsetPortrait,
-    Breakpoints.TabletPortrait,
-    Breakpoints.HandsetLandscape,
-    Breakpoints.TabletLandscape,
-  ]);
+  handsetPortrait$ = this.responsive.observe([Breakpoints.HandsetPortrait]);
 
   constructor(private responsive: BreakpointObserver) {}
 }

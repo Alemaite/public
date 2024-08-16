@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RecipesListComponent } from './recipes-list/recipes-list.component';
-import { RecipeComponent } from './recipe/recipe.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ChartsComponent } from './charts/charts.component';
 
 const routes: Routes = [
   { path: '', component: RecipesListComponent },
@@ -28,6 +25,11 @@ const routes: Routes = [
     path: 'charts',
     loadComponent: () =>
       import('./charts/charts.component').then((m) => m.ChartsComponent),
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./profile/profile.component').then((m) => m.ProfileComponent),
   },
   // routes to home page in case of invalid route
   { path: '**', redirectTo: '', pathMatch: 'full' },

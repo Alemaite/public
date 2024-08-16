@@ -1,3 +1,8 @@
+section {
+  min-height: 80vh;
+  min-height: 80dvh;
+}
+
 .ctn-btn {
   display: flex;
   justify-content: center;
@@ -18,11 +23,6 @@
 
 .demo-note {
   text-align: center;
-}
-
-.rcp-img {
-  width: 100%;
-  border-radius: 4px;
 }
 
 .rcp-title:hover {
@@ -62,14 +62,19 @@ tr.recipe-row:not(.expanded-row):active {
   border-bottom-width: 0;
 }
 
-.recipe-detail {
+.ctn-exp {
   display: flex;
   align-items: center;
 }
 
-.ctn-rcp-img {
+.ctn-img {
   padding: 0 0.5rem 0.5rem 0.5rem;
   width: 15%;
+}
+
+.rcp-img {
+  width: 100%;
+  border-radius: 4px;
 }
 
 .recipe-symbol {
@@ -90,6 +95,19 @@ tr.recipe-row:not(.expanded-row):active {
 }
 
 /* handset */
+
+.hs-ctn-exp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hs-ctn-table {
+  max-width: 80vw;
+  max-width: 80dvw;
+  overflow-x: auto;
+}
 
 .hs-ctn-list-header {
   display: flex;
@@ -121,7 +139,7 @@ tr.recipe-row:not(.expanded-row):active {
   align-items: center;
 }
 
-.hs-ctn-rcp-img {
-  width: 40%;
-  max-width: 14rem;
+.hs-ctn-img {
+  margin: 1rem 0;
+  max-width: 60%;
 }

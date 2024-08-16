@@ -2,6 +2,7 @@
   margin: 0 auto 1rem auto;
   width: 20vw;
   width: 20dvw;
+  min-width: 12rem;
   img {
     width: 100%;
     border-radius: 4px;
@@ -32,4 +33,11 @@
 
 .note {
   text-align: center;
+}
+
+/* handset */
+
+.hs-ctn-title-image {
+  display: flex;
+  flex-direction: column;
 }

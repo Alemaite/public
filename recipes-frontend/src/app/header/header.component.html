@@ -1,22 +1,25 @@
 <header>
   <nav>
     <ul [ngClass]="{ 'hs-ul': (handsetPortrait$ | async)?.matches === true }">
-      <li>
+      <li matTooltip="Home Page">
         <a routerLink="recipes-list"><mat-icon>home</mat-icon></a>
       </li>
-      <li class="ctn-shopping-list">
+      <li matTooltip="Your Shopping List" class="ctn-shopping-list">
         <a routerLink="shopping-list"
           ><mat-icon [@shake]="triggerAnimation">shopping_cart</mat-icon>
         </a>
         <span>{{ recipesAdded }}</span>
       </li>
-      <li>
+      <li matTooltip="Admin Area">
         <a routerLink="admin"><mat-icon>rule</mat-icon></a>
       </li>
-      <li>
+      <li matTooltip="Admin Charts">
         <a routerLink="charts"><mat-icon>query_stats</mat-icon></a>
       </li>
-      <li class="custom-icons">
+      <li matTooltip="Your Profile">
+        <a routerLink="profile"><mat-icon>account_circle</mat-icon></a>
+      </li>
+      <li matTooltip="My GitHub Profile" class="custom-icons">
         <a href="https://github.com/Alemaite" target="_blank">
           <svg
             xmlns="http://www.w3.org/2000/svg"

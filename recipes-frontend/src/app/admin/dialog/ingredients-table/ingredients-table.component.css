@@ -13,6 +13,12 @@ mat-form-field {
 
 /* handset */
 
+.hs-ctn-table {
+  max-width: 80vw;
+  max-width: 80dvw;
+  overflow-x: auto;
+}
+
 .hs-th,
 .hs-td {
   padding: 0;
@@ -20,6 +26,7 @@ mat-form-field {
   mat-form-field {
     width: 20vw;
     width: 20dvw;
+    min-width: 10rem;
     padding-right: 0.5rem;
   }
 }

@@ -29,6 +29,7 @@ ul {
 }
 
 .rcp-img {
+  box-shadow: grey 4px 0px 8px 0px;
   width: 100%;
   border-radius: 0.5rem;
   max-width: 30rem;
@@ -36,6 +37,7 @@ ul {
 
 .ctn-ing {
   display: flex;
+  flex-direction: column;
   align-items: center;
   column-gap: 2rem;
 }
@@ -45,9 +47,23 @@ ul {
   text-align: justify;
 }
 
+.ctn-btns {
+  display: flex;
+  margin: 2rem 0;
+  gap: 0 1rem;
+}
+
 .btn-check {
   background-color: green;
   color: white;
+}
+
+.btn-favorite {
+  color: rgb(223 192 26 / 73%);
+}
+
+.btn-fav-check {
+  color: green;
 }
 
 /* handset mode */

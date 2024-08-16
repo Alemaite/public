@@ -22,6 +22,7 @@ import {
 import { deleteRecipesFromLocalStorage } from './store/shopping-list.actions';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @UntilDestroy()
 @Component({
@@ -37,6 +38,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     ClipboardModule,
     MatIconModule,
     MatButtonModule,
+    MatTooltipModule,
   ],
   animations: [
     trigger('detailExpand', [

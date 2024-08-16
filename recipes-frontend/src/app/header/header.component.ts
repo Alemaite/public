@@ -12,6 +12,7 @@ import { selectShoppingList } from '../shopping-list/store/shopping-list.selecto
 import { selectTrigger } from '../recipe/store/recipe.selector';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { fetchRecipesFromLocalStorage } from '../shopping-list/store/shopping-list.actions';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @UntilDestroy()
 @Component({

@@ -35,6 +35,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { debounceTime } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { LocalStorageEnum } from '../enums/local-storage.enum';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @UntilDestroy()
 @Component({
@@ -52,6 +53,7 @@ import { LocalStorageEnum } from '../enums/local-storage.enum';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    MatTooltipModule,
     FormsModule,
     RouterModule,
     CommonModule,
@@ -76,8 +78,10 @@ export class AdminComponent implements OnInit {
   expandedRecipe: Recipe | null;
   paginatorLength: number;
   filterValue = '';
-  handsetPortrait$ = this.responsive.observe([Breakpoints.HandsetPortrait]);
-  handsetLandscape$ = this.responsive.observe([Breakpoints.HandsetLandscape]);
+  handsetPortrait$ = this.responsive.observe([
+    Breakpoints.HandsetPortrait,
+    Breakpoints.TabletPortrait,
+  ]);
   columnsToDisplayWithExpand = [...this.displayedColumns];
 
   constructor(
@@ -90,7 +94,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.recipeListService.filter$
-      .pipe(debounceTime(300), untilDestroyed(this))
+      .pipe(debounceTime(1500), untilDestroyed(this))
       .subscribe((searchTerm) => {
         this.recipes = [];
         this.store.dispatch(
