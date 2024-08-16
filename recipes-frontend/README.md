@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files. Please note that for security reasons I do not provide the file with the client-id for the recipe app to enable OAuth, and you won't be able to use that feature locally.
 
-Additionally, I do not provide the files with authentication details for the MongoDB on the cloud server in the recipes-service project (backend). You can run a MongoDB locally and import the recipes.json in the root directory (src), in case you are interested in running the app with data locally.
+Additionally, I do not provide the files with authentication details for the MongoDB on the cloud server in the recipes-service project (backend). You can run a MongoDB locally and import the recipes.json, in case you are interested in running the app with data locally.
 
 ## Code scaffolding
 
