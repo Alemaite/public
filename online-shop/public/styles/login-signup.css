@@ -1,0 +1,27 @@
+.clear-btn {
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  cursor: pointer;
+  width: 6rem;
+  height: 2rem;
+}
+
+.clear-btn:hover {
+  font-weight: bold;
+}
+
+.submit-btn {
+  font-family: inherit;
+  background-color: rgb(239, 156, 61);
+  border: 1px solid black;
+  border-radius: 2px;
+  cursor: pointer;
+  height: 2rem;
+  width: 6rem;
+}
+
+.submit-btn:hover {
+  font-weight: bold;
+  background-color: rgb(250, 182, 104);
+}

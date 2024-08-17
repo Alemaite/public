@@ -1,0 +1,54 @@
+<%- include('includes/head', {docTitle: 'Sign Up'}) %>
+<link rel="stylesheet" href="/styles/login-signup.css" />
+<body>
+  <%- include('includes/header') %>
+  <main>
+    <section>
+      <h1>Signup Page</h1>
+      <form
+        id="signup-form"
+        class="basic-forms"
+        enctype="application/x-www-form-urlencoded"
+        method="POST"
+        action="/signup"
+      >
+        <input
+          type="hidden"
+          id="_csrf"
+          name="_csrf"
+          value="<%= locals.csrfToken %>"
+        />
+        <h1>Enter Your Credentials to Sign Up</h1>
+        <p class="error-messages"><%= errorData.errorMessage %></p>
+        <label for="email">E-Mail</label>
+        <input
+          type="text"
+          name="email"
+          id="email"
+          value="<%= inputData.enteredEmail %>"
+        />
+        <label for="confirm-email">Confirm E-Mail</label>
+        <input
+          type="text"
+          name="confirm-email"
+          id="confirm-email"
+          value="<%= inputData.enteredConfirmEmail %>"
+        />
+        <label for="signup-password">Password</label>
+        <input
+          type="password"
+          name="signup-password"
+          id="signup-password"
+          value="<%= inputData.enteredPassword %>"
+        />
+
+        <div class="btn-ctrl">
+          <button class="clear-btn" type="reset">Clear</button>
+          <button class="submit-btn" type="submit">Submit</button>
+        </div>
+      </form>
+    </section>
+    <%- include('includes/aside') %>
+  </main>
+  <%- include('includes/footer') %>
+</body>

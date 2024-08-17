@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('includes/head', {docTitle: 'Login'}) %>
+  <link rel="stylesheet" href="/styles/login-signup.css" />
+  <body>
+    <%- include('includes/header') %>
+    <main>
+      <section>
+        <h1>Login Page</h1>
+        <form
+          id="login-form"
+          class="basic-forms"
+          enctype="application/x-www-form-urlencoded"
+          method="POST"
+          action="/login"
+        >
+          <input
+            type="hidden"
+            id="_csrf"
+            name="_csrf"
+            value="<%= locals.csrfToken %>"
+          />
+          <h1>Enter Your Credentials to Log In</h1>
+          <p class="error-messages"><%= errorData.errorMessage %></p>
+          <label for="login-email">E-Mail</label>
+          <input
+            type="text"
+            name="login-email"
+            id="login-email"
+            value="<%= inputData.enteredEmail %>"
+          />
+          <label for="login-password">Password</label>
+          <input
+            type="password"
+            name="login-password"
+            id="login-password"
+            value="<%= inputData.enteredPassword %>"
+          />
+
+          <div class="btn-ctrl">
+            <button class="clear-btn" type="reset">Clear</button>
+            <button class="submit-btn" type="submit">Submit</button>
+          </div>
+        </form>
+      </section>
+      <%- include('includes/aside') %>
+    </main>
+    <%- include('includes/footer') %>
+  </body>
+</html>
