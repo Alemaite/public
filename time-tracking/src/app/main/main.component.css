@@ -1,0 +1,97 @@
+mat-paginator {
+  background-color: transparent;
+  color: white;
+  margin: auto;
+}
+
+.first-section {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.timer-ctn {
+  width: 40%;
+}
+
+.timer-bg {
+  width: 100%;
+  padding: 1rem 0;
+  background-color: var(--main-a-color);
+  border-radius: 0.5rem;
+}
+
+.timer-bg p {
+  width: 5.75rem;
+  margin: 0.5rem auto;
+  font-size: 1.5rem;
+  text-align: start;
+}
+
+.activities-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity {
+  display: flex;
+  justify-content: space-between;
+  text-align: start;
+  border: 2px solid transparent;
+  border-radius: 0.4rem;
+}
+
+.activity-c1 {
+  width: 40%;
+  margin: auto 0 auto 1.5%;
+}
+.activity-c2 {
+  width: 20%;
+}
+.activity-c3 {
+  width: 20%;
+}
+.activity-c4 {
+  width: 20%;
+}
+
+.deleteActivityBtn {
+  color: white;
+  cursor: pointer;
+  margin: auto;
+  padding: 0.5rem;
+}
+
+.deleteActivityBtn:hover {
+  color: var(--main-a-color);
+}
+
+.highlight {
+  border: 2px solid var(--main-a-color);
+  border-radius: 0.4rem;
+}
+
+/* responsive */
+
+.handset-first-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.handset-first-section .label-ctn {
+  width: 100%;
+}
+
+.handset-first-section .timer-ctn {
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.handset-first-section .timer-bg p {
+  width: 100%;
+  text-align: center;
+}
+
+.handset-second-section {
+  font-size: 0.7rem;
+}

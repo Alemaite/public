@@ -1,0 +1,40 @@
+<main>
+  <h3 *ngIf="loginMode">Log in</h3>
+  <h3 *ngIf="!loginMode">Register</h3>
+  <div *ngIf="msgObj.hasMsg" class="error-ctn">
+    <p class="error-msg">{{ msgObj.message }}</p>
+  </div>
+  <br />
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+    <div class="label-ctn">
+      <label for="email">E-Mail</label>
+      <input ngModel type="email" name="email" id="email" required email />
+    </div>
+    <br />
+    <div class="label-ctn">
+      <label for="password">Password</label>
+      <input
+        ngModel
+        type="password"
+        name="password"
+        id="password"
+        required
+        minlength="6"
+      />
+    </div>
+    <br />
+    <div *ngIf="isLoading" class="loadingio-spinner-rolling-uthc841b0e">
+      <div class="ldio-uhjqurwwwyp">
+        <div></div>
+      </div>
+    </div>
+    <br />
+    <div class="btn-ctn">
+      <button type="submit" class="pos-btn">Submit</button>
+      <button type="reset" class="n-btn">Clear</button>
+    </div>
+  </form>
+  <br />
+  <a *ngIf="loginMode" (click)="onSwitchMode()">Click here to register.</a>
+  <a *ngIf="!loginMode" (click)="onSwitchMode()">Click here to log in.</a>
+</main>
