@@ -1,1 +1,1 @@
-recipes-service and recipes-frontend are the demo project. The Web Shop and Time Tracking App are older projects.
+recipes-service and recipes-frontend are more up to date. The Online Shop and Time Tracking App are older projects.
