@@ -1,15 +1,20 @@
 # Read Me First
-Please note that I do not provide the files with authentication details for the MongoDB on the cloud server. You can run a local MongoDB and import 
-the recipes.json, in case you are interested in running the app with data locally.
+Please note that I do not provide the files with authentication details for my MongoDB on the cloud server.
 
-You then need to provide the following information (in the .env file or application.properties for example) so the backend can connect to your local MongoDB:
+# Getting Started (with Docker)
+- install this project using Maven
+- run `docker compose up` in the root directory of this project to spin up a MongoDB container, it will import data using
+  the `import-data.sh` shell script
+- a container for the backend will also be spun up
+- you should now have a mongodb with data running under `mongodb://localhost:27017` (no username or password needed)
+- be sure to shut down your local mongodb as it might interfere with the one running in the container (same port)
+- the backend container should now be able to interact with the database container
 
-spring.data.mongodb.database=${DATABASE_NAME}
-spring.data.mongodb.uri=mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_CLUSTER}
-
-* The original package name 'com.recipes.recipes-service' is invalid and this project uses 'com.recipes.recipes_service' instead.
-
-# Getting Started
+# Getting Started (without Docker)
+- install MongoDB locally or set up a cloud database (`https://www.mongodb.com/products/platform/atlas-database`)
+- add a database `recipes-service-test`, a collection `recipes`, and import the `recipes.json` (project root directory)
+- be sure to check that the uri in the `src/main/resources/application-test.properties` is correct
+- run this project; the backend should now be able to interact with the database
 
 ### Reference Documentation
 For further reference, please consider the following sections:
