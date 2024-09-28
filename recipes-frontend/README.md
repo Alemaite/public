@@ -2,11 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1, and then updated to Angular 17.3.8.
 
-## Development server
+## Running a Server With Docker
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files. Please note that for security reasons I do not provide the file with the client-id for the recipe app to enable OAuth, and you won't be able to use that feature locally.
+- run `docker compose up` in the root directory of this project
+- be sure to spin up a backend and MongoDB container (see HELP.MD in recipes-service project) beforehand to fetch data
 
-Additionally, I do not provide the files with authentication details for the MongoDB on the cloud server in the recipes-service project (backend). You can run a MongoDB locally and import the recipes.json, in case you are interested in running the app with data locally.
+## Running a Server Without Docker
+
+- make sure at least version 20.14.0 of node.js is installed (https://nodejs.org/)
+- make sure at least version 17.3.8 of the Angular CLI is installed globally (`npm install -g @angular/cli@17.3.8`).
+- run `npm install` to install all dependencies for this project
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. Please note that for security reasons I do not provide the file with the client-id for the recipe app to enable OAuth, and you won't be able to use that feature locally.
 
 ## Code scaffolding
 
