@@ -7,7 +7,7 @@ Please note that I do not provide the files with authentication details for my M
   the `import-data.sh` shell script
 - a container for the backend will also be spun up
 - you should now have a mongodb with data running under `mongodb://localhost:27017` (no username or password needed)
-- be sure to shut down your local mongodb as it might interfere with the one running in the container (same port)
+- be sure to shut down your local mongodb (if you have one installed) as it might interfere with the one running in the container (same port)
 - the backend container should now be able to interact with the database container
 
 # Getting Started (without Docker)
