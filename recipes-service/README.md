@@ -9,12 +9,14 @@ Please note that I do not provide the files with authentication details for my M
 - you should now have a mongodb with data running under `mongodb://localhost:27017` (no username or password needed)
 - be sure to shut down your local mongodb (if you have one installed) as it might interfere with the one running in the container (same port)
 - the backend container should now be able to interact with the database container
+- you can now send requests to the backend on `http://localhost:8080`
 
 # Getting Started (without Docker)
 - install MongoDB locally or set up a cloud database (`https://www.mongodb.com/products/platform/atlas-database`)
 - add a database `recipes-service-test`, a collection `recipes`, and import the `recipes.json` (project root directory)
-- be sure to check that the uri in the `src/main/resources/application-test.properties` is correct
+- be sure to check that the URI in the `src/main/resources/application-test.properties` is correct
 - run this project; the backend should now be able to interact with the database
+- you can now send requests to the backend on `http://localhost:8080`
 
 ### Reference Documentation
 For further reference, please consider the following sections:

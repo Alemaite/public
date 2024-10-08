@@ -3,6 +3,7 @@ package com.recipes.recipes_service.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.recipes.recipes_service.service.impl.RecipesServiceImpl;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.recipes.recipes_service.domain.Ingredient;
 import com.recipes.recipes_service.domain.Recipe;
 import com.recipes.recipes_service.enums.Unit;
-import com.recipes.recipes_service.facade.RecipesFacade;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
@@ -43,7 +43,7 @@ public class RecipesControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private RecipesFacade recipesFacade;
+    private RecipesServiceImpl recipesServiceImpl;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -91,7 +91,7 @@ public class RecipesControllerTest {
 
     @Test
     public void RecipesController_ReadAll_ReturnsRecipes() throws Exception {
-        given(recipesFacade.readAll()).willReturn(recipes);
+        given(recipesServiceImpl.readAll()).willReturn(recipes);
         ResultActions response = mockMvc.perform(get("/api/recipes")
                 .contentType(MediaType.APPLICATION_JSON));
         response.andExpect(status().isOk())
@@ -100,7 +100,7 @@ public class RecipesControllerTest {
 
     @Test
     public void RecipesController_Read_ReturnsRecipesPage() throws Exception {
-        given(recipesFacade.read(0, 6)).willReturn(recipesPage);
+        given(recipesServiceImpl.read(0, 6)).willReturn(recipesPage);
         ResultActions response = mockMvc.perform(get("/api/recipes/page?page=0&size=6")
                 .contentType(MediaType.APPLICATION_JSON));
         response.andExpect(status().isOk())
@@ -109,7 +109,7 @@ public class RecipesControllerTest {
 
     @Test
     public void RecipesController_Read_ReturnsRecipeById() throws Exception {
-        given(recipesFacade.read(recipe.getId())).willReturn(recipe);
+        given(recipesServiceImpl.readById(recipe.getId())).willReturn(recipe);
         ResultActions response = mockMvc.perform(get("/api/recipes/" + recipe.getId())
                 .contentType(MediaType.APPLICATION_JSON));
         response.andExpect(status().isOk())
@@ -118,7 +118,7 @@ public class RecipesControllerTest {
 
     @Test
     public void RecipesController_Create_ReturnsRecipe() throws Exception {
-        given(recipesFacade.create(any())).willAnswer((invocation -> invocation.getArgument(0)));
+        given(recipesServiceImpl.create(any())).willAnswer((invocation -> invocation.getArgument(0)));
         ResultActions response = mockMvc.perform(post("/api/recipes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(recipe)));
@@ -129,7 +129,7 @@ public class RecipesControllerTest {
     @Test
     public void RecipesController_Update_ReturnsUpdatedRecipe() throws Exception {
         recipe.setTitle("Updated Title");
-        given(recipesFacade.update(any(), any())).willAnswer((invocation -> invocation.getArgument(1)));
+        given(recipesServiceImpl.update(any(), any())).willAnswer((invocation -> invocation.getArgument(1)));
         ResultActions response = mockMvc.perform(put("/api/recipes/" + recipe.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(recipe)));
@@ -139,7 +139,7 @@ public class RecipesControllerTest {
 
     @Test
     public void RecipesController_Delete_ReturnsVoid() throws Exception {
-        willDoNothing().given(recipesFacade).delete(any());
+        willDoNothing().given(recipesServiceImpl).delete(any());
         ResultActions response = mockMvc.perform(delete("/api/recipes?ids=" + recipe.getId().toString())
                 .contentType(MediaType.APPLICATION_JSON));
         response.andExpect(status().isOk()).andDo(print());

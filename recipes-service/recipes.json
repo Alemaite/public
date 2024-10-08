@@ -36,7 +36,7 @@
   "shortDesc": "Here is a delicious and easy-to-follow vegan burger recipe that is sure to be a hit with everyone, regardless of whether they follow a vegan diet or not!",
   "imagePath": "Burger.jpg",
   "data": {
-    "counter": 13
+    "counter": 14
   },
   "_class": "com.recipes.recipes_service.domain.Recipe"
 },
@@ -152,7 +152,7 @@
   "shortDesc": "A typical tofu bowl consists of a bed of rice, topped with sautéed or marinated tofu, and a variety of fresh vegetables, fruits, and other toppings.",
   "imagePath": "Bowl.jpg",
   "data": {
-    "counter": 23
+    "counter": 27
   },
   "_class": "com.recipes.recipes_service.domain.Recipe"
 },
@@ -204,7 +204,7 @@
   "shortDesc": "Flavorful broth made from vegetables, such as shiitake mushrooms, onions, and garlic, and often includes miso paste, soy sauce, and mirin for added flavor.",
   "imagePath": "Ramen.jpg",
   "data": {
-    "counter": 16
+    "counter": 17
   },
   "_class": "com.recipes.recipes_service.domain.Recipe"
 },
@@ -256,7 +256,7 @@
   "shortDesc": "This vegan burrito recipe is a flavorful and nutritious meal that is easy to make and perfect for a quick lunch or dinner.",
   "imagePath": "Burrito.jpg",
   "data": {
-    "counter": 6
+    "counter": 7
   },
   "_class": "com.recipes.recipes_service.domain.Recipe"
 },
@@ -457,7 +457,7 @@
   "shortDesc": "Creamy broccoli soup with sautéd onion and garlic, broccoli florets, diced potato, and vegetable broth. Blend the mixture until smooth, stir in milk or cream, season, and serve warm with optional garnish of parsley or chives.",
   "imagePath": "broccoli-soup.jpg",
   "data": {
-    "counter": 22
+    "counter": 25
   },
   "_class": "com.recipes.recipes_service.domain.Recipe"
 },
@@ -518,10 +518,10 @@
   ],
   "shortDesc": "Gnocchi with marinara sauce, garlic, and cherry tomatoes in an ovenproof dish, then top with mozzarella and Parmesan cheese. Bake at 400°F until the cheese is melted and bubbly, garnish with fresh basil, and serve warm.",
   "imagePath": "gnocchi.jpg",
-  "_class": "com.recipes.recipes_service.domain.Recipe",
   "data": {
-    "counter": 6
-  }
+    "counter": 7
+  },
+  "_class": "com.recipes.recipes_service.domain.Recipe"
 },
 {
   "_id": {
@@ -755,7 +755,7 @@
   "shortDesc": "Lasagna with ground meat, onion and garlic, then simmer with crushed tomatoes and spices to create a meat sauce. Layer the sauce, lasagna noodles, ricotta-Parmesan mixture, and mozzarella in a baking dish.",
   "imagePath": "lasagna.jpg",
   "data": {
-    "counter": 16
+    "counter": 17
   },
   "_class": "com.recipes.recipes_service.domain.Recipe"
 }]
