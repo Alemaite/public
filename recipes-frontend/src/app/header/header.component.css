@@ -1,0 +1,73 @@
+header {
+  margin-top: 8vh;
+  margin-top: 8dvh;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+}
+
+ul {
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  width: 50%;
+}
+
+.custom-icons {
+  width: 3rem;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.custom-icons:hover svg path {
+  fill: #efa826;
+}
+
+.material-icons {
+  font-size: 3rem;
+  width: 100%;
+  height: 100%;
+}
+
+.material-icons:hover {
+  color: #efa826;
+}
+
+.ctn-shopping-list {
+  display: flex;
+  align-items: flex-end;
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #efa826;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+/* handset mode*/
+
+.hs-ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  width: 100%;
+  .material-icons {
+    font-size: 2rem;
+  }
+
+  .custom-icons {
+    font-size: 2rem;
+    width: 2rem;
+    color: black;
+  }
+}

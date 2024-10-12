@@ -1,0 +1,39 @@
+<h1>Recipes Statistics</h1>
+<p class="note">
+  Amount of times each recipe has been added to a shopping list.
+</p>
+<div class="wrp-ctn">
+  <div class="ctn-btn">
+    <button
+      mat-mini-fab
+      (click)="toggleChartType()"
+      matTooltip="Toggle Chart Type"
+      class="btns"
+      color="basic"
+    >
+      <mat-icon>change_circle</mat-icon>
+    </button>
+    <button
+      color="basic"
+      class="btns"
+      matTooltip="Export"
+      mat-mini-fab
+      (click)="onExport()"
+    >
+      <mat-icon class="material-symbols-outlined">export_notes</mat-icon>
+    </button>
+  </div>
+  <div class="ctn-chart">
+    <canvas
+      class="chart"
+      baseChart
+      [type]="chartType"
+      [data]="chartData"
+      [options]="
+        (responsive$ | async)?.matches === true
+          ? handSetChartOptions
+          : chartOptions
+      "
+    ></canvas>
+  </div>
+</div>

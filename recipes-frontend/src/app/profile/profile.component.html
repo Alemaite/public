@@ -1,0 +1,125 @@
+<article>
+  @if (!this.googleOAuthService.validAccessToken()) {
+  <div class="ctn-rcp-imgs">
+    @for (recipe of (recipesSelector$ | async)?.recipes; track recipe) {
+    <div [@imgsState]="imgsState" class="ctn-rcp-img">
+      <img [src]="'../assets/' + recipe.imagePath" alt="" />
+      <mat-icon class="material-symbols-outlined star-icon">star</mat-icon>
+    </div>
+    }
+  </div>
+  <div class="ctn-login">
+    <p>
+      Log in with your Google Account, add recipes as favorites, and access them
+      from any device.
+    </p>
+    <button
+      matTooltip="Log in with OAuth 2"
+      mat-fab
+      extended
+      color="basic"
+      (click)="onLogin()"
+    >
+      <mat-icon>login</mat-icon>
+      <span class="ctn-google-icon">
+        <img src="../../assets/google_logo.svg" alt="" />
+      </span>
+    </button>
+  </div>
+  } @else if (((user$ | async)?.info?.name !== null) && ((user$ |
+  async)?.loading === false) && this.googleOAuthService.validAccessToken()) {
+  <div class="ctn-fav">
+    <h1>Welcome, {{ (user$ | async)?.info?.name }}.</h1>
+    @if (this.favoriteRecipes.length > 0) {
+    <h3>Your Favorite Recipes</h3>
+
+    <div class="ctn-expand-btns">
+      <button
+        matTooltip="Expand All"
+        color="basic"
+        mat-mini-fab
+        (click)="accordion.openAll()"
+      >
+        <mat-icon> unfold_more_double </mat-icon>
+      </button>
+      <button
+        matTooltip="Collapse All"
+        mat-mini-fab
+        color="basic"
+        (click)="accordion.closeAll()"
+      >
+        <mat-icon>unfold_less_double</mat-icon>
+      </button>
+    </div>
+    <div cdkDropListGroup class="ctn-dnd-group">
+      <div
+        cdkDropList
+        [cdkDropListData]="(userFromDb$ | async)?.user?.favorites"
+        (cdkDropListDropped)="onDrop($event)"
+      >
+        <ul>
+          <mat-accordion matTooltip="Drag & drop to reorder" multi>
+            @for (recipe of (userFromDb$ | async)?.user?.favorites; track
+            recipe) {
+            <mat-expansion-panel
+              (opened)="panelOpenState = true"
+              (closed)="panelOpenState = false"
+              cdkDrag
+              style="cursor: grab"
+              class="ctn-dnd-item"
+            >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div class="ctn-panel-title">
+                    <h3>
+                      <a
+                        class="panel-title-link"
+                        [routerLink]="['/recipes', recipe.id]"
+                        >{{ recipe.title }}</a
+                      >
+                    </h3>
+                    <button
+                      (click)="onDelete(recipe.id); $event.stopPropagation()"
+                      mat-mini-fab
+                      color="basic"
+                    >
+                      <mat-icon> delete</mat-icon>
+                    </button>
+                  </div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="ctn-exp-panel">
+                @if ((responsive$ | async)?.matches === false) {
+                <div class="ctn-img">
+                  <img [src]="'../assets/' + recipe.imagePath" alt="" />
+                </div>
+                }
+                <ul>
+                  @for(ingredient of recipe.ingredients; track ingredient) {
+                  <li>
+                    {{ ingredient.quantity }} {{ ingredient.unit }}
+                    {{ ingredient.name }}
+                  </li>
+                  }
+                </ul>
+              </div>
+            </mat-expansion-panel>
+            }
+          </mat-accordion>
+        </ul>
+      </div>
+    </div>
+    } @else {
+    <p>
+      You have no favorite recipes yet. Feel free to add any
+      <a routerLink="/" class="link"><b>recipes</b></a> to your favorites.
+    </p>
+    }
+  </div>
+  <div class="ctn-btns">
+    <button mat-mini-fab color="warn" matTooltip="Logout" (click)="onLogOut()">
+      <mat-icon> logout </mat-icon>
+    </button>
+  </div>
+  }
+</article>

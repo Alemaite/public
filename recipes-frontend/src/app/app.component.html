@@ -1,0 +1,18 @@
+@if ((handsetPortrait$ | async)?.matches === false) {
+<app-header></app-header>
+} @else {
+<app-sidebar></app-sidebar>
+}
+<div
+  class="ctn-bck-img"
+  [ngClass]="{
+    'hs-ctn-bck-img': (handsetPortrait$ | async)?.matches === true
+  }"
+></div>
+<main
+  [class]="
+    (handsetPortrait$ | async)?.matches === true ? 'hs-ctn-main' : 'ctn-main'
+  "
+>
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,171 @@
+<h1 id="header">Your Shopping List</h1>
+<p class="empty-note" *ngIf="dataSource.length === 0">
+  Your Shopping List is empty. Feel free to add one of the available
+  <a routerLink="/"><b class="link">recipes</b></a> to your list!
+</p>
+<div
+  [class]="(handsetPortrait$ | async)?.matches === true ? 'hs-ctn-table' : ''"
+>
+  <table
+    *ngIf="dataSource.length > 0"
+    mat-table
+    [dataSource]="dataSource"
+    multiTemplateDataRows
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="select">
+      <th
+        [class]="(handsetPortrait$ | async)?.matches === true ? 'hs-th' : ''"
+        mat-header-cell
+        *matHeaderCellDef
+      >
+        <mat-checkbox
+          (change)="$event ? toggleAllRows() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          [aria-label]="checkboxLabel()"
+        >
+        </mat-checkbox>
+      </th>
+      <td
+        [class]="(handsetPortrait$ | async)?.matches === true ? 'hs-td' : ''"
+        mat-cell
+        *matCellDef="let row"
+      >
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <th
+        [class]="(handsetPortrait$ | async)?.matches === true ? 'hs-th' : ''"
+        mat-header-cell
+        *matHeaderCellDef
+      >
+        Title
+      </th>
+      <td mat-cell *matCellDef="let recipe">
+        <a [routerLink]="['/recipes', recipe.id]" class="rcp-title">{{
+          recipe.title
+        }}</a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="copy">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td
+        [class]="(handsetPortrait$ | async)?.matches === true ? 'hs-td' : ''"
+        mat-cell
+        *matCellDef="let recipe"
+      >
+        <button
+          matTooltip="Copy Ingredients"
+          mat-icon-button
+          color="basic"
+          (click)="snackBarNotification()"
+          [cdkCopyToClipboard]="onCopy(recipe)"
+        >
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions"></th>
+      <td
+        [class]="(handsetPortrait$ | async)?.matches === true ? 'hs-td' : ''"
+        mat-cell
+        *matCellDef="let recipe"
+      >
+        <button
+          mat-icon-button
+          aria-label="expand row"
+          (click)="onExpand(recipe); $event.stopPropagation()"
+        >
+          <mat-icon *ngIf="!isIncluded(recipe)">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="isIncluded(recipe)">keyboard_arrow_up</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="expandedDetail">
+      <td
+        [class]="(handsetPortrait$ | async)?.matches === true ? 'hs-td' : ''"
+        mat-cell
+        *matCellDef="let recipe"
+        [attr.colspan]="columnsToDisplayWithExpand.length"
+      >
+        <div
+          [class]="
+            (handsetPortrait$ | async)?.matches
+              ? 'hs-recipe-detail'
+              : 'recipe-detail'
+          "
+          [@detailExpand]="isIncluded(recipe) ? 'expanded' : 'collapsed'"
+        >
+          <div *ngIf="!(handsetPortrait$ | async)?.matches" class="ctn-rcp-img">
+            <a [routerLink]="['/recipes', recipe.id]">
+              <img
+                src="../../assets/{{ recipe.imagePath }}"
+                alt=""
+                class="rcp-img"
+              />
+            </a>
+          </div>
+          <ul>
+            <li *ngFor="let ingredient of recipe.ingredients">
+              {{ ingredient.quantity }} {{ ingredient.unit }}
+              {{ ingredient.name }}
+            </li>
+          </ul>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+    <tr
+      mat-row
+      *matRowDef="let recipe; columns: columnsToDisplayWithExpand"
+      class="recipe-row"
+      [class.expanded-row]="isIncluded(recipe)"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['expandedDetail']"
+      class="detail-row"
+    ></tr>
+  </table>
+</div>
+<div class="ctn-btn">
+  <button
+    matTooltip="Delete Selected"
+    [disabled]="selection.selected.length === 0 || dataSource.length === 0"
+    (click)="onDelete()"
+    mat-mini-fab
+    color="warn"
+    class="btns"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+  <button
+    [disabled]="selection.selected.length === 0 || dataSource.length === 0"
+    class="btns"
+    matTooltip="Copy Selected"
+    mat-mini-fab
+    (click)="snackBarNotification()"
+    [cdkCopyToClipboard]="onCopySelected()"
+  >
+    <mat-icon>content_copy</mat-icon>
+  </button>
+  <button
+    [disabled]="selection.selected.length === 0 || dataSource.length === 0"
+    color="basic"
+    class="btns"
+    matTooltip="Export"
+    mat-mini-fab
+    (click)="onExport()"
+  >
+    <mat-icon class="material-symbols-outlined">export_notes</mat-icon>
+  </button>
+</div>

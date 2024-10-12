@@ -1,0 +1,72 @@
+<div
+  [ngClass]="{
+    'ctn-animation': (handset$ | async)?.matches === false,
+    'hs-ctn-animation': (handset$ | async)?.matches === true
+  }"
+>
+  <div class="ctn-animation-txt">
+    <p class="animation-txt">Pick a delicious recipe.</p>
+    <p class="animation-txt">Add to Shopping List.</p>
+    <p class="animation-txt">Enjoy!</p>
+  </div>
+</div>
+@if ((recipesPage$ | async)?.page?.number === savedPage && (recipesPage$ |
+async)?.loading === false) {
+<div
+  [ngClass]="
+    (handset$ | async)?.matches === true
+      ? 'hs-ctn-list-header'
+      : 'ctn-list-header'
+  "
+>
+  <mat-form-field class="ctn-filter">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      [ngModel]="this.recipeListService.filter$ | async"
+    />
+  </mat-form-field>
+  <mat-paginator
+    (page)="handlePageEvent($event)"
+    [pageSize]="(recipesPage$ | async)?.page?.size"
+    [length]="(recipesPage$ | async)?.page?.totalElements"
+    [pageIndex]="(recipesPage$ | async)?.page?.number"
+    aria-label="Select page"
+    [showFirstLastButtons]="true"
+    [hidePageSize]="true"
+  >
+  </mat-paginator>
+</div>
+<div
+  [ngClass]="(handset$ | async)?.matches === true ? 'hs-ctn-rcps' : 'ctn-rcps'"
+>
+  <div
+    *ngFor="let recipe of (recipesPage$ | async)?.content"
+    [ngClass]="{
+      'ctn-rcp': (handset$ | async)?.matches === false,
+      'hs-ctn-rcp': (handset$ | async)?.matches === true
+    }"
+  >
+    <h2>
+      <a [routerLink]="['/recipes', recipe.id]" class="rcp-title">{{
+        recipe.title
+      }}</a>
+    </h2>
+    <div
+      [class]="(handset$ | async)?.matches === true ? 'hs-ctn-img' : 'ctn-img'"
+    >
+      <a [routerLink]="['/recipes', recipe.id]">
+        <img
+          [src]="'../../assets/' + recipe.imagePath"
+          [class]="(handset$ | async)?.matches === true ? 'hs-img' : 'rcp-img'"
+      /></a>
+    </div>
+    <p>{{ recipe.shortDesc }}</p>
+  </div>
+</div>
+} @else {
+<div class="ctn-placeholder">
+  <p>Loading recipes...</p>
+</div>
+}

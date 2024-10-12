@@ -1,0 +1,24 @@
+.note {
+  text-align: center;
+}
+
+.btns {
+  margin: 0.5rem 0.5rem 0 0;
+}
+
+.wrp-ctn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ctn-chart {
+  margin-top: 2vh;
+  margin-top: 2dvh;
+  height: 65vh;
+  height: 65dvh;
+  width: 70vw;
+  width: 70dvw;
+  padding-bottom: 7rem;
+}
